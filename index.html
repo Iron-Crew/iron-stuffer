@@ -1681,6 +1681,7 @@ function renderBankCard(item, idx){
   }
   h+='<div class="bank-item-actions">';
   h+='<button class="bank-btn primary" data-idx="'+idx+'" onclick="openModalBank(parseInt(this.dataset.idx))">✏️ Modifier</button>';
+  h+='<button class="bank-btn" data-idx="'+idx+'" onclick="duplicateFromBank(parseInt(this.dataset.idx))" style="background:var(--gold-light);border-color:var(--gold-border);color:var(--gold)">⧉ Dupliquer</button>';
   h+='</div>';
   h+='</div></div>';
   return h;
@@ -1715,6 +1716,34 @@ function openModalBank(idx){
 
   renderCompteChips();
   document.getElementById('modalBank').classList.add('active');
+}
+
+function duplicateFromBank(idx){
+  var item=state.bank[idx];
+  if(!item) return;
+  // Ouvrir la modal comme un NOUVEL item (editIdx=null) pré-rempli avec les stats de l'original
+  modalBankData={item:null, editIdx:null, compte:null, nativeKeys:[]};
+  document.getElementById('modalBankTitle').textContent='Dupliquer : '+item.name;
+  document.getElementById('modalBankDelete').style.display='none';
+  document.getElementById('modalSearchSection').style.display='block';
+  document.getElementById('modalItemSection').style.display='none';
+  document.getElementById('modalSearchInput').value='';
+  document.getElementById('modalSearchResults').innerHTML='';
+  document.getElementById('exoAddSection').style.display='none';
+  var sel=document.getElementById('exoStatSelect');
+  sel.innerHTML='';
+  STATS_LIST.forEach(function(s){
+    var opt=document.createElement('option');
+    opt.value=s; opt.textContent=s;
+    sel.appendChild(opt);
+  });
+  // Pré-remplir avec les données de l'item source — mais pas le compte (à choisir)
+  preloadModalItem(item);
+  modalBankData.editIdx=null; // forcer création
+  modalBankData.compte=null;  // forcer choix du compte
+  renderCompteChips();
+  document.getElementById('modalBank').classList.add('active');
+  showToast('Choisissez le compte pour la copie');
 }
 
 function preloadModalItem(item){
