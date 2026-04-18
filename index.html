@@ -1556,7 +1556,23 @@ function toggleBankFilter(fid){
   renderBank();
 }
 
+var bankSearch = '';
+
+function setBankSearch(val){
+  bankSearch = val.toLowerCase().trim();
+  renderBank();
+}
+
+function clearBankSearch(){
+  bankSearch = '';
+  renderBank();
+  var inp=document.getElementById('bankSearchInput');
+  if(inp) inp.value='';
+}
+
 function bankItemMatchesFilters(item, idx){
+  // Filtre recherche texte
+  if(bankSearch && item.name.toLowerCase().indexOf(bankSearch)<0) return false;
   if(!nav.bankFilters.length) return true;
   var dotInfo=getItemDotFromBank(idx);
   var passes=true;
@@ -1601,14 +1617,22 @@ function renderBank(){
     h+=f.lbl+'</button>';
   });
   if(nav.bankFilters.length){
-    h+='<button onclick="nav.bankFilters=[];renderBank()" style="background:var(--red);border:none;color:#fff;font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer">✕ Réinitialiser</button>';
+    h+='<button onclick="nav.bankFilters=[];bankSearch=\'\';renderBank()" style="background:var(--red);border:none;color:#fff;font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer">✕ Réinitialiser</button>';
   }
+  h+='</div>';
+  // Barre de recherche
+  h+='<div style="position:relative;margin-top:6px">';
+  h+='<input id="bankSearchInput" type="text" placeholder="Rechercher un item..." value="'+bankSearch.replace(/"/g,'&quot;')+'" oninput="setBankSearch(this.value)" style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 32px 7px 12px;font-size:13px;color:var(--text);font-family:Rajdhani,sans-serif;outline:none;transition:border-color 0.15s" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'\'">';
+  if(bankSearch){
+    h+='<button onclick="clearBankSearch()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;line-height:1;padding:2px">✕</button>';
+  }
+  h+='</div>';
   h+='</div></div>';
 
   if(!state.bank.length){
     h+='<div class="empty-state" style="margin:12px">Ta banque est vide.<br><br>Ajoute tes équipements pour les utiliser dans tes builds !</div>';
   } else if(!filtered.length){
-    h+='<div class="empty-state" style="margin:12px">Aucun item ne correspond aux filtres sélectionnés.</div>';
+    h+='<div class="empty-state" style="margin:12px">Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres sélectionnés')+'.</div>';
   } else {
     h+='<div class="bank-list">';
     state.bank.forEach(function(item,idx){
