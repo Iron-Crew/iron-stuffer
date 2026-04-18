@@ -1557,11 +1557,10 @@ function toggleBankFilter(fid){
 }
 
 var bankSearch = '';
-var bankSort = ''; // '' = ordre ajout | 'c1'|'c2'|'c3'|'c4'|'c5'|'c6'
+var bankSort = ''; // '' = tous | 'c1'|'c2' etc = filtre par compte
 
 function setBankSearch(val){
   bankSearch = val.toLowerCase().trim();
-  // Option A : filtrer sans recréer l'input — on ne touche qu'à la liste
   applyBankFiltersOnly();
 }
 
@@ -1572,23 +1571,23 @@ function clearBankSearch(){
   applyBankFiltersOnly();
 }
 
-// Filtre/tri sans reconstruire le header — préserve le focus de l'input
+// Filtre sans reconstruire le header — préserve le focus de l'input
 function applyBankFiltersOnly(){
   var list=document.getElementById('bankItemList');
   var empty=document.getElementById('bankEmptyState');
   var counter=document.getElementById('bankCounter');
-  if(!list) { renderBank(); return; }
+  if(!list){ renderBank(); return; }
 
   var visibleCount=0;
-  var cards=list.querySelectorAll('[data-bank-idx]');
-  cards.forEach(function(card){
-    var idx=parseInt(card.getAttribute('data-bank-idx'));
+  var wrappers=list.querySelectorAll('[data-bank-idx]');
+  wrappers.forEach(function(wrapper){
+    var idx=parseInt(wrapper.getAttribute('data-bank-idx'));
     var item=state.bank[idx];
     if(item && bankItemMatchesFilters(item,idx)){
-      card.style.display='';
+      wrapper.style.display='';
       visibleCount++;
     } else {
-      card.style.display='none';
+      wrapper.style.display='none';
     }
   });
 
@@ -1601,14 +1600,21 @@ function applyBankFiltersOnly(){
       empty.style.display='none';
     }
   }
+  // Mettre à jour le bouton reset
+  var resetBtn=document.getElementById('bankResetBtn');
+  if(resetBtn) resetBtn.style.display=(nav.bankFilters.length||bankSearch||bankSort)?'inline-block':'none';
 }
 
 function setBankSort(val){
   bankSort = bankSort===val ? '' : val;
+  // Le tri par compte = filtre, pas juste un réordonnancement
   renderBank();
 }
 
 function bankItemMatchesFilters(item, idx){
+  // Filtre tri/compte
+  if(bankSort && (item.compte||'')!==bankSort) return false;
+  // Filtre recherche texte
   if(bankSearch && item.name.toLowerCase().indexOf(bankSearch)<0) return false;
   if(!nav.bankFilters.length) return true;
   var dotInfo=getItemDotFromBank(idx);
@@ -1667,19 +1673,8 @@ function importBank(){
 }
 
 function renderBank(){
-  // Trier si besoin
-  var indices=state.bank.map(function(_,i){return i;});
-  if(bankSort){
-    indices.sort(function(a,b){
-      var ca=state.bank[a].compte||'';
-      var cb=state.bank[b].compte||'';
-      if(ca===bankSort && cb!==bankSort) return -1;
-      if(cb===bankSort && ca!==bankSort) return 1;
-      return a-b;
-    });
-  }
-
-  var filtered=indices.filter(function(idx){ return bankItemMatchesFilters(state.bank[idx],idx); });
+  var filtered=state.bank.filter(function(item,idx){ return bankItemMatchesFilters(item,idx); });
+  var hasActiveFilters=nav.bankFilters.length||bankSearch||bankSort;
 
   var h='<div class="bank-header">';
   h+='<div id="bankCounter" style="font-family:Cinzel,serif;font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase">'+filtered.length+'/'+state.bank.length+' items</div>';
@@ -1689,32 +1684,31 @@ function renderBank(){
   h+='<button class="bank-add-btn" onclick="openModalBank(null)" style="margin:0;width:auto">+ Ajouter</button>';
   h+='</div></div>';
 
-  // Filtres statut
   h+='<div style="padding:0 12px 8px">';
+  // Filtres statut
   h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">';
   BANK_FILTER_TYPES.filter(function(f){return f.group==='statut';}).forEach(function(f){
     var active=nav.bankFilters.indexOf(f.id)>=0;
-    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+'">'+f.lbl+'</button>';
+    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+')">'+f.lbl+'</button>';
   });
   h+='</div>';
   // Filtres type
   h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">';
   BANK_FILTER_TYPES.filter(function(f){return f.group==='type';}).forEach(function(f){
     var active=nav.bankFilters.indexOf(f.id)>=0;
-    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+'">'+f.lbl+'</button>';
+    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+')">'+f.lbl+'</button>';
   });
-  if(nav.bankFilters.length){
-    h+='<button onclick="nav.bankFilters=[];bankSearch=\'\';bankSort=\'\';renderBank()" style="background:var(--red);border:none;color:#fff;font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer">✕ Reset</button>';
-  }
   h+='</div>';
-  // Tri par compte
-  h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">';
-  h+='<span style="font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1px;align-self:center;margin-right:2px">TRI</span>';
+  // Tri/filtre par compte
+  h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;align-items:center">';
+  h+='<span style="font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1px">COMPTE</span>';
   COMPTES.forEach(function(c){
     var active=bankSort===c.id;
     h+='<button class="bank-filter'+(active?' active':'')+'" onclick="setBankSort('+String.fromCharCode(39)+c.id+String.fromCharCode(39)+')">'+c.name+'</button>';
   });
   h+='</div>';
+  // Reset
+  h+='<button id="bankResetBtn" onclick="nav.bankFilters=[];bankSearch=\'\';bankSort=\'\';renderBank()" style="display:'+(hasActiveFilters?'inline-block':'none')+';background:var(--red);border:none;color:#fff;font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer;margin-bottom:6px">✕ Réinitialiser tout</button>';
   // Recherche
   h+='<div style="position:relative;margin-top:2px">';
   h+='<input id="bankSearchInput" type="text" placeholder="Rechercher un item..." value="'+bankSearch.replace(/"/g,'&quot;')+'" oninput="setBankSearch(this.value)" style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 32px 7px 12px;font-size:13px;color:var(--text);font-family:Rajdhani,sans-serif;outline:none;transition:border-color 0.15s" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'\'">';
@@ -1729,8 +1723,7 @@ function renderBank(){
   } else {
     h+='<div id="bankEmptyState" class="empty-state" style="margin:12px;display:'+(filtered.length?'none':'block')+'">Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres')+'.</div>';
     h+='<div class="bank-list" id="bankItemList">';
-    indices.forEach(function(idx){
-      var item=state.bank[idx];
+    state.bank.forEach(function(item,idx){
       var visible=bankItemMatchesFilters(item,idx);
       h+='<div data-bank-idx="'+idx+'" style="display:'+(visible?'block':'none')+'">';
       h+=renderBankCard(item,idx);
@@ -1740,7 +1733,6 @@ function renderBank(){
   }
 
   document.getElementById('view-bank').innerHTML=h;
-  // Restaurer le focus si une recherche est active
   if(bankSearch){
     var inp=document.getElementById('bankSearchInput');
     if(inp){ inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length); }
