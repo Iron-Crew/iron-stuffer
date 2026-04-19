@@ -515,7 +515,8 @@ var DOFUS_TYPES = ['Dofus','Trophée','Prysmaradite'];
 
 var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do Mélée',
   'Do Feu','Do Terre','Do Eau','Do Air','% Rés Neutre','% Rés Air','% Rés Eau',
-  '% Rés Feu','% Rés Terre','% Rés Dist','% Rés Mélée','Tacle','Ret. PM','Critique'];
+  '% Rés Feu','% Rés Terre','% Rés Dist','% Rés Mélée','Tacle','Ret. PM','Critique',
+  'Puissance','Arme de chasse'];
 
 var BASE_STATS = {
   PA:7, PM:3, PO:0, Pods:1000, PI:1,
@@ -1535,6 +1536,7 @@ var BANK_FILTER_TYPES=[
   {id:'free',    lbl:'Non utilisés', group:'statut'},
   {id:'shared',  lbl:'Partagés',     group:'statut'},
   {id:'other',   lbl:'Autre compte', group:'statut'},
+  {id:'noexo',   lbl:'Sans exo(s)',  group:'statut'},
   {id:'Chapeau', lbl:'Coiffe',       group:'type'},
   {id:'Amulette',lbl:'Amulette',     group:'type'},
   {id:'Cape',    lbl:'Cape',         group:'type'},
@@ -1548,6 +1550,9 @@ var BANK_FILTER_TYPES=[
   {id:'Trophée', lbl:'Trophée',      group:'type'},
   {id:'Prysmaradite',lbl:'Prysmaradite',group:'type'},
 ];
+
+// Types d'items qui ne peuvent jamais avoir d'exo
+var NO_EXO_TYPES = ['Familier','Dragodinde','Montilier','Muldo','Volkorne','Dofus','Trophée','Prysmaradite'];
 
 function toggleBankFilter(fid){
   var idx=nav.bankFilters.indexOf(fid);
@@ -1623,13 +1628,22 @@ function bankItemMatchesFilters(item, idx){
     if(fid==='free'   && dotInfo.usage!==0) passes=false;
     if(fid==='shared' && dotInfo.usage<=1)  passes=false;
     if(fid==='other'  && !dotInfo.wrongCompte) passes=false;
-    if(fid==='Familier'){
+    if(fid==='noexo'){
+      // Exclure les items qui ne peuvent jamais avoir d'exo
       var t=item.type||'';
-      var famTypes=['Familier','Dragodinde','Montilier','Muldo','Volkorne'];
-      if(!famTypes.some(function(ft){return t.toLowerCase().indexOf(ft.toLowerCase())>-1;})) passes=false;
-    } else if(!['free','shared','other'].includes(fid)){
+      var isExoEligible=!NO_EXO_TYPES.some(function(nt){
+        return t.toLowerCase().indexOf(nt.toLowerCase())>-1;
+      });
+      if(!isExoEligible) passes=false; // item non éligible aux exos → exclu du filtre
+      else if(item.exos && Object.keys(item.exos).length>0) passes=false; // a déjà des exos → exclu
+    }
+    if(fid==='Familier'){
       var t2=item.type||'';
-      if(t2.toLowerCase().indexOf(fid.toLowerCase())<0) passes=false;
+      var famTypes=['Familier','Dragodinde','Montilier','Muldo','Volkorne'];
+      if(!famTypes.some(function(ft){return t2.toLowerCase().indexOf(ft.toLowerCase())>-1;})) passes=false;
+    } else if(!['free','shared','other','noexo'].includes(fid)){
+      var t3=item.type||'';
+      if(t3.toLowerCase().indexOf(fid.toLowerCase())<0) passes=false;
     }
   });
   return passes;
