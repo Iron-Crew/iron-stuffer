@@ -59,7 +59,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 /* ── KEYFRAMES ── */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slotPop{0%{transform:scale(1)}40%{transform:scale(1.055)}70%{transform:scale(0.97)}100%{transform:scale(1)}}
-@keyframes statFlash{0%{color:var(--gold-glow)}60%{color:var(--gold-glow)}100%{color:inherit}}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── HEADER ── */
@@ -162,15 +161,12 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-clear{position:absolute;top:2px;right:2px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:1px;opacity:0}
 .dofus-slot:hover .dofus-clear{opacity:1}
 
-/* ── STATS PANEL ── */
-.stats-panel{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px;box-shadow:var(--shadow-card)}
-.stats-title{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.stat-item{background:var(--bg2);border-radius:8px;padding:6px 8px;text-align:center}
-.stat-name{font-size:8px;color:var(--text-dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:2px}
-.stat-val{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text)}
-.stat-val.pos{color:var(--green)}
-.stat-val.neg{color:var(--red)}
+/* ── STATS COMPACTES (banque/overlay) ── */
+.stat-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--bg2)}
+.stat-chip.pos{color:var(--green)}
+.stat-chip.neg{color:var(--red)}
+.stat-chip.exo{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
+.stat-chip.over-chip{background:rgba(124,92,191,0.15);border:1px solid var(--gold-border);color:var(--gold);font-weight:700}
 
 /* ── PAGE SÉLECTION ITEM ── */
 .select-header{padding:12px 16px;background:var(--surface-glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:52px;z-index:50}
@@ -279,17 +275,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:rgba(15,8,32,0.97);color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;border:1px solid var(--gold-border);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{opacity:1}
 .section-label{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:12px 12px 4px}
-
-/* ── STATS COMPACTES ── */
-.stats-rows-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
-.stat-row{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:6px;transition:background var(--t-fast)}
-.stat-row:hover{background:var(--bg2)}
-.stat-row-name{display:flex;align-items:center;gap:5px;flex:1;font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
-.stat-row-name img{width:14px;height:14px;object-fit:contain;flex-shrink:0}
-.stat-row-val{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--text);min-width:36px;text-align:right}
-.stat-row-val.pos{color:var(--green)}
-.stat-row-val.neg{color:var(--red)}
-.stat-row-val.anim{animation:statFlash 0.7s ease forwards}
 
 /* Pastilles */
 .slot-dot.red,.item-card-dot.red,.bank-item-dot.red{background:#e74c3c}
@@ -518,11 +503,7 @@ var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do M�
   '% Rés Feu','% Rés Terre','% Rés Dist','% Rés Mélée','Tacle','Ret. PM','Critique',
   'Puissance','Arme de chasse'];
 
-var BASE_STATS = {
-  PA:7, PM:3, PO:0, Pods:1000, PI:1,
-  Vitalité:0, Sagesse:0, Force:0, Intelligence:0, Agilité:0, Chance:0,
-  Initiative:0, '% Critique':0, Prospection:0, Soin:0, Tacle:0, Fuite:0
-};
+// Filtres et recherche banque
 
 // ════════════════════════════════════════════════
 // STATE
@@ -823,34 +804,29 @@ function renderStuffer(){
   var b=getBuild(nav.persoId,nav.buildId);
   if(!p||!b) return;
 
-  // Mettre à jour header
   document.getElementById('hdrTitle').textContent=b.name;
   document.getElementById('hdrSub').textContent=p.name+' — '+p.classe;
+  document.getElementById('hdrSub').classList.remove('hidden');
 
   var slots=b.slots||{};
   var h='<div class="stuffer-wrap">';
 
-  // ── Layout 3 colonnes ──
   h+='<div class="stuffer-grid">';
 
-  // Colonne gauche
   h+='<div class="stuffer-col">';
   SLOTS_LEFT.forEach(function(sl){ h+=renderSlot(sl, slots[sl.id]); });
   h+='</div>';
 
-  // Centre : icône classe + dofus empilés
   h+='<div class="stuffer-center">';
   h+=getClassIcon(p.classe);
   h+='</div>';
 
-  // Colonne droite
   h+='<div class="stuffer-col">';
   SLOTS_RIGHT.forEach(function(sl){ h+=renderSlot(sl, slots[sl.id]); });
   h+='</div>';
 
-  h+='</div>'; // fin stuffer-grid
+  h+='</div>';
 
-  // ── Dofus/Trophées/Prysmaradite ──
   h+='<div class="section-label">Dofus · Trophées · Prysmaradite</div>';
   h+='<div class="dofus-row">';
   DOFUS_SLOTS.forEach(function(id,i){
@@ -869,33 +845,8 @@ function renderStuffer(){
   });
   h+='</div>';
 
-  // ── Stats ──
-  h+=renderStats(slots);
-
-  // ── Répartition points ──
-  h+=renderInvestedBlock();
-
-  // ── Panoplies ──
-  h+=renderPanoplies(slots);
-
-  h+='</div>'; // fin stuffer-wrap
-
+  h+='</div>';
   document.getElementById('view-stuffer').innerHTML=h;
-
-  // Micro-animation : flash sur les valeurs de stats qui ont changé
-  var prevTotals=window._prevTotals||{};
-  var currTotals=window._lastTotals||{};
-  document.querySelectorAll('#view-stuffer .stat-row-val').forEach(function(el){
-    var row=el.parentElement;
-    var nameEl=row&&row.querySelector('.stat-row-name span');
-    if(!nameEl) return;
-    var k=nameEl.textContent;
-    if(prevTotals[k]!==undefined&&prevTotals[k]!==currTotals[k]){
-      el.classList.add('anim');
-      el.addEventListener('animationend',function(){ el.classList.remove('anim'); },{once:true});
-    }
-  });
-  window._prevTotals=Object.assign({},currTotals);
 }
 
 // ── Rendu d'un slot ──
@@ -1168,366 +1119,6 @@ function equipFromBankSelect(bankIdx){
   }
 }
 
-// ════════════════════════════════════════════════
-// STATS
-// ════════════════════════════════════════════════
-function normalizeStatName(k){
-  var map={
-    'Vitalite':'Vitalité','Vitalité':'Vitalité',
-    'Sagesse':'Sagesse','Force':'Force','Intelligence':'Intelligence',
-    'Agilite':'Agilité','Agilité':'Agilité','Chance':'Chance',
-    'PA':'PA','Points d Action':'PA','PM':'PM','Points de Mouvement':'PM',
-    'PO':'PO','Portee':'PO','Portée':'PO','Portée':'PO',
-    'Initiative':'Initiative',
-    'Critique':'% Critique','% Critique':'% Critique','Taux Critique':'% Critique',
-    'Do Critique':'Do Critique','Dommage Critiques':'Do Critique','Dommages Critiques':'Do Critique',
-    'Soin':'Soin','Soins':'Soin','Prospection':'Prospection','Pods':'Pods',
-    'Fuite':'Fuite','Tacle':'Tacle','PI':'PI','Invocation':'PI',
-    'Do Feu':'Do Feu','Dommage Feu':'Do Feu','Dommages Feu':'Do Feu',
-    'Do Terre':'Do Terre','Dommage Terre':'Do Terre','Dommages Terre':'Do Terre',
-    'Do Eau':'Do Eau','Dommage Eau':'Do Eau','Dommages Eau':'Do Eau',
-    'Do Air':'Do Air','Dommage Air':'Do Air','Dommages Air':'Do Air',
-    'Do Neutre':'Do Neutre','Dommage Neutre':'Do Neutre',
-    'Ret. PA':'Ret. PA','Retrait PA':'Ret. PA',
-    'Ret. PM':'Ret. PM','Retrait PM':'Ret. PM','Esquive PM':'Ret. PM',
-    'Rés Terre':'Rés Terre','Résistance Terre':'Rés Terre',
-    'Rés Feu':'Rés Feu','Résistance Feu':'Rés Feu',
-    'Rés Eau':'Rés Eau','Résistance Eau':'Rés Eau',
-    'Rés Air':'Rés Air','Résistance Air':'Rés Air',
-    'Rés Neutre':'Rés Neutre','Résistance Neutre':'Rés Neutre',
-    '% Rés Terre':'% Rés Terre','% Résistance Terre':'% Rés Terre',
-    '% Rés Feu':'% Rés Feu','% Résistance Feu':'% Rés Feu',
-    '% Rés Eau':'% Rés Eau','% Résistance Eau':'% Rés Eau',
-    '% Rés Air':'% Rés Air','% Résistance Air':'% Rés Air',
-    '% Rés Neutre':'% Rés Neutre','% Résistance Neutre':'% Rés Neutre',
-    'Puissance':'Puissance'
-  };
-  return map[k]||k;
-}
-
-function renderStats(slots){
-  var totals={};
-  Object.keys(BASE_STATS).forEach(function(k){ totals[k]=BASE_STATS[k]; });
-  Object.values(slots).forEach(function(item){
-    if(!item) return;
-    var rawStats=Object.assign({}, item.stats||{});
-    if(item.bankRef!==undefined){
-      var bi=state.bank[item.bankRef];
-      if(bi&&bi.exos) Object.assign(rawStats, bi.exos);
-    } else if(item.exos){ Object.assign(rawStats, item.exos); }
-    Object.keys(rawStats).forEach(function(k){
-      var n=normalizeStatName(k);
-      totals[n]=(totals[n]||0)+(parseInt(rawStats[k])||0);
-    });
-  });
-  var sets={};
-  Object.values(slots).forEach(function(item){
-    if(!item||!item.setId) return;
-    if(!sets[item.setId]) sets[item.setId]={count:0, bonuses:item.setBonuses||{}};
-    sets[item.setId].count++;
-    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
-  });
-  Object.keys(sets).forEach(function(sid){
-    var s=sets[sid];
-    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
-    var activeBonus=null;
-    bonusKeys.forEach(function(t){ if(s.count>=t) activeBonus=s.bonuses[t]; });
-    if(!activeBonus) return;
-    activeBonus.split(', ').forEach(function(part){
-      part=part.trim();
-      var m=part.match(/^([+-]?\d+)%?\s+(.+)$/);
-      if(m){ var v=parseInt(m[1]); var n=normalizeStatName(m[2].trim()); if(!isNaN(v)) totals[n]=(totals[n]||0)+v; }
-    });
-  });
-  var inv=getBuildInvested();
-  if(inv){
-    totals['Vitalité']=(totals['Vitalité']||0)+(inv.vita||0)+(inv.parchoVita||0);
-    totals['Sagesse']=(totals['Sagesse']||0)+Math.floor((inv.sagesse||0)/3)+(inv.parchoSage||0);
-    totals['Force']=(totals['Force']||0)+(inv.force||0)+(inv.parchoForce||0);
-    totals['Intelligence']=(totals['Intelligence']||0)+(inv.intel||0)+(inv.parchoIntel||0);
-    totals['Chance']=(totals['Chance']||0)+(inv.chance||0)+(inv.parchoChance||0);
-    totals['Agilité']=(totals['Agilité']||0)+(inv.agi||0)+(inv.parchoAgi||0);
-  }
-  totals['PdV']=1050+(totals['Vitalité']||0);
-
-  // Ligne compacte : icône + nom à gauche, valeur à droite
-  // Ligne compacte
-  var CAPS={'PA':12,'PM':6,'PO':6};
-  function row(k){
-    var v=totals[k]||0;
-    var cls=v>0?'pos':v<0?'neg':'';
-    return '<div class="stat-row"><div class="stat-row-name">'+getStatIcon(k)+'<span>'+k+'</span></div><div class="stat-row-val '+cls+'">'+v+'</div></div>';
-  }
-
-  function rowIf(k){ return row(k); }
-  var h='<div class="stats-panel">';
-  h+='<div class="stats-title">📊 Stats du build</div>';
-
-  // ── CARACTÉRISTIQUES (fusionné) ──
-  h+='<div class="stats-section-lbl">Caractéristiques</div>';
-  h+='<div class="stats-rows-grid">';
-  // Colonne gauche
-  h+='<div>';
-  h+=row('PdV'); h+=row('PA'); h+=row('PM'); h+=row('PO');
-  h+=row('PI'); h+=rowIf('Initiative'); h+=rowIf('% Critique'); h+=rowIf('Soin');
-  h+='</div>';
-  // Colonne droite
-  h+='<div>';
-  h+=row('Vitalité'); h+=row('Sagesse'); h+=row('Force');
-  h+=row('Intelligence'); h+=row('Chance'); h+=row('Agilité');
-  h+=rowIf('Puissance'); h+=rowIf('Pods'); h+=rowIf('Prospection');
-  h+=rowIf('Fuite'); h+=rowIf('Tacle');
-  h+=rowIf('Esq. PA'); h+=rowIf('Esq. PM');
-  h+=rowIf('Ret. PA'); h+=rowIf('Ret. PM');
-  h+='</div>';
-  h+='</div>';
-
-  // ── DOMMAGES ──
-  var dmgStats=['Do Neutre','Do Terre','Do Feu','Do Eau','Do Air','Do Critique','Do Poussée','% Do Sorts','% Do Armes','% Do Mélée','% Do Dist'];
-  var dmgVals=dmgStats;
-  // Dommages
-  h+='<div class="stats-section-lbl">Dommages</div>';
-  h+='<div class="stats-rows-grid">';
-  var half=Math.ceil(dmgVals.length/2);
-  h+='<div>';
-  dmgVals.slice(0,half).forEach(function(k){ h+=row(k); });
-  h+='</div><div>';
-  dmgVals.slice(half).forEach(function(k){ h+=row(k); });
-  h+='</div></div>';
-
-
-  // ── RÉSISTANCES ──
-  var resPctStats=['% Ré Neutre','% Ré Terre','% Ré Feu','% Ré Eau','% Ré Air','% Ré Dist','% Ré Mélée','% Ré Armes'];
-  var resFixStats=['Ré Neutre','Ré Terre','Ré Feu','Ré Eau','Ré Air','Ré Critique','Ré Poussée'];
-  h+='<div class="stats-section-lbl">Résistances</div>';
-  h+='<div class="stats-rows-grid">';
-  h+='<div>';
-  resPctStats.forEach(function(k){ h+=row(k); });
-  h+='</div><div>';
-  resFixStats.forEach(function(k){ h+=row(k); });
-  h+='</div></div>';
-
-
-
-
-  h+='</div>';
-  window._lastTotals=totals;
-  return h;
-}
-
-
-// ════════════════════════════════════════════════
-// RÉPARTITION DES POINTS
-// ════════════════════════════════════════════════
-function getBuildInvested(){
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b) return null;
-  if(!b.invested) b.invested={
-    vita:0,sagesse:0,force:0,intel:0,chance:0,agi:0,
-    parchoVita:0,parchoSage:0,parchoForce:0,parchoIntel:0,parchoChance:0,parchoAgi:0
-  };
-  return b.invested;
-}
-
-function costElem(current, toAdd){
-  var cost=0; var s=current;
-  for(var i=0;i<toAdd;i++){
-    if(s<100) cost+=1;
-    else if(s<200) cost+=2;
-    else if(s<300) cost+=3;
-    else cost+=4;
-    s++;
-  }
-  return cost;
-}
-
-function calcPointsUsed(inv){
-  if(!inv) return 0;
-  return (inv.vita||0)+(inv.sagesse||0)*3
-    +costElem(0,inv.force||0)+costElem(0,inv.intel||0)
-    +costElem(0,inv.chance||0)+costElem(0,inv.agi||0);
-}
-
-function addMaxStat(key){
-  var inv=getBuildInvested();
-  if(!inv) return;
-  var used=calcPointsUsed(inv);
-  var remaining=995-used;
-  if(remaining<=0){ showToast('Plus de points !'); return; }
-  if(key==='vita'){ inv.vita=(inv.vita||0)+remaining; }
-  else if(key==='sagesse'){
-    // 1 sagesse = 3 pts
-    var maxSage=Math.floor(remaining/3);
-    inv.sagesse=(inv.sagesse||0)+maxSage;
-  } else {
-    // Paliers force/intel/chance/agi
-    var cur=inv[key]||0;
-    var added=0;
-    var pts=remaining;
-    while(pts>0){
-      var cost=cur<100?1:cur<200?2:cur<300?3:4;
-      if(pts<cost) break;
-      pts-=cost; cur++; added++;
-    }
-    inv[key]=(inv[key]||0)+added;
-  }
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-function renderInvestedBlock(){
-  var inv=getBuildInvested();
-  if(!inv) return '';
-  var used=calcPointsUsed(inv);
-  var remaining=995-used;
-  var h='<div class="stats-panel">';
-  h+='<div class="stats-title">✨ Répartition des points ';
-  h+='<span style="font-size:12px;color:'+(remaining>=0?'var(--green)':'var(--red)')+'">'+remaining+' pts</span>';
-  h+='<button onclick="setParchoAll(0)" style="background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);font-family:Rajdhani,sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;cursor:pointer;margin-left:auto">Pch 0</button>';
-  h+='<button onclick="setParchoAll(100)" style="background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:Rajdhani,sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;cursor:pointer">Pch 100</button>';
-  h+='</div>';
-  var INVEST=[
-    {key:'vita',   lbl:'Vitalité',   statKey:'Vitalité',    parcho:'parchoVita'},
-    {key:'sagesse',lbl:'Sagesse',   statKey:'Sagesse',     parcho:'parchoSage'},
-    {key:'force',  lbl:'Force',  statKey:'Force',       parcho:'parchoForce'},
-    {key:'intel',  lbl:'Intelligence',  statKey:'Intelligence',parcho:'parchoIntel'},
-    {key:'chance', lbl:'Chance', statKey:'Chance',      parcho:'parchoChance'},
-    {key:'agi',    lbl:'Agilité',    statKey:'Agilité',     parcho:'parchoAgi'},
-  ];
-  // BASE_URL supprimée - on utilise getStatIcon
-  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">';
-  INVEST.forEach(function(s){
-    var val=inv[s.key]||0;
-    var parcho=inv[s.parcho]||0;
-    var gained=val;
-    h+='<div style="background:var(--bg2);border-radius:8px;padding:6px 8px">';
-    // Titre compact
-    h+='<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">';
-    h+=getStatIcon(s.statKey);
-    h+='<span style="font-size:10px;color:var(--text-dim);font-weight:700;text-transform:uppercase;letter-spacing:1px;flex:1">'+s.lbl+'</span>';
-    h+='<span style="font-size:11px;color:var(--gold);font-weight:700">+'+gained+'</span>';
-    h+='</div>';
-    // Pts investis - compact
-    h+='<div style="display:flex;align-items:center;gap:2px;margin-bottom:3px">';
-    h+='<span style="font-size:9px;color:var(--text-dim);width:22px">Pts</span>';
-    h+='<button data-key="'+s.key+'" data-delta="-1" onclick="changeInvested(this)" style="width:18px;height:18px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;cursor:pointer;font-size:12px;color:var(--text-dim)">-</button>';
-    h+='<input type="number" min="0" value="'+val+'" data-key="'+s.key+'" onchange="setInvested(this)" style="flex:1;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1px;font-family:Cinzel,serif;font-size:11px;font-weight:700;color:var(--gold);min-width:0">';
-    h+='<button data-key="'+s.key+'" data-delta="1" onclick="changeInvested(this)" style="width:18px;height:18px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:3px;cursor:pointer;font-size:12px;color:var(--gold)">+</button>';
-    h+='</div>';
-    h+='<button onclick="addMaxStat('+String.fromCharCode(39)+s.key+String.fromCharCode(39)+')" style="height:18px;padding:0 5px;background:var(--gold);border:none;border-radius:3px;cursor:pointer;font-size:9px;font-weight:700;color:#fff">MAX</button>';
-    // Parchos - compact
-    h+='<div style="display:flex;align-items:center;gap:2px">';
-    h+='<span style="font-size:9px;color:var(--gold2);width:22px">Pch</span>';
-    h+='<button onclick="setInvestedVal('+String.fromCharCode(39)+s.parcho+String.fromCharCode(39)+',0)" style="height:18px;padding:0 4px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;cursor:pointer;font-size:9px;font-weight:700;color:var(--text-dim)">0</button>';
-    h+='<button data-key="'+s.parcho+'" data-delta="-1" onclick="changeInvested(this)" style="width:18px;height:18px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;cursor:pointer;font-size:12px;color:var(--text-dim)">-</button>';
-    h+='<input type="number" min="0" max="100" value="'+parcho+'" data-key="'+s.parcho+'" onchange="setInvested(this)" style="flex:1;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:1px;font-size:11px;font-weight:700;color:var(--gold2);min-width:0">';
-    h+='<button data-key="'+s.parcho+'" data-delta="1" onclick="changeInvested(this)" style="width:18px;height:18px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:3px;cursor:pointer;font-size:12px;color:var(--gold)">+</button>';
-    h+='<button onclick="setInvestedVal('+String.fromCharCode(39)+s.parcho+String.fromCharCode(39)+',100)" style="height:18px;padding:0 4px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:3px;cursor:pointer;font-size:9px;font-weight:700;color:var(--gold)">100</button>';
-    h+='</div>';
-    h+='</div>';
-  });
-  h+='</div></div>';
-  return h;
-}
-
-function setParchoAll(val){
-  var inv=getBuildInvested();
-  if(!inv) return;
-  ['parchoVita','parchoSage','parchoForce','parchoIntel','parchoChance','parchoAgi'].forEach(function(k){ inv[k]=val; });
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-function setInvestedVal(key, val){
-  var inv=getBuildInvested();
-  if(!inv) return;
-  inv[key]=val;
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-function changeInvested(el){
-  var key=el.getAttribute('data-key');
-  var delta=parseInt(el.getAttribute('data-delta'))||0;
-  var inv=getBuildInvested();
-  if(!inv) return;
-  var isParcho=key.indexOf('parcho')===0;
-  var newVal=(inv[key]||0)+delta;
-  if(newVal<0) newVal=0;
-  if(isParcho&&newVal>100) newVal=100;
-  inv[key]=newVal;
-  if(!isParcho){
-    var used=calcPointsUsed(inv);
-    if(used>995){ inv[key]=inv[key]-delta; showToast('Plus de points disponibles !'); return; }
-  }
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-function setInvested(el){
-  var key=el.getAttribute('data-key');
-  var val=parseInt(el.value)||0;
-  if(val<0) val=0;
-  var isParcho=key.indexOf('parcho')===0;
-  if(isParcho&&val>100) val=100;
-  var inv=getBuildInvested();
-  if(!inv) return;
-  var old=inv[key]||0;
-  inv[key]=val;
-  if(!isParcho){
-    var used=calcPointsUsed(inv);
-    if(used>995){ inv[key]=old; el.value=old; showToast('Plus de points disponibles !'); return; }
-  }
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-// ════════════════════════════════════════════════
-// PANOPLIES
-// ════════════════════════════════════════════════
-function renderPanoplies(slots){
-  var sets={};
-  Object.values(slots).forEach(function(item){
-    if(!item||!item.setId||!item.setName) return;
-    if(!sets[item.setId]) sets[item.setId]={name:item.setName, count:0, bonuses:item.setBonuses||{}};
-    sets[item.setId].count++;
-    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
-  });
-  var setKeys=Object.keys(sets);
-  if(!setKeys.length) return '';
-
-  var h='<div class="stats-panel">';
-  h+='<div class="stats-title">🎲 Bonus de Panoplies</div>';
-  setKeys.forEach(function(sid){
-    var s=sets[sid];
-    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
-    h+='<div style="background:var(--bg2);border-radius:8px;padding:10px;margin-bottom:6px">';
-    h+='<div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px">';
-    h+=s.name;
-    h+=' <span style="background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:1px 8px;font-size:11px">'+s.count+' pcs</span></div>';
-    if(bonusKeys.length){
-      bonusKeys.forEach(function(t){
-        var active=s.count>=t;
-        var bonus=s.bonuses[t]||'';
-        if(!bonus) return;
-        h+='<div style="display:flex;gap:6px;align-items:flex-start;padding:4px 6px;border-radius:6px;margin-bottom:3px;'+(active?'background:var(--green-bg)':'opacity:0.4')+'">';
-        h+='<span style="font-size:12px;font-weight:700;color:'+(active?'var(--green)':'var(--text-dim)')+';min-width:20px">'+(active?'✓':t+'p')+'</span>';
-        h+='<span style="font-size:11px;color:'+(active?'var(--green)':'var(--text-dim)')+'">'+bonus+'</span>';
-        h+='</div>';
-      });
-    } else {
-      h+='<div style="font-size:11px;color:var(--text-dim);font-style:italic">Bonus en cours de chargement...</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div>';
-  return h;
-}
 
 // ════════════════════════════════════════════════
 // BANQUE
