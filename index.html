@@ -879,6 +879,96 @@ function renderStuffer(){
 
   h+='<div class="stuffer-center">';
   h+=getClassIcon(p.classe);
+
+  // ── Bloc PA / PM / PO ──
+  var slots2=b.slots||{};
+  var totPA=7, totPM=3, totPO=0;
+  var exoTotals={};
+
+  // Parcourir tous les slots équipés
+  var allSlots2=SLOTS_LEFT.concat(SLOTS_RIGHT).concat(DOFUS_SLOTS.map(function(id){return {id:id};}));
+  Object.keys(slots2).forEach(function(sid){
+    var item=slots2[sid];
+    if(!item) return;
+    // Stats de l'item (depuis la banque si bankRef, sinon directement)
+    var rawStats={};
+    if(item.bankRef!==undefined){
+      var bi=state.bank[item.bankRef];
+      if(bi){
+        Object.assign(rawStats, bi.stats||{});
+        // Exos
+        Object.keys(bi.exos||{}).forEach(function(k){
+          exoTotals[k]=(exoTotals[k]||0)+(parseInt(bi.exos[k])||0);
+        });
+      }
+    } else {
+      Object.assign(rawStats, item.stats||{});
+      Object.keys(item.exos||{}).forEach(function(k){
+        exoTotals[k]=(exoTotals[k]||0)+(parseInt(item.exos[k])||0);
+      });
+    }
+    // Cumuler PA/PM/PO
+    Object.keys(rawStats).forEach(function(k){
+      var v=parseInt(rawStats[k])||0;
+      if(k==='PA') totPA+=v;
+      else if(k==='PM') totPM+=v;
+      else if(k==='PO') totPO+=v;
+    });
+  });
+
+  // Bonus panoplies
+  var sets={};
+  Object.values(slots2).forEach(function(item){
+    if(!item||!item.setId) return;
+    if(!sets[item.setId]) sets[item.setId]={count:0,bonuses:item.setBonuses||{}};
+    sets[item.setId].count++;
+    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
+  });
+  Object.keys(sets).forEach(function(sid){
+    var s=sets[sid];
+    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
+    var activeBonus=null;
+    bonusKeys.forEach(function(t){ if(s.count>=t) activeBonus=s.bonuses[t]; });
+    if(!activeBonus) return;
+    activeBonus.split(', ').forEach(function(part){
+      var m=part.trim().match(/^([+-]?\d+)\s+(.+)$/);
+      if(m){
+        var v=parseInt(m[1]); var statName=m[2].trim();
+        if(statName==='PA') totPA+=v;
+        else if(statName==='PM') totPM+=v;
+        else if(statName==='PO') totPO+=v;
+      }
+    });
+  });
+
+  // Affichage PA/PM/PO
+  h+='<div style="display:flex;gap:16px;justify-content:center;align-items:center;margin-top:6px;background:var(--surface-glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;padding:6px 14px">';
+  ['PA','PM','PO'].forEach(function(stat){
+    var val=stat==='PA'?totPA:stat==='PM'?totPM:totPO;
+    var ico=getStatIcon(stat);
+    h+='<div style="display:flex;align-items:center;gap:5px">';
+    h+='<span style="font-family:Cinzel,serif;font-size:15px;font-weight:700;color:var(--text)">'+val+'</span>';
+    h+=ico;
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // Bloc exos
+  var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
+  if(exoKeys.length){
+    h+='<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin-top:6px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:6px 14px">';
+    h+='<span style="font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Exos</span>';
+    exoKeys.forEach(function(k){
+      var val=exoTotals[k];
+      var ico=getStatIcon(k);
+      h+='<div style="display:flex;align-items:center;gap:4px">';
+      h+=ico;
+      h+='<span style="font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--gold)">'+(val>0?'+':'')+val+'</span>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }
+
   h+='</div>';
 
   h+='<div class="stuffer-col">';
