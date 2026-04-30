@@ -879,102 +879,6 @@ function renderStuffer(){
 
   h+='<div class="stuffer-center">';
   h+=getClassIcon(p.classe);
-
-  // ── Bloc PA / PM / PO ──
-  var slots2=b.slots||{};
-  var totPA=7, totPM=3, totPO=0;
-  var exoTotals={};
-
-  // Parcourir TOUS les slots équipés (équipements + dofus)
-  var allSlotIds=SLOTS_LEFT.map(function(s){return s.id;})
-    .concat(SLOTS_RIGHT.map(function(s){return s.id;}))
-    .concat(DOFUS_SLOTS);
-
-  allSlotIds.forEach(function(sid){
-    var item=slots2[sid];
-    if(!item) return;
-    // Stats de l'item — on lit directement item.stats (copié depuis banque)
-    var rawStats=item.stats||{};
-    var rawExos=item.exos||{};
-    // Si bankRef, on relit aussi les exos depuis la banque (plus à jour)
-    if(item.bankRef!==undefined){
-      var bi=state.bank[item.bankRef];
-      if(bi){
-        rawStats=bi.stats||{};
-        rawExos=bi.exos||{};
-      }
-    }
-    // Cumuler PA/PM/PO depuis les stats
-    Object.keys(rawStats).forEach(function(k){
-      var v=parseInt(rawStats[k])||0;
-      if(k==='PA') totPA+=v;
-      else if(k==='PM') totPM+=v;
-      else if(k==='PO') totPO+=v;
-    });
-    // Cumuler PA/PM/PO depuis les exos aussi
-    Object.keys(rawExos).forEach(function(k){
-      var v=parseInt(rawExos[k])||0;
-      exoTotals[k]=(exoTotals[k]||0)+v;
-      if(k==='PA') totPA+=v;
-      else if(k==='PM') totPM+=v;
-      else if(k==='PO') totPO+=v;
-    });
-  });
-
-  // Bonus panoplies
-  var sets={};
-  Object.values(slots2).forEach(function(item){
-    if(!item||!item.setId) return;
-    if(!sets[item.setId]) sets[item.setId]={count:0,bonuses:item.setBonuses||{}};
-    sets[item.setId].count++;
-    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
-  });
-  Object.keys(sets).forEach(function(sid){
-    var s=sets[sid];
-    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
-    var activeBonus=null;
-    bonusKeys.forEach(function(t){ if(s.count>=t) activeBonus=s.bonuses[t]; });
-    if(!activeBonus) return;
-    activeBonus.split(', ').forEach(function(part){
-      var m=part.trim().match(/^([+-]?\d+)\s+(.+)$/);
-      if(m){
-        var v=parseInt(m[1]); var statName=m[2].trim();
-        if(statName==='PA') totPA+=v;
-        else if(statName==='PM') totPM+=v;
-        else if(statName==='PO') totPO+=v;
-      }
-    });
-  });
-
-  // Affichage PA/PM/PO
-  h+='<div style="display:flex;gap:16px;justify-content:center;align-items:center;margin-top:6px;background:var(--surface-glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;padding:6px 14px">';
-  ['PA','PM','PO'].forEach(function(stat){
-    var val=stat==='PA'?totPA:stat==='PM'?totPM:totPO;
-    var ico=getStatIcon(stat);
-    h+='<div style="display:flex;align-items:center;gap:5px">';
-    h+='<span style="font-family:Cinzel,serif;font-size:15px;font-weight:700;color:var(--text)">'+val+'</span>';
-    h+=ico;
-    h+='</div>';
-  });
-  h+='</div>';
-
-  // Bloc exos — avec fallback texte si pas d'icône
-  var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
-  if(exoKeys.length){
-    h+='<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:6px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:6px 14px">';
-    h+='<span style="font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Exos</span>';
-    exoKeys.forEach(function(k){
-      var val=exoTotals[k];
-      var icoHtml=getStatIcon(k);
-      var label=icoHtml||('<span style="font-size:9px;font-weight:700;color:var(--gold);white-space:nowrap">'+k+'</span>');
-      h+='<div style="display:flex;align-items:center;gap:3px">';
-      h+=label;
-      h+='<span style="font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--gold)">'+(val>0?'+':'')+val+'</span>';
-      h+='</div>';
-    });
-    h+='</div>';
-  }
-
   h+='</div>';
 
   h+='<div class="stuffer-col">';
@@ -1000,6 +904,100 @@ function renderStuffer(){
     h+='</div>';
   });
   h+='</div>';
+
+  // ── Calcul PA / PM / PO + exos ──
+  var slots2=b.slots||{};
+  var totPA=7, totPM=3, totPO=0;
+  var exoTotals={};
+
+  var allSlotIds=SLOTS_LEFT.map(function(s){return s.id;})
+    .concat(SLOTS_RIGHT.map(function(s){return s.id;}))
+    .concat(DOFUS_SLOTS);
+
+  allSlotIds.forEach(function(sid){
+    var item=slots2[sid];
+    if(!item) return;
+    var rawStats=item.stats||{};
+    var rawExos=item.exos||{};
+    if(item.bankRef!==undefined){
+      var bi=state.bank[item.bankRef];
+      if(bi){ rawStats=bi.stats||{}; rawExos=bi.exos||{}; }
+    }
+    Object.keys(rawStats).forEach(function(k){
+      var v=parseInt(rawStats[k])||0;
+      if(k==='PA') totPA+=v;
+      else if(k==='PM') totPM+=v;
+      else if(k==='PO') totPO+=v;
+    });
+    Object.keys(rawExos).forEach(function(k){
+      var v=parseInt(rawExos[k])||0;
+      exoTotals[k]=(exoTotals[k]||0)+v;
+      if(k==='PA') totPA+=v;
+      else if(k==='PM') totPM+=v;
+      else if(k==='PO') totPO+=v;
+    });
+  });
+
+  // Bonus panoplies — format "+1 PA" ou "1 PA"
+  var sets={};
+  Object.values(slots2).forEach(function(item){
+    if(!item||!item.setId) return;
+    if(!sets[item.setId]) sets[item.setId]={count:0,bonuses:item.setBonuses||{}};
+    sets[item.setId].count++;
+    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
+  });
+  Object.keys(sets).forEach(function(sid){
+    var s=sets[sid];
+    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
+    var activeBonus=null;
+    bonusKeys.forEach(function(t){ if(s.count>=t) activeBonus=s.bonuses[t]; });
+    if(!activeBonus) return;
+    // Parser chaque bonus : format "+1 PA" ou "1 PA" ou "-1 PA"
+    activeBonus.split(', ').forEach(function(part){
+      var trimmed=part.trim();
+      var m=trimmed.match(/^([+-]?\d+)\s+(.+)$/);
+      if(!m) m=trimmed.match(/^(\d+)\s+(.+)$/);
+      if(m){
+        var v=parseInt(m[1]);
+        var statName=m[2].trim();
+        if(!isNaN(v)){
+          if(statName==='PA') totPA+=v;
+          else if(statName==='PM') totPM+=v;
+          else if(statName==='PO') totPO+=v;
+        }
+      }
+    });
+  });
+
+  // ── BLOC 1 : PA / PM / PO ──
+  h+='<div style="display:flex;gap:16px;justify-content:center;align-items:center;margin:8px 0 0;background:var(--surface-glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px;padding:8px 16px">';
+  ['PA','PM','PO'].forEach(function(stat){
+    var val=stat==='PA'?totPA:stat==='PM'?totPM:totPO;
+    var ico=getStatIcon(stat);
+    h+='<div style="display:flex;align-items:center;gap:6px">';
+    h+='<span style="font-family:Cinzel,serif;font-size:16px;font-weight:700;color:var(--text)">'+val+'</span>';
+    h+=ico;
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // ── BLOC 2 : Exos ──
+  var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
+  if(exoKeys.length){
+    h+='<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 0;padding:8px 12px;background:var(--surface-glass);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:10px">';
+    h+='<span style="font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-right:4px">EXOS</span>';
+    exoKeys.forEach(function(k){
+      var val=exoTotals[k];
+      var ico=getStatIcon(k);
+      var sign=val>0?'+':'';
+      h+='<span class="stat-chip exo" style="display:inline-flex;align-items:center;gap:4px">';
+      if(ico) h+=ico;
+      else h+='<span style="font-size:9px">'+k+'</span>';
+      h+='<span>'+sign+val+'</span>';
+      h+='</span>';
+    });
+    h+='</div>';
+  }
 
   h+='</div>';
   document.getElementById('view-stuffer').innerHTML=h;
