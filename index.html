@@ -885,31 +885,36 @@ function renderStuffer(){
   var totPA=7, totPM=3, totPO=0;
   var exoTotals={};
 
-  // Parcourir tous les slots équipés
-  var allSlots2=SLOTS_LEFT.concat(SLOTS_RIGHT).concat(DOFUS_SLOTS.map(function(id){return {id:id};}));
-  Object.keys(slots2).forEach(function(sid){
+  // Parcourir TOUS les slots équipés (équipements + dofus)
+  var allSlotIds=SLOTS_LEFT.map(function(s){return s.id;})
+    .concat(SLOTS_RIGHT.map(function(s){return s.id;}))
+    .concat(DOFUS_SLOTS);
+
+  allSlotIds.forEach(function(sid){
     var item=slots2[sid];
     if(!item) return;
-    // Stats de l'item (depuis la banque si bankRef, sinon directement)
-    var rawStats={};
+    // Stats de l'item — on lit directement item.stats (copié depuis banque)
+    var rawStats=item.stats||{};
+    var rawExos=item.exos||{};
+    // Si bankRef, on relit aussi les exos depuis la banque (plus à jour)
     if(item.bankRef!==undefined){
       var bi=state.bank[item.bankRef];
       if(bi){
-        Object.assign(rawStats, bi.stats||{});
-        // Exos
-        Object.keys(bi.exos||{}).forEach(function(k){
-          exoTotals[k]=(exoTotals[k]||0)+(parseInt(bi.exos[k])||0);
-        });
+        rawStats=bi.stats||{};
+        rawExos=bi.exos||{};
       }
-    } else {
-      Object.assign(rawStats, item.stats||{});
-      Object.keys(item.exos||{}).forEach(function(k){
-        exoTotals[k]=(exoTotals[k]||0)+(parseInt(item.exos[k])||0);
-      });
     }
-    // Cumuler PA/PM/PO
+    // Cumuler PA/PM/PO depuis les stats
     Object.keys(rawStats).forEach(function(k){
       var v=parseInt(rawStats[k])||0;
+      if(k==='PA') totPA+=v;
+      else if(k==='PM') totPM+=v;
+      else if(k==='PO') totPO+=v;
+    });
+    // Cumuler PA/PM/PO depuis les exos aussi
+    Object.keys(rawExos).forEach(function(k){
+      var v=parseInt(rawExos[k])||0;
+      exoTotals[k]=(exoTotals[k]||0)+v;
       if(k==='PA') totPA+=v;
       else if(k==='PM') totPM+=v;
       else if(k==='PO') totPO+=v;
@@ -953,16 +958,17 @@ function renderStuffer(){
   });
   h+='</div>';
 
-  // Bloc exos
+  // Bloc exos — avec fallback texte si pas d'icône
   var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
   if(exoKeys.length){
-    h+='<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin-top:6px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:6px 14px">';
+    h+='<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:6px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:6px 14px">';
     h+='<span style="font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Exos</span>';
     exoKeys.forEach(function(k){
       var val=exoTotals[k];
-      var ico=getStatIcon(k);
-      h+='<div style="display:flex;align-items:center;gap:4px">';
-      h+=ico;
+      var icoHtml=getStatIcon(k);
+      var label=icoHtml||('<span style="font-size:9px;font-weight:700;color:var(--gold);white-space:nowrap">'+k+'</span>');
+      h+='<div style="display:flex;align-items:center;gap:3px">';
+      h+=label;
       h+='<span style="font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--gold)">'+(val>0?'+':'')+val+'</span>';
       h+='</div>';
     });
