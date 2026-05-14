@@ -339,8 +339,8 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .build-hdr-name{flex:1;background:rgba(255,255,255,0.18);border-radius:10px;padding:10px 14px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1px}
 .build-hdr-lvl{background:rgba(255,255,255,0.22);border-radius:10px;padding:10px 16px;font-family:'Cinzel',serif;font-size:15px;font-weight:700;min-width:60px;text-align:center}
 
-.build-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(124,92,191,0.06)}
-[data-theme="dark"] .build-card{background:var(--surface);border-color:var(--border)}
+.bpage-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(124,92,191,0.06);margin-bottom:12px}
+[data-theme="dark"] .bpage-card{background:var(--surface);border-color:var(--border)}
 .build-card-title{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 
 .build-section-title{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
@@ -414,6 +414,21 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .fm-val{font-family:'Cinzel',serif;font-weight:800;font-size:16px;color:var(--gold);min-width:40px}
 .fm-lbl{font-size:13px;color:var(--text);flex:1}
 
+/* ══ GRILLE ÉQUIPEMENTS 4 colonnes ══ */
+.eq-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.eq-slot4{position:relative;aspect-ratio:1;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s;overflow:hidden}
+.eq-slot4:hover{border-color:var(--gold);transform:scale(1.04)}
+.eq-slot4.active{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light)}
+.eq-slot4.filled{background:var(--surface)}
+.eq-slot4-empty{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:18px;line-height:1.2}
+.eq-slot4-lbl{font-size:8px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-align:center}
+.eq-slot4-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--surface)}
+.eq-slot4-tooltip{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.82);backdrop-filter:blur(4px);padding:5px 7px;border-radius:0 0 11px 11px}
+.eq-slot4:hover .eq-slot4-tooltip{display:block}
+.eq-slot4-tooltip-name{font-size:10px;color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eq-slot4-tooltip-src{font-size:9px;margin-top:1px}
+.eq-slot4-clear{position:absolute;top:4px;left:4px;background:rgba(224,92,110,0.85);border:none;border-radius:5px;color:#fff;font-size:10px;cursor:pointer;padding:1px 5px;display:none}
+.eq-slot4:hover .eq-slot4-clear{display:block}
 </style>
 
 </head>
@@ -1086,38 +1101,18 @@ function renderStuffer(){
   h+='<div class="build-hdr-lvl">'+(b.level||200)+'</div>';
   h+='</div>';
 
-  // ── GRILLE ÉQUIPEMENTS (slots autour avatar) ──
-  h+='<div class="build-card">';
-  h+='<div class="build-card-title">⚔️ Équipements</div>';
-
-  h+='<div class="stuffer-grid">';
-  h+='<div class="stuffer-col">';
-  SLOTS_LEFT.forEach(function(sl){ h+=renderSlot(sl, slots[sl.id]); });
-  h+='</div>';
-  h+='<div class="stuffer-col">';
-  SLOTS_RIGHT.forEach(function(sl){ h+=renderSlot(sl, slots[sl.id]); });
-  h+='</div>';
-  h+='</div>';
-
-  // Dofus row
-  h+='<div class="section-label" style="margin-top:10px">Dofus · Trophées · Prysmaradite</div>';
-  h+='<div class="dofus-row">';
-  DOFUS_SLOTS.forEach(function(id,i){
-    var item=slots[id];
-    var isActive=nav.activeSlot===id;
-    h+='<div class="dofus-slot '+(item?'filled':'')+(isActive?' active':'')+'" data-slotid="'+id+'" onclick="selectSlot(this.dataset.slotid)">';
-    if(item&&item.icon){
-      h+='<img src="'+item.icon+'" data-slotid="'+id+'" onerror="this.style.display=\'none\'" style="width:32px;height:32px;object-fit:contain">';
-    } else {
-      h+='<span style="font-size:20px">🥚</span>';
-    }
-    h+='<div class="dofus-lbl">'+(item?item.name:'Slot '+(i+1))+'</div>';
-    if(item) h+='<button class="dofus-clear" data-slotid="'+id+'" onclick="event.stopPropagation();clearSlot(this.dataset.slotid)">✕</button>';
-    if(item&&item.bankRef!==undefined) h+=renderDots(getItemDotFromBank(item.bankRef)).replace('slot-dot','dofus-dot');
-    h+='</div>';
+  // ── GRILLE ÉQUIPEMENTS 4 colonnes (style Dofusbook) ──
+  h+='<div class="bpage-card">';
+  h+='<div class="build-section-title"><span class="sec-line"></span><span>Équipements</span><span class="sec-line"></span></div>';
+  h+='<div class="eq-grid4">';
+  var ALL_SLOTS=SLOTS_LEFT.concat(SLOTS_RIGHT);
+  ALL_SLOTS.forEach(function(sl){
+    h+=renderSlotCompact(sl.id, sl.lbl, sl.ico, slots[sl.id]);
   });
-  h+='</div>';
-  h+='</div>'; // fin build-card équipements
+  DOFUS_SLOTS.forEach(function(id,i){
+    h+=renderSlotCompact(id, 'Dofus '+(i+1), '🥚', slots[id]);
+  });
+  h+='</div></div>';
 
   // ── TABS ──
   var tabs=[
@@ -1138,7 +1133,7 @@ function renderStuffer(){
   if(buildActiveTab==='stats'){
 
     // ─── Stats principales ───
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Stats principales</span><span class="sec-line"></span></div>';
 
     // Paires de stats (gauche / droite)
@@ -1161,10 +1156,11 @@ function renderStuffer(){
     h+='</div>';
 
     // ─── Caractéristiques (avec base/parcho) ───
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:8px;padding-right:4px">';
+    h+='<span class="carac-hdr-lbl" style="color:var(--gold)">+⚡</span>';
     h+='<span class="carac-hdr-lbl">Base</span>';
-    h+='<span class="carac-hdr-lbl">Parcho</span>';
+    h+='<span class="carac-hdr-lbl" style="color:var(--green)">Parcho</span>';
     h+='</div>';
     var caracList=[
       {k:'Vitalité',     invKey:'vita',    parchoKey:'parchoVita'},
@@ -1179,14 +1175,18 @@ function renderStuffer(){
       var v=totals[c.k]||0;
       var baseVal=c.invKey?(inv[c.invKey]||0):0;
       var parchoVal=c.parchoKey?(inv[c.parchoKey]||0):0;
+      // Bonus = pts investis + parcho (affiché en colonne +⚡)
+      var bonusVal=c.invKey?((inv[c.invKey]||0)+(inv[c.parchoKey]||0)):0;
       h+='<div class="carac-row">';
       h+='<span class="carac-ico">'+getStatIcon(c.k)+'</span>';
       h+='<span class="carac-val">'+v+'</span>';
       h+='<span class="carac-lbl">'+c.k+'</span>';
       if(c.invKey){
-        h+='<input class="carac-input base" data-key="'+c.invKey+'" value="'+baseVal+'" onchange="setInvested(this)">';
-        h+='<input class="carac-input parcho" data-key="'+c.parchoKey+'" value="'+parchoVal+'" onchange="setInvested(this)" min="0" max="100">';
+        h+='<span style="width:44px;text-align:center;font-size:13px;font-weight:700;color:var(--gold)">'+(bonusVal>0?bonusVal:'')+'</span>';
+        h+='<input class="carac-input base" type="number" min="0" data-key="'+c.invKey+'" value="'+baseVal+'" onchange="setInvested(this)">';
+        h+='<input class="carac-input parcho" type="number" min="0" max="100" data-key="'+c.parchoKey+'" value="'+parchoVal+'" onchange="setInvested(this)">';
       } else {
+        h+='<span style="width:44px"></span>';
         h+='<span style="width:44px"></span>';
         h+='<span style="width:44px"></span>';
       }
@@ -1195,7 +1195,7 @@ function renderStuffer(){
     h+='</div>';
 
     // ─── Secondaires ───
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Secondaires</span><span class="sec-line"></span></div>';
     var secStats=['Fuite','Tacle','Esq. PA','Ret. PA','Esq. PM','Ret. PM','Pods'];
     h+='<div class="stat-grid">';
@@ -1209,7 +1209,7 @@ function renderStuffer(){
     h+='</div></div>';
 
     // ─── Dommages ───
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Dommages</span><span class="sec-line"></span></div>';
     var dmgStats=['Do Neutre','Do Critique','Do Terre','Do Poussée','Do Feu','% Do Armes','Do Eau','% Do Sorts','Do Air','% Do Mélée','% Do Dist'];
     h+='<div class="stat-grid">';
@@ -1223,7 +1223,7 @@ function renderStuffer(){
     h+='</div></div>';
 
     // ─── Résistances ───
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Résistances</span><span class="sec-line"></span></div>';
     var resPairs=[
       ['Ré Neutre','% Ré Neutre'],
@@ -1246,7 +1246,7 @@ function renderStuffer(){
     // ─── Exos ───
     var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
     if(exoKeys.length){
-      h+='<div class="build-card">';
+      h+='<div class="bpage-card">';
       h+='<div class="build-section-title"><span class="sec-line"></span><span>Exo / Over des items</span><span class="sec-line"></span></div>';
       h+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
       exoKeys.forEach(function(k){
@@ -1264,7 +1264,7 @@ function renderStuffer(){
 
     // ─── Notes ───
     var notes=b.notes||'';
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Résumé du stuff</span><span class="sec-line"></span></div>';
     h+='<textarea class="build-notes" maxlength="255" placeholder="Ajoute ici quelques notes ou informations sur ce stuff…" oninput="setBuildNotes(this.value)">'+notes.replace(/</g,'&lt;')+'</textarea>';
     h+='<div class="build-notes-count" id="buildNotesCount">'+notes.length+' / 255</div>';
@@ -1325,7 +1325,7 @@ function renderStuffer(){
   // TAB FM (Forgemagie)
   // ═══════════════════════════════════════════
   if(buildActiveTab==='fm'){
-    h+='<div class="build-card">';
+    h+='<div class="bpage-card">';
     h+='<div class="build-section-title"><span class="sec-line"></span><span>Forgemagie globale</span><span class="sec-line"></span></div>';
     // Récap exos cumulés en forme FM
     var exoKeys2=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
@@ -1379,6 +1379,39 @@ function statItemHTML(key, value, aliasLabel, showBonus){
 }
 
 // ── Rendu d'un slot ──
+
+// Slot compact pour la grille 4 colonnes style Dofusbook
+function renderSlotCompact(slotId, lbl, ico, item){
+  var isActive=nav.activeSlot===slotId;
+  var dotInfo=item&&item.bankRef!==undefined?getItemDotFromBank(item.bankRef):null;
+  var src=item?getItemSource(item):null;
+
+  var h='<div class="eq-slot4'+(item?' filled':'')+(isActive?' active':'')+'" data-slotid="'+slotId+'" onclick="selectSlot(this.dataset.slotid)">';
+
+  if(item&&item.icon){
+    h+='<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=\'none\'" style="width:75%;height:75%;object-fit:contain">';
+  } else {
+    h+='<span class="eq-slot4-empty">'+ico+'<br><span class="eq-slot4-lbl">'+lbl+'</span></span>';
+  }
+
+  // Pastille compte (point coloré en haut à droite)
+  if(dotInfo){
+    var dotColor=dotInfo.wrongCompte?'var(--red)':dotInfo.usage>1?'var(--gold)':'var(--green)';
+    h+='<span class="eq-slot4-dot" style="background:'+dotColor+'"></span>';
+  }
+
+  // Tooltip au hover : nom + compte
+  if(item){
+    h+='<div class="eq-slot4-tooltip">';
+    h+='<div class="eq-slot4-tooltip-name">'+item.name+'</div>';
+    if(src) h+='<div class="eq-slot4-tooltip-src" style="color:var(--green)">'+src.label+'</div>';
+    h+='<button class="eq-slot4-clear" onclick="event.stopPropagation();clearSlot(\''+slotId+'\')">✕</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  return h;
+}
 
 function renderSlot(sl, item){
   var isActive=nav.activeSlot===sl.id;
