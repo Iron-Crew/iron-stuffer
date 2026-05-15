@@ -403,9 +403,8 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .panoplie-item-lbl{font-size:10px;color:var(--text-dim);text-align:center}
 .panoplie-bonus-hdr{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}
 .panoplie-bonus-count{background:var(--gold);color:#fff;border-radius:8px;padding:2px 10px;font-size:12px;font-weight:800}
-.panoplie-bonus-list{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}
-@media(max-width:480px){.panoplie-bonus-list{grid-template-columns:1fr}}
-.panoplie-bonus-item{font-size:12px;color:var(--text);display:flex;align-items:center;gap:6px}
+.panoplie-bonus-list{display:flex;flex-direction:column;gap:6px}
+.panoplie-bonus-item{font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;text-align:left}
 .panoplie-bonus-item .dot{width:5px;height:5px;border-radius:50%;background:var(--gold2);flex-shrink:0}
 
 /* FM row */
@@ -943,6 +942,7 @@ function normalizeStatName(k){
     'Dommage Air':'Do Air','Dommages Air':'Do Air',
     'Dommage Neutre':'Do Neutre','Dommages Neutre':'Do Neutre',
     'Dommage Poussée':'Do Poussée','Dommages Poussée':'Do Poussée',
+    'Dommages':'Do Neutre Pur','Dommage':'Do Neutre Pur',
     'Retrait PA':'Ret. PA','Retrait PM':'Ret. PM','Esquive PM':'Esq. PM','Esquive PA':'Esq. PA',
     'Résistance Critiques':'Ré Critique','Résistance Critique':'Ré Critique',
     'Résistance Poussée':'Ré Poussée',
@@ -1088,6 +1088,13 @@ function renderStuffer(){
     totals['Agilité']=(totals['Agilité']||0)+(inv.agi||0)+(inv.parchoAgi||0);
   }
   totals['PdV']=1050+(totals['Vitalité']||0);
+  // Dommages purs s'ajoutent aux 5 éléments
+  var doPur=totals['Do Neutre Pur']||0;
+  if(doPur){
+    ['Do Feu','Do Terre','Do Eau','Do Air','Do Neutre'].forEach(function(k){
+      totals[k]=(totals[k]||0)+doPur;
+    });
+  }
   window._lastTotals=totals;
 
   // ═══════════════════════════════════════════
@@ -1162,6 +1169,9 @@ function renderStuffer(){
     h+='<span class="carac-hdr-lbl">Base</span>';
     h+='<span class="carac-hdr-lbl" style="color:var(--green)">Parcho</span>';
     h+='</div>';
+    var puissance=totals['Puissance']||0;
+    // Puissance s'ajoute uniquement à Force, Intelligence, Chance, Agilité
+    var puissanceStats=['Force','Intelligence','Chance','Agilité'];
     var caracList=[
       {k:'Vitalité',     invKey:'vita',    parchoKey:'parchoVita'},
       {k:'Sagesse',      invKey:'sagesse', parchoKey:'parchoSage'},
@@ -1175,8 +1185,9 @@ function renderStuffer(){
       var v=totals[c.k]||0;
       var baseVal=c.invKey?(inv[c.invKey]||0):0;
       var parchoVal=c.parchoKey?(inv[c.parchoKey]||0):0;
-      // Bonus = pts investis + parcho (affiché en colonne +⚡)
-      var bonusVal=c.invKey?((inv[c.invKey]||0)+(inv[c.parchoKey]||0)):0;
+      var hasPuissance=puissanceStats.indexOf(c.k)>=0;
+      // +⚡ = pts investis + parcho + puissance si stat éligible
+      var bonusVal=c.invKey?((inv[c.invKey]||0)+(inv[c.parchoKey]||0)+(hasPuissance?puissance:0)):0;
       h+='<div class="carac-row">';
       h+='<span class="carac-ico">'+getStatIcon(c.k)+'</span>';
       h+='<span class="carac-val">'+v+'</span>';
@@ -1311,8 +1322,8 @@ function renderStuffer(){
           h+='<div class="sec-line"></div>';
           h+='</div>';
           h+='<div class="panoplie-bonus-list">';
-          s.activeBonusText.split(', ').forEach(function(b){
-            h+='<div class="panoplie-bonus-item"><div class="dot"></div>'+b+'</div>';
+          s.activeBonusText.split(', ').forEach(function(bonus){
+            h+='<div class="panoplie-bonus-item"><div class="dot"></div>'+bonus+'</div>';
           });
           h+='</div>';
         }
