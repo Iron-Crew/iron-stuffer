@@ -325,9 +325,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-table{border-collapse:collapse;min-width:100%;font-size:11px}
 .dofus-table th,.dofus-table td{white-space:nowrap}
 .dofus-th-name{position:sticky;left:0;z-index:3;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
-.dofus-th-dofus{padding:4px 3px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);font-family:'Rajdhani',sans-serif;font-size:8px;font-weight:700;color:var(--text-dim);letter-spacing:0.5px;text-transform:uppercase;width:34px;max-width:34px}
-.dofus-th-dofus span{display:block;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);max-height:70px;overflow:hidden;padding:2px 0}
-.dofus-th-dofus.special-col span{opacity:0.5}
+.dofus-th-dofus{padding:3px 2px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:50px;max-width:50px;vertical-align:middle}
+.dofus-th-dofus img{width:38px;height:38px;object-fit:contain;display:block;margin:3px auto;border-radius:4px}
+.dofus-th-dofus.special-col img{opacity:0.5}
 .dofus-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
 .dofus-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:4px 8px;min-width:120px}
 .dofus-td-name-inner{display:flex;align-items:center;gap:6px}
@@ -678,35 +678,35 @@ var DOFUS_TYPES = ['Dofus','Trophée','Prysmaradite'];
 
 // ── 29 Dofus à tracker ──
 var DOFUS_TRACKER_LIST = [
-  {id:'dofawa',       name:'Dofawa'},
-  {id:'argente',      name:'Argenté'},
-  {id:'cawotte',      name:'Cawotte'},
-  {id:'dokoko',       name:'Dokoko'},
-  {id:'veilleurs',    name:'Veilleurs'},
-  {id:'emeraude',     name:'Émeraude'},
-  {id:'pourpre',      name:'Pourpre'},
-  {id:'domakuro',     name:'Domakuro'},
-  {id:'dorigami',     name:'Dorigami'},
-  {id:'glaces',       name:'Glaces'},
-  {id:'vulbis',       name:'Vulbis'},
-  {id:'turquoise',    name:'Turquoise'},
-  {id:'ocre',         name:'Ocre'},
-  {id:'abyssal',      name:'Abyssal'},
-  {id:'tachete',      name:'Taché'},
-  {id:'nebuleux',     name:'Nébuleux'},
-  {id:'forgelave',    name:'Forgelave'},
-  {id:'cauchemar',    name:'Cauchemar'},
-  {id:'ivoire',       name:'Ivoire'},
-  {id:'ebene',        name:'Ébène'},
-  {id:'argentescint', name:'Arg. Scint.'},
-  {id:'domdepin',     name:'Dom de Pin', special:true},
-  {id:'sylvestre',    name:'Sylvestre'},
-  {id:'ozboz',        name:'Ozboz'},
-  {id:'dolmanax',     name:'Dolmanax'},
-  {id:'kaliptus',     name:'Kaliptus'},
-  {id:'dotruche',     name:'Dotruche'},
-  {id:'dokille',      name:'Dokille'},
-  {id:'cacao',        name:'Cacao'}
+  {id:'dofawa',       name:'Dofawa',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23009-64.png'},
+  {id:'argente',      name:'Argenté',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23025-64.png'},
+  {id:'cawotte',      name:'Cawotte',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23006-64.png'},
+  {id:'dokoko',       name:'Dokoko',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23022-64.png'},
+  {id:'veilleurs',    name:'Veilleurs',       icon:'https://api.dofusdu.de/dofus3/v1/img/item/23020-64.png'},
+  {id:'emeraude',     name:'Émeraude',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23002-64.png'},
+  {id:'pourpre',      name:'Pourpre',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23001-64.png'},
+  {id:'domakuro',     name:'Domakuro',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23032-64.png'},
+  {id:'dorigami',     name:'Dorigami',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23033-64.png'},
+  {id:'glaces',       name:'Glaces',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23005-64.png'},
+  {id:'vulbis',       name:'Vulbis',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23004-64.png'},
+  {id:'turquoise',    name:'Turquoise',       icon:'https://api.dofusdu.de/dofus3/v1/img/item/23003-64.png'},
+  {id:'ocre',         name:'Ocre',            icon:'https://api.dofusdu.de/dofus3/v1/img/item/23012-64.png'},
+  {id:'abyssal',      name:'Abyssal',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23023-64.png'},
+  {id:'tachete',      name:'Tacheté',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23008-64.png'},
+  {id:'nebuleux',     name:'Nébuleux',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23016-64.png'},
+  {id:'forgelave',    name:'Forgelave',       icon:'https://api.dofusdu.de/dofus3/v1/img/item/23024-64.png'},
+  {id:'cauchemar',    name:'Cauchemar',       icon:'https://api.dofusdu.de/dofus3/v1/img/item/23034-64.png'},
+  {id:'ivoire',       name:'Ivoire',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23011-64.png'},
+  {id:'ebene',        name:'Ébène',           icon:'https://api.dofusdu.de/dofus3/v1/img/item/23007-64.png'},
+  {id:'argentescint', name:'Arg. Scint.',     icon:'https://api.dofusdu.de/dofus3/v1/img/item/23027-64.png'},
+  {id:'domdepin',     name:'Dom de Pin',      icon:'https://api.dofusdu.de/dofus3/v1/img/item/23035-64.png', special:true},
+  {id:'sylvestre',    name:'Sylvestre',       icon:'https://api.dofusdu.de/dofus3/v1/img/item/23036-64.png'},
+  {id:'ozboz',        name:'Dofoozbz',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23039-64.png'},
+  {id:'dolmanax',     name:'Dolmanax',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23018-64.png'},
+  {id:'kaliptus',     name:'Kaliptus',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23010-64.png'},
+  {id:'dotruche',     name:'Dotruche',        icon:'https://api.dofusdu.de/dofus3/v1/img/item/23019-64.png'},
+  {id:'dokille',      name:'Dokille',         icon:'https://api.dofusdu.de/dofus3/v1/img/item/23017-64.png'},
+  {id:'cacao',        name:'Cacao',           icon:'https://api.dofusdu.de/dofus3/v1/img/item/23029-64.png'}
 ];
 
 var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do Mélée',
@@ -3077,7 +3077,8 @@ function renderDofusTab(){
   h+='<th class="dofus-th-name">Personnage</th>';
   DOFUS_TRACKER_LIST.forEach(function(df){
     var sc=df.special?' special-col':'';
-    h+='<th class="dofus-th-dofus'+sc+'"><span>'+df.name+'</span></th>';
+    var ico=df.icon?'<img src="'+df.icon+'" alt="'+df.name+'" onerror="this.style.opacity=0.2">':'<span>'+df.name+'</span>';
+    h+='<th class="dofus-th-dofus'+sc+'" title="'+df.name+'">'+ico+'</th>';
   });
   h+='</tr></thead><tbody>';
   COMPTES.forEach(function(c){
