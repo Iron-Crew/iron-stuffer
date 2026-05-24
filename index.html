@@ -308,7 +308,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 /* Tableau multi-colonnes tracking */
 .tracking-row{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:8px;transition:background var(--t-fast)}
 .tracking-row:hover{background:var(--bg2)}
-.tracking-header{position:sticky;top:0;z-index:10;padding:6px 6px 4px;border-bottom:2px solid var(--border);margin-bottom:4px;background:var(--bg2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tracking-header{position:sticky;top:60px;z-index:10;padding:6px 6px 4px;border-bottom:2px solid var(--border);margin-bottom:4px;background:var(--bg2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tracking-cell-name{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .tracking-cell-col{width:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex-shrink:0;font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;gap:3px}
 .tracking-col-ico{width:18px;height:18px;object-fit:contain}
@@ -324,8 +324,8 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
 .dofus-table{border-collapse:collapse;min-width:100%;font-size:11px}
 .dofus-table th,.dofus-table td{white-space:nowrap}
-.dofus-th-name{position:sticky;left:0;top:0;z-index:4;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
-.dofus-th-dofus{position:sticky;top:0;z-index:2;padding:3px 2px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:50px;max-width:50px;vertical-align:middle}
+.dofus-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
+.dofus-th-dofus{position:sticky;top:0;z-index:10;padding:3px 2px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:50px;max-width:50px;vertical-align:middle}
 .dofus-th-dofus img{width:38px;height:38px;object-fit:contain;display:block;margin:3px auto;border-radius:4px}
 .dofus-th-dofus.special-col img{opacity:0.5}
 .dofus-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
