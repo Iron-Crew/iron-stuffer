@@ -516,7 +516,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
       Tracking
     </button>
     <button class="bnav-btn" id="nav-dofus" onclick="showView('dofus')">
-      <span class="ico" id="ico-dofus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:24px;height:24px;fill:currentColor"><ellipse cx="256" cy="256" rx="110" ry="170" fill="none" stroke="currentColor" stroke-width="36"/><ellipse cx="256" cy="256" rx="200" ry="200" fill="none" stroke="currentColor" stroke-width="36"/><line x1="256" y1="56" x2="256" y2="86" stroke="currentColor" stroke-width="36" stroke-linecap="round"/></svg></span>
+      <span class="ico" id="ico-dofus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:24px;height:24px;fill:currentColor"><path d="M256 32C160 32 96 192 96 320c0 64 32 160 160 160s160-96 160-160c0-128-64-288-160-288zm74.1 89.2 11.8 13.6-53 46.7 8.8 14.6c31.1 34.3 62.9 65.8 97.4 96.4l-12 13.4-19.6-17.3-25.7 114.6-17.6-4 16.4-73c-46.8-15-93.2-31.5-140.1-46.3-3.9 1.6-8 2.9-12 4.3l-6.7 36.6 51 31.9-9.6 15.2-44.9-28.1-5.4 29.8-17.8-3.2 13.8-75.4-33.9 11.8-6-17 63.7-22.2 21.6-9.3 70.9-50.9-32.9-54.8 15.4-9.2 15.8 26.4 50.6-44.6zM288 236.5c-22.1.2-37.7 13-44.6 42.7 47.1 16.7 71.4-.2 84.5-33.4-14.9-6.2-28.3-9.5-39.9-9.3zm-6 6.9a10.24 10.37 0 0 0-1.1 4.8 10.24 10.37 0 0 0 10.2 10.4 10.24 10.37 0 0 0 9.6-6.8 18.38 17.35 0 0 1 2.5 8.7 18.38 17.35 0 0 1-18.4 17.3 18.38 17.35 0 0 1-18.3-17.3 18.38 17.35 0 0 1 15.5-17.1z"/></svg></span>
       Dofus
     </button>
   </div>
@@ -2857,6 +2857,8 @@ var KAMAS_ICO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAvCAYAAAClg
 
 var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
+  var CHASSE_ARME_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/78059-64.png';
+  var CHASSEUR200_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/20014-64.png';
 
 function getTrackingState(){
   if(!state.tracking) state.tracking={};
@@ -2993,6 +2995,8 @@ function renderTracking(){
   h+='<div class="tracking-cell-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
   h+='<div class="tracking-cell-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
   h+='<div class="tracking-cell-col" title="Parangon"><img src="'+PARANGON_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
+  h+='<div class="tracking-cell-col" title="Arme de chasse"><img src="'+CHASSE_ARME_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
+  h+='<div class="tracking-cell-col" title="Chasseur 200"><img src="'+CHASSEUR200_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
   h+='</div>';
 
   // Lignes persos
@@ -3002,6 +3006,8 @@ function renderTracking(){
       var vj=t.justicier[p.id]||0;
       var vp=(t.parcho&&t.parcho[p.id])||0;
       var vpar=(t.parangon&&t.parangon[p.id])||0;
+      var vca=(t.armeChasse&&t.armeChasse[p.id])||0;
+      var vc200=(t.chasseur200&&t.chasseur200[p.id])||0;
 
       var jClass='tracking-check'+(vj===1?' state2':'');
       var jIcon=vj===1?'✓':'';
@@ -3011,6 +3017,12 @@ function renderTracking(){
 
       var parClass='tracking-check'+(vpar===1?' state1':vpar===2?' state2':vpar===3?' state3':'');
       var parIcon=vpar===1?'●':vpar===2?'✓':vpar===3?'✕':'';
+
+      var caClass='tracking-check'+(vca===1?' state2':'');
+      var caIcon=vca===1?'✓':'';
+
+      var c200Class='tracking-check'+(vc200===1?' state2':'');
+      var c200Icon=vc200===1?'✓':'';
 
       h+='<div class="tracking-row">';
       // Nom + emoji classe
@@ -3028,6 +3040,10 @@ function renderTracking(){
       h+='<div class="tracking-cell-col"><div class="'+pClass+'" data-ppid="'+p.id+'" onclick="cycleParcho(this.dataset.ppid)">'+pIcon+'</div></div>';
       // Parangon
       h+='<div class="tracking-cell-col"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></div>';
+      // Arme de chasse
+      h+='<div class="tracking-cell-col"><div class="'+caClass+'" data-acpid="'+p.id+'" onclick="cycleArmeChasse(this.dataset.acpid)">'+caIcon+'</div></div>';
+      // Chasseur 200
+      h+='<div class="tracking-cell-col"><div class="'+c200Class+'" data-c200pid="'+p.id+'" onclick="cycleChasseur200(this.dataset.c200pid)">'+c200Icon+'</div></div>';
       h+='</div>';
     });
   });
@@ -3045,6 +3061,26 @@ function renderTracking(){
 function getDofusTrackerState(){
   if(!state.dofusTracker) state.dofusTracker={};
   return state.dofusTracker;
+}
+
+function cycleArmeChasse(pid){
+  var t=getTrackingState();
+  if(!t.armeChasse) t.armeChasse={};
+  var cur=t.armeChasse[pid]||0;
+  t.armeChasse[pid]=(cur+1)%2;
+  saveState();
+  var btn=document.querySelector('[data-acpid="'+pid+'"]');
+  if(btn){ var v=t.armeChasse[pid]; btn.className='tracking-check'+(v===1?' state2':''); btn.textContent=v===1?'✓':''; }
+}
+
+function cycleChasseur200(pid){
+  var t=getTrackingState();
+  if(!t.chasseur200) t.chasseur200={};
+  var cur=t.chasseur200[pid]||0;
+  t.chasseur200[pid]=(cur+1)%2;
+  saveState();
+  var btn=document.querySelector('[data-c200pid="'+pid+'"]');
+  if(btn){ var v=t.chasseur200[pid]; btn.className='tracking-check'+(v===1?' state2':''); btn.textContent=v===1?'✓':''; }
 }
 
 function cycleDofusCell(pid, dofusId){
