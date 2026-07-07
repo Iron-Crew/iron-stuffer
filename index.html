@@ -95,30 +95,26 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 
 /* ── STATS COMPACTES (banque/overlay) ── */
 .stat-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--bg2)}
-.stat-chip.pos{color:var(--green)}
-.stat-chip.neg{color:var(--red)}
 .stat-chip.exo{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
-.stat-chip.over-chip{background:rgba(124,92,191,0.15);border:1px solid var(--gold-border);color:var(--gold);font-weight:700}
 
 /* ── BANQUE ── */
 .bank-header{padding:16px;display:flex;align-items:center;justify-content:space-between}
 .bank-add-btn{background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all var(--t-fast)}
 .bank-add-btn:hover{background:rgba(124,92,191,0.18);transform:translateY(-1px)}
 .bank-filters{display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto}
-.bank-list{display:flex;flex-direction:column;gap:8px;padding:0 12px 12px}
-.bank-item{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:12px;display:flex;gap:10px;align-items:flex-start;box-shadow:var(--shadow-card);transition:box-shadow var(--t-fast)}
-.bank-item:hover{box-shadow:var(--shadow-hover)}
-.bank-item-ico{width:44px;height:44px;object-fit:contain;border-radius:8px;background:var(--bg2);border:1px solid var(--border);flex-shrink:0}
-.bank-item-body{flex:1;min-width:0}
-.bank-item-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;letter-spacing:0.3px}
-.bank-item-meta{font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1.5px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.bank-item-stats{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px}
-.bank-item-actions{display:flex;gap:6px;margin-top:8px}
-.bank-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all var(--t-fast)}
-.bank-btn:hover{border-color:var(--gold);color:var(--gold)}
-.bank-btn.primary{background:var(--gold-light);border-color:var(--gold-border);color:var(--gold)}
-.bank-btn.danger{background:#fff0ee;border-color:#fccbc7;color:var(--red)}
-[data-theme="dark"] .bank-btn.danger{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.35)}
+.bank-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:0 12px 12px}
+#bankSentinel{grid-column:1/-1}
+.bank-card{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-card);transition:box-shadow var(--t-fast),transform var(--t-fast);position:relative}
+.bank-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.bank-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.bank-card-ico{width:40px;height:40px;object-fit:contain;border-radius:8px;background:var(--bg2);border:1px solid var(--border);flex-shrink:0}
+.bank-card-actions{display:flex;gap:3px}
+.bank-card-actions button{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);padding:0}
+.bank-card-actions button:hover{border-color:var(--gold);color:var(--gold)}
+.bank-card-name{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--text);letter-spacing:0.2px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bank-card-type{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.bank-card-exos{display:flex;flex-wrap:wrap;gap:3px}
+.bank-card-compte{margin-top:auto;padding-top:4px;font-size:9px;color:var(--gold);font-weight:700;letter-spacing:0.5px;border-top:1px solid var(--gold-light)}
 
 /* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
@@ -133,8 +129,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .modal-item-preview-type{font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1.5px}
 .modal-section-title{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
 .stat-edit-grid{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.stat-edit-row{display:flex;align-items:center;gap:8px;background:var(--bg2);border-radius:8px;padding:6px 10px}
-.stat-edit-name{font-size:12px;font-weight:700;color:var(--text);flex:1}
 .stat-edit-input{width:70px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:13px;font-weight:700;color:var(--gold);text-align:right;font-family:'Cinzel',serif}
 .exo-row{background:var(--gold-light);border:1px solid var(--gold-border);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:8px}
 .exo-name{font-size:12px;font-weight:700;color:var(--gold);flex:1}
@@ -170,7 +164,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:rgba(15,8,32,0.97);color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;border:1px solid var(--gold-border);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{opacity:1}
 .section-label{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:12px 12px 4px}
-.stat-chip.over-chip{background:rgba(124,92,191,0.15);border:1px solid var(--gold-border);color:var(--gold);font-weight:700}
 
 /* ── TRACKING ── */
 .tracking-section{padding:12px}
@@ -372,14 +365,14 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- VUE BANQUE -->
-  <div class="view active" id="view-bank"></div>
-
   <!-- VUE TRACKING -->
-  <div class="view" id="view-tracking"></div>
+  <div class="view active" id="view-tracking"></div>
 
   <!-- VUE DOFUS -->
   <div class="view" id="view-dofus"></div>
+
+  <!-- VUE BANQUE -->
+  <div class="view" id="view-bank"></div>
 
 </div>
 
@@ -387,17 +380,17 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 <div class="bottom-nav">
   <div class="bnav-inner" id="bnavInner">
     <div class="bnav-pill" id="bnavPill"></div>
-    <button class="bnav-btn active" id="nav-bank" onclick="showView('bank')">
-      <span class="ico" id="ico-bank"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTE0Ni44NTcgMjAuODQyYy0xMi41MzUtLjAzNi0yNC4yNjggMi44Ni0zNy4yODUgOS40MjRoLjAwNEM2MS4zNTYgNTQuNiAxOS45NjYgMTIwLjczNCAxNy45ODIgMTc1LjkxbDQxLjg0OCAxNC4yMzZjNC4zMy02MS44OSA0Ny4wNTctMTI4LjM3IDEwMS41MjctMTU1Ljg2aC4wMDJhMTMzLjY1MiAxMzMuNjUyIDAgMCAxIDEzLjE4NS01LjhsLTIyLjI2LTcuNDVhODMuNjg3IDgzLjY4NyAwIDAgMC01LjQyOC0uMTk0em01OS4zNCAyMC4xOWMtMTAuNDc4LS4wOS0yMi44MzIgMy4wOTMtMzYuNDI0IDkuOTQzbC4wMDQtLjAwNGMtNDguMjMgMjQuMzQtODkuNjI1IDkwLjUxMy05MS41NDggMTQ1LjQzNmwxNTYuNDg1IDUzLjI0YzMuODY1LTYyLjIyIDQ2Ljc5Ny0xMjkuMzcyIDEwMS42MTMtMTU3LjAzNWguMDAybC4wMDItLjAwM2ExMzQuMzk5IDEzNC4zOTkgMCAwIDEgMTIuODMyLTUuNjY2bC0xMzQuNTQtNDUuMDM2YTQzLjkwNSA0My45MDUgMCAwIDAtOC40MjctLjg3M3ptMTc0Ljk3IDU4LjMyM2MtMTAuNDc2LS4wOS0yMi44MyAzLjA5Mi0zNi40MiA5Ljk0bC0uMDA1LjAwMmMtNDguNTc3IDI0LjUxOC05MC4yMjUgOTEuNDczLTkxLjU4NiAxNDYuNjIzbDQ2LjIwNSAxNS43MmMzLjkxNC02Mi4xODggNDYuODI1LTEyOS4yNzQgMTAxLjYwNy0xNTYuOTJhMTI4LjU4OCAxMjguNTg4IDAgMCAxIDEzLjUzLTUuOTFsLTI2LjU0NC04Ljg4NGE0NC43ODggNDQuNzg4IDAgMCAwLTYuNzg1LS41N3ptNjMuNTU0IDIyLjAxNGMtMTAuMjY3LjA5My0yMi4wOTQgMy4zNTMtMzUuMzMzIDEwLjAzNC00Ny4xNTggMjMuOC04Ny43NzcgODcuNTg3LTkxLjM2MiAxNDEuNzVsMTc0LjU1LTczLjcyNmMtLjQwNC0zOS4wMS0xMC43NTQtNjEuMzA0LTI0LjQxNS03MS4wODJhMzYuMDU3IDM2LjA1NyAwIDAgMC03LjU1LTQuMTM3bC0uMDEuMDM0LTQuNzM1LTEuNTg0Yy0zLjQ4LS44ODctNy4xOTUtMS4zMjctMTEuMTQ0LTEuMjl6TTE3LjkgMTk1LjYyMmwtLjAzNSAxODcuNDg0TDU5LjQ2IDM5Ny41OFYyMDkuNzY0bC00MS41Ni0xNC4xNHptNjAuMjUgMjAuNDk4djE4Ny45NjJsMTU2LjI4MiA1NC4zN1YyNjkuMjg4bC0yOS4wNTMtOS44ODZ2MTE5LjQzTDEwNC4zMjUgMzQ0Ljc1VjIyNS4wMjVMNzguMTUgMjE2LjEyem00MTQuMjIgMy42ODNMMzE4LjQzMyAyOTMuMjd2MTg5LjIzNmwxNzMuOTM1LTczLjUwNHYtMTg5LjJ6bS0zNjkuMzU0IDExLjU4MnY5OS45NDdsNjMuNjc1IDIxLjQ3N3YtOTkuNzYzbC02My42NzQtMjEuNjYyem0zMS4zMDYgMjguNzk3YzkuNzA1IDAgMTcuNTczIDcuODY3IDE3LjU3MyAxNy41NzIgMCA2LjM0LTMuMzcgMTEuODgtOC40MDcgMTQuOTd2MjguNTNoLTE4LjY5di0yOC43NDZjLTQuODM4LTMuMTMtOC4wNDgtOC41NjItOC4wNDgtMTQuNzU0IDAtOS43MDUgNy44NjctMTcuNTcyIDE3LjU3Mi0xNy41NzJ6bTk4Ljc5NyAxNS40NjR2MTg5LjMwN2w0Ni42MjYgMTYuMjJWMjkxLjUxbC00Ni42MjctMTUuODY0eiIgZmlsbD0iIzdjNWNiZiIgZmlsbC1vcGFjaXR5PSIxIj48L3BhdGg+PC9nPjwvc3ZnPg==" style="width:24px;height:24px;object-fit:contain"></span>
-      Banque
-    </button>
-    <button class="bnav-btn" id="nav-tracking" onclick="showView('tracking')">
+    <button class="bnav-btn active" id="nav-tracking" onclick="showView('tracking')">
       <span class="ico" id="ico-tracking"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTEwOS4yODUgMzAuNDAyYy0xNC44Mi0uMDA3LTMwLjQxNCAyLjE0NC00Ni44MjIgNi45MzJhOS41IDkuNSAwIDAgMC0uMTQ1LjA1IDkuNSA5LjUgMCAwIDAtLjQ5Ni4xNzMgOS41IDkuNSAwIDAgMC0uMzkuMTUyIDkuNSA5LjUgMCAwIDAtLjQ3LjIxOCA5LjUgOS41IDAgMCAwLS4zODQuMTkzIDkuNSA5LjUgMCAwIDAtLjQ2My4yNzMgOS41IDkuNSAwIDAgMC0uMzQyLjIyIDkuNSA5LjUgMCAwIDAtLjQzNS4zMiA5LjUgOS41IDAgMCAwLS4zMjQuMjU2IDkuNSA5LjUgMCAwIDAtLjM5Ny4zNTcgOS41IDkuNSAwIDAgMC0uMjk3LjI5IDkuNSA5LjUgMCAwIDAtLjM3LjQwNSA5LjUgOS41IDAgMCAwLS4yNDcuMjkzIDkuNSA5LjUgMCAwIDAtLjM0Mi40NjMgOS41IDkuNSAwIDAgMC0uMjE1LjMxNSA5LjUgOS41IDAgMCAwLS4yODIuNDcyIDkuNSA5LjUgMCAwIDAtLjE5My4zNTQgOS41IDkuNSAwIDAgMC0uMjMzLjQ5NyA5LjUgOS41IDAgMCAwLS4xNTYuMzY3IDkuNSA5LjUgMCAwIDAtLjE3OC41MTIgOS41IDkuNSAwIDAgMC0uMTIyLjM4NiA5LjUgOS41IDAgMCAwLS4xNy42ODhMMzMuNDIgMTU2LjU1YTkuNSA5LjUgMCAwIDAgNS42MjUgMTAuNjE0bDgyLjAyMyAzNC41NzggMzEuNjIgMTYyLjEzMy0xMTYuNTM0IDI1LjMxM2E5LjUgOS41IDAgMCAwLTcuNSA5LjE1NmwtMS4wNjIgNzYuNDdBOS41IDkuNSAwIDAgMCAzOS45NjcgNDg0bDE0Ni40NjgtNDYuODEzIDI0LjEyMy00LjY3N2MuMTc3LjAwMy4zNTMuMDE1LjUzLjAxNSA5Ljk1NiAwIDE5LjMzMi00Ljc0MiAyNS44OC0xMi40NzIgNi41NDMtNy43MjQgOS45NjYtMTcuNzkgOS45NTYtMjguMTZ2LS4wMjZjLjAwNi02LjU3NC0xLjM3Mi0xMy4wMzctNC4wNDUtMTguODU1bC0yNS4yNzMtMTMwLjU3IDEyNS43NzQgNTMuMDJhOS41IDkuNSAwIDAgMCAuMTU1LjA1OCA5LjUgOS41IDAgMCAwIC41NDUuMTk3IDkuNSA5LjUgMCAwIDAgLjM1LjExIDkuNSA5LjUgMCAwIDAgLjU0My4xMzggOS41IDkuNSAwIDAgMCAuNDE2LjA4NiA5LjUgOS41IDAgMCAwIC40ODMuMDczIDkuNSA5LjUgMCAwIDAgLjQ4Mi4wNSA5LjUgOS41IDAgMCAwIC40My4wMiA5LjUgOS41IDAgMCAwIC41NC4wMDQgOS41IDkuNSAwIDAgMCAuMzYzLS4wMWw4My40MDYtNS4yOGE5LjUgOS41IDAgMCAwIDcuOTctNS40MzhsNTAuNTIyLTEwNi45NTQuMDA4LS4wMTRhOS41IDkuNSAwIDAgMCAwLS4wMDIgOS41IDkuNSAwIDAgMCAuMDItLjA0NyA5LjUgOS41IDAgMCAwLTUuNTEtMTMuMTM3IDkzLjQ1IDkzLjQ1IDAgMCAwLTIzLjk1Ni05LjE0OEwxNTIuMjczIDM2LjY4OGE5LjUgOS41IDAgMCAwLS44MDItLjI2OGMtMTMuMzE3LTMuODQzLTI3LjM2NC02LjAxLTQyLjE4NS02LjAxOHpNODIuOTM4IDQ0LjEyNWE5LjUgOS41IDAgMCAxIDMuNjg3LjcybDI5MC43NSAxMTYuNTNhOS41MDggOS41MDggMCAwIDEgNS43NyAxMC43OSA5LjUgOS41IDAgMCAwLS43MDcgMS40NmwtLjgzNiAyLjA3YTkuNTA4IDkuNTA4IDAgMCAxLTExLjI5IDMuMzM2TDc5LjU2MyA2Mi40N2E5LjUgOS41IDAgMCAxIDMuMzc2LTE4LjM0NXptMzU3LjMwOCAxMjguMzY3YzQuNC4wMzggOC43NS41MDggMTMuMDY4IDEuNDA0bDE0Ljc0IDUuNzItMjMuNjcgNTAuMTE0Yy45MTItNC4wNTggMS4zNzgtOC4wODIgMS4zMzUtMTEuODU1LS4xLTguNzMyLTIuOTQtMTUuOTUtNy44NDUtMTkuNTYzLTQuOTA1LTMuNjEzLTExLjY4OC0zLjQ4LTE4LjM3NS4yNS0xLjY1LjkyLTMuMzA1IDIuMDYzLTQuOTA2IDMuMzc1LjYxNC0uODIyIDEuMTktMS43MiAxLjY4Ny0yLjY4NyAxLjQxNy0yLjc1NyAyLjI0OC01Ljk1MiAyLjIyLTguNzgtLjAzMi0yLjgzNS0uOTQ1LTUuMjQzLTIuNTYzLTYuNDdhNC4zNTQgNC4zNTQgMCAwIDAtMi43NS0uOTA2Yy0xLjAxLjAxNi0yLjEwMi4zMzItMy4xNTYuOTM3LTIuMTA3IDEuMjEyLTQuMDggMy41Mi01LjUgNi4yODItMS40MTcgMi43NjQtMi4yNSA1Ljk0OC0yLjIxNyA4Ljc4Mi4wMyAyLjgzMy45NDUgNS4yNDIgMi41NjIgNi40NyAxLjYxNyAxLjIyNSAzLjc5OCAxLjE0NyA1LjkwNi0uMDY0LTMuNDE2IDMuNTYyLTYuNTQ2IDcuOS05LjA5MiAxMi43Mi00LjYwOCA4LjcxNi03LjIyNiAxOC43OTgtNy4xMjUgMjcuNTMuMSA4LjczMiAzIDE1Ljk4IDcuOTA2IDE5LjU5NCA0LjkwNCAzLjYxNCAxMS42MjQgMy40NSAxOC4zMS0uMjggNC4xNzgtMi4zMzIgOC4yOS02LjAxOCAxMS45MS0xMC41ODJsLTguNDEgMTcuOC02Mi43NSA0IDM3LjI1My05Mi4zOWMxNC42MzUtNy43NDYgMjguMjcyLTExLjUxMyA0MS40NjMtMTEuNHptLTI5OC4wNzggMzguMTQ1IDE2LjAxNCA2Ljc1MiAyOS43MzIgMTM5LjU1NWEzMS45NzQgMzEuOTc0IDAgMCAwLTkuMzQyLTEuNDFjLTIuNzI0IDAtNS40LjM2Ni03Ljk4OCAxLjAzN2wtMjguNDE2LTE0NS45MzV6bTM3LjM1MyAxNS43NDggMTcuMDE3IDcuMTc0IDIzIDExOC44M2EzMS44NzUgMzEuODc1IDAgMCAwLTguNDQ3LTEuMTU2Yy0xLjY0MyAwLTMuMjY2LjE0LTQuODY1LjM5bC0yNi43MDQtMTI1LjI0ek0yMTEuMDkgMzcwLjNjMy44NjMgMCA4LjI1OCAxLjk3OCAxMS40NzIgNS43NzIgMy4yMTUgMy43OTUgNS40MzMgOS44OSA1LjQyNCAxNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwIC4wMjZjLjAxIDUuOTA1LTIuMjEgMTItNS40MjMgMTUuNzk1YTE3LjA1NCAxNy4wNTQgMCAwIDEtNS4xODggNC4xNDJsLTYuMTQzIDEuMTljMi4xMDYtNS4yNzMgMy4xODQtMTEuMDAyIDMuMTc4LTE2LjgyN3YtLjAyNWE0Ni4wODYgNDYuMDg2IDAgMCAwLTEuMzQyLTExLjEwNyA5LjUgOS41IDAgMCAwLS4xOTMtMi4yNDhsLTIuNjU2LTEyLjQ1OGMuMjktLjAyMi41ODMtLjA1NS44Ny0uMDU1em0tMzIuNTE4IDQuM2MzLjg2NCAwIDguMjYgMS45NzggMTEuNDc1IDUuNzczIDMuMjE0IDMuNzk1IDUuNDMgOS44OSA1LjQyMiAxNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwIC4wMjVjLjAwOCA1LjkwNS0yLjIxIDEyLTUuNDIzIDE1Ljc5NS0zLjIxNSAzLjc5NS03LjYxIDUuNzc0LTExLjQ3NSA1Ljc3NC0zLjg2MyAwLTguMjMzLTEuOTgtMTEuNDQ3LTUuNzc0LTMuMjE0LTMuNzk0LTUuNDU4LTkuODktNS40NS0xNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwLS4wMjVjLS4wMDgtNS45MDUgMi4yMzYtMTIgNS40NS0xNS43OTVzNy41ODQtNS43NzMgMTEuNDQ3LTUuNzczem0tMzQuNDk2IDEwLjU5YTQ2LjA2MyA0Ni4wNjMgMCAwIDAtMS4zMTIgMTAuOTc4di4wMjVjLS4wMSAxMC4zNyAzLjQxIDIwLjQzNyA5Ljk1MyAyOC4xNi44MzguOTkgMS43MjMgMS45MyAyLjY0OCAyLjgxN0w0Ni43OCA0NjEuODc1bC43ODItNTUuNzIgOTYuNTE0LTIwLjk2NnoiIGZpbGw9IiM3YzVjYmYiIGZpbGwtb3BhY2l0eT0iMSI+PC9wYXRoPjwvZz48L3N2Zz4=" style="width:24px;height:24px;object-fit:contain"></span>
       Tracking
     </button>
     <button class="bnav-btn" id="nav-dofus" onclick="showView('dofus')">
       <span class="ico" id="ico-dofus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:24px;height:24px;fill:currentColor"><path d="M256 32C160 32 96 192 96 320c0 64 32 160 160 160s160-96 160-160c0-128-64-288-160-288zm74.1 89.2 11.8 13.6-53 46.7 8.8 14.6c31.1 34.3 62.9 65.8 97.4 96.4l-12 13.4-19.6-17.3-25.7 114.6-17.6-4 16.4-73c-46.8-15-93.2-31.5-140.1-46.3-3.9 1.6-8 2.9-12 4.3l-6.7 36.6 51 31.9-9.6 15.2-44.9-28.1-5.4 29.8-17.8-3.2 13.8-75.4-33.9 11.8-6-17 63.7-22.2 21.6-9.3 70.9-50.9-32.9-54.8 15.4-9.2 15.8 26.4 50.6-44.6zM288 236.5c-22.1.2-37.7 13-44.6 42.7 47.1 16.7 71.4-.2 84.5-33.4-14.9-6.2-28.3-9.5-39.9-9.3zm-6 6.9a10.24 10.37 0 0 0-1.1 4.8 10.24 10.37 0 0 0 10.2 10.4 10.24 10.37 0 0 0 9.6-6.8 18.38 17.35 0 0 1 2.5 8.7 18.38 17.35 0 0 1-18.4 17.3 18.38 17.35 0 0 1-18.3-17.3 18.38 17.35 0 0 1 15.5-17.1z"/></svg></span>
       Dofus
+    </button>
+    <button class="bnav-btn" id="nav-bank" onclick="showView('bank')">
+      <span class="ico" id="ico-bank"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTE0Ni44NTcgMjAuODQyYy0xMi41MzUtLjAzNi0yNC4yNjggMi44Ni0zNy4yODUgOS40MjRoLjAwNEM2MS4zNTYgNTQuNiAxOS45NjYgMTIwLjczNCAxNy45ODIgMTc1LjkxbDQxLjg0OCAxNC4yMzZjNC4zMy02MS44OSA0Ny4wNTctMTI4LjM3IDEwMS41MjctMTU1Ljg2aC4wMDJhMTMzLjY1MiAxMzMuNjUyIDAgMCAxIDEzLjE4NS01LjhsLTIyLjI2LTcuNDVhODMuNjg3IDgzLjY4NyAwIDAgMC01LjQyOC0uMTk0em01OS4zNCAyMC4xOWMtMTAuNDc4LS4wOS0yMi44MzIgMy4wOTMtMzYuNDI0IDkuOTQzbC4wMDQtLjAwNGMtNDguMjMgMjQuMzQtODkuNjI1IDkwLjUxMy05MS41NDggMTQ1LjQzNmwxNTYuNDg1IDUzLjI0YzMuODY1LTYyLjIyIDQ2Ljc5Ny0xMjkuMzcyIDEwMS42MTMtMTU3LjAzNWguMDAybC4wMDItLjAwM2ExMzQuMzk5IDEzNC4zOTkgMCAwIDEgMTIuODMyLTUuNjY2bC0xMzQuNTQtNDUuMDM2YTQzLjkwNSA0My45MDUgMCAwIDAtOC40MjctLjg3M3ptMTc0Ljk3IDU4LjMyM2MtMTAuNDc2LS4wOS0yMi44MyAzLjA5Mi0zNi40MiA5Ljk0bC0uMDA1LjAwMmMtNDguNTc3IDI0LjUxOC05MC4yMjUgOTEuNDczLTkxLjU4NiAxNDYuNjIzbDQ2LjIwNSAxNS43MmMzLjkxNC02Mi4xODggNDYuODI1LTEyOS4yNzQgMTAxLjYwNy0xNTYuOTJhMTI4LjU4OCAxMjguNTg4IDAgMCAxIDEzLjUzLTUuOTFsLTI2LjU0NC04Ljg4NGE0NC43ODggNDQuNzg4IDAgMCAwLTYuNzg1LS41N3ptNjMuNTU0IDIyLjAxNGMtMTAuMjY3LjA5My0yMi4wOTQgMy4zNTMtMzUuMzMzIDEwLjAzNC00Ny4xNTggMjMuOC04Ny43NzcgODcuNTg3LTkxLjM2MiAxNDEuNzVsMTc0LjU1LTczLjcyNmMtLjQwNC0zOS4wMS0xMC43NTQtNjEuMzA0LTI0LjQxNS03MS4wODJhMzYuMDU3IDM2LjA1NyAwIDAgMC03LjU1LTQuMTM3bC0uMDEuMDM0LTQuNzM1LTEuNTg0Yy0zLjQ4LS44ODctNy4xOTUtMS4zMjctMTEuMTQ0LTEuMjl6TTE3LjkgMTk1LjYyMmwtLjAzNSAxODcuNDg0TDU5LjQ2IDM5Ny41OFYyMDkuNzY0bC00MS41Ni0xNC4xNHptNjAuMjUgMjAuNDk4djE4Ny45NjJsMTU2LjI4MiA1NC4zN1YyNjkuMjg4bC0yOS4wNTMtOS44ODZ2MTE5LjQzTDEwNC4zMjUgMzQ0Ljc1VjIyNS4wMjVMNzguMTUgMjE2LjEyem00MTQuMjIgMy42ODNMMzE4LjQzMyAyOTMuMjd2MTg5LjIzNmwxNzMuOTM1LTczLjUwNHYtMTg5LjJ6bS0zNjkuMzU0IDExLjU4MnY5OS45NDdsNjMuNjc1IDIxLjQ3N3YtOTkuNzYzbC02My42NzQtMjEuNjYyem0zMS4zMDYgMjguNzk3YzkuNzA1IDAgMTcuNTczIDcuODY3IDE3LjU3MyAxNy41NzIgMCA2LjM0LTMuMzcgMTEuODgtOC40MDcgMTQuOTd2MjguNTNoLTE4LjY5di0yOC43NDZjLTQuODM4LTMuMTMtOC4wNDgtOC41NjItOC4wNDgtMTQuNzU0IDAtOS43MDUgNy44NjctMTcuNTcyIDE3LjU3Mi0xNy41NzJ6bTk4Ljc5NyAxNS40NjR2MTg5LjMwN2w0Ni42MjYgMTYuMjJWMjkxLjUxbC00Ni42MjctMTUuODY0eiIgZmlsbD0iIzdjNWNiZiIgZmlsbC1vcGFjaXR5PSIxIj48L3BhdGg+PC9nPjwvc3ZnPg==" style="width:24px;height:24px;object-fit:contain"></span>
+      Banque
     </button>
   </div>
 </div>
@@ -432,9 +425,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
         <button onclick="resetModalItem()" style="margin-left:auto;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:18px">✕</button>
       </div>
 
-      <div class="modal-section-title">Stats réelles (ton jet)</div>
-      <div id="modalStatGrid"></div>
-
       <!-- Exos -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div class="modal-section-title" style="margin:0">Forgemagies (exos)</div>
@@ -450,6 +440,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
           </div>
         </div>
       </div>
+      <div id="modalStatGrid"></div>
 
       <div class="modal-section-title">Compte</div>
       <div class="compte-chips" id="modalCompteChips"></div>
@@ -562,7 +553,7 @@ var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do M�
 // ════════════════════════════════════════════════
 var state = {bank:[]};
 var nav = {view:'bank', bankFilters:[]};
-var modalBankData = {item:null, editIdx:null, compte:null, nativeKeys:[]};
+var modalBankData = {item:null, editIdx:null, compte:null};
 var modalSearchCache = [];
 
 function loadState(){
@@ -572,6 +563,18 @@ function loadState(){
     state.tracking=s.tracking||{};
     state.dofusTracker=s.dofusTracker||{};
   }catch(e){}
+  cleanupLegacyItemFields();
+}
+
+// Nettoyage définitif des anciens champs stats/panoplie/conditions (obsolètes depuis la suppression des builds)
+function cleanupLegacyItemFields(){
+  var changed=false;
+  (state.bank||[]).forEach(function(item){
+    ['stats','statMaxima','setId','setName','setBonuses','conditions','nativeKeys'].forEach(function(k){
+      if(item[k]!==undefined){ delete item[k]; changed=true; }
+    });
+  });
+  if(changed) saveState();
 }
 function saveState(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
@@ -961,7 +964,7 @@ function renderBank(){
     h+='<div class="empty-state" style="margin:12px">Ta banque est vide. Ajoute tes équipements !</div>';
   } else {
     h+='<div id="bankEmptyState" class="empty-state" style="margin:12px;display:'+(bankLazyIndices.length?'none':'block')+'">Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres')+'.</div>';
-    h+='<div class="bank-list" id="bankItemList"></div>';
+    h+='<div class="bank-grid" id="bankItemList"></div>';
   }
 
   document.getElementById('view-bank').innerHTML=h;
@@ -977,37 +980,23 @@ function renderBank(){
 }
 
 function renderBankCard(item, idx){
-  var h='<div class="bank-item">';
+  var h='<div class="bank-card">';
+  h+='<div class="bank-card-top">';
   if(item.icon){
-    h+='<img class="bank-item-ico" src="'+item.icon+'" onerror="this.style.display=\'none\'">';
+    h+='<img class="bank-card-ico" src="'+item.icon+'" onerror="this.style.display=\'none\'">';
   } else {
-    h+='<div class="bank-item-ico" style="display:flex;align-items:center;justify-content:center;font-size:22px">⚔️</div>';
+    h+='<div class="bank-card-ico" style="display:flex;align-items:center;justify-content:center;font-size:18px">⚔️</div>';
   }
-  h+='<div class="bank-item-body">';
-  h+='<div class="bank-item-name">'+item.name+'</div>';
-  h+='<div class="bank-item-meta">';
-  h+=item.type||'';
-  var cname=item.compte||'?';
-  COMPTES.forEach(function(c){ if(c.id===item.compte) cname=c.name; });
-  h+='<span>'+cname+'</span>';
+  h+='<div class="bank-card-actions">';
+  h+='<button data-idx="'+idx+'" onclick="openModalBank(parseInt(this.dataset.idx))" title="Modifier">✏️</button>';
+  h+='<button data-idx="'+idx+'" onclick="duplicateFromBank(parseInt(this.dataset.idx))" title="Dupliquer">⧉</button>';
   h+='</div>';
-  // Stats
-  var stats=item.stats||{};
-  if(Object.keys(stats).length){
-    h+='<div class="bank-item-stats">';
-    Object.keys(stats).forEach(function(k){
-      var v=parseInt(stats[k])||0;
-      if(!v) return;
-      var maxV=(item.statMaxima&&item.statMaxima[k])||0;
-      var isOver=maxV>0&&v>maxV;
-      var chipCls=isOver?'stat-chip over-chip':(v>0?'stat-chip pos':'stat-chip neg');
-      h+='<span class="'+chipCls+'">'+(v>0?'+':'')+v+' '+k+(isOver?' ⚡':'')+'</span>';
-    });
-    h+='</div>';
-  }
+  h+='</div>';
+  h+='<div class="bank-card-name">'+item.name+'</div>';
+  if(item.type) h+='<div class="bank-card-type">'+item.type+'</div>';
   var exos=item.exos||{};
   if(Object.keys(exos).length){
-    h+='<div class="bank-item-stats" style="margin-top:3px">';
+    h+='<div class="bank-card-exos">';
     Object.keys(exos).forEach(function(k){
       var v=parseInt(exos[k])||0;
       if(!v) return;
@@ -1015,11 +1004,10 @@ function renderBankCard(item, idx){
     });
     h+='</div>';
   }
-  h+='<div class="bank-item-actions">';
-  h+='<button class="bank-btn primary" data-idx="'+idx+'" onclick="openModalBank(parseInt(this.dataset.idx))">✏️ Modifier</button>';
-  h+='<button class="bank-btn" data-idx="'+idx+'" onclick="duplicateFromBank(parseInt(this.dataset.idx))" style="background:var(--gold-light);border-color:var(--gold-border);color:var(--gold)">⧉ Dupliquer</button>';
+  var cname=item.compte||'?';
+  COMPTES.forEach(function(c){ if(c.id===item.compte) cname=c.name; });
+  h+='<div class="bank-card-compte">'+cname+'</div>';
   h+='</div>';
-  h+='</div></div>';
   return h;
 }
 
@@ -1027,7 +1015,7 @@ function renderBankCard(item, idx){
 // MODAL BANQUE
 // ════════════════════════════════════════════════
 function openModalBank(idx){
-  modalBankData={item:null, editIdx:idx, compte:null, nativeKeys:[]};
+  modalBankData={item:null, editIdx:idx, compte:null};
   document.getElementById('modalBankTitle').textContent=idx!==null?'Modifier un item':'Ajouter un item';
   document.getElementById('modalBankDelete').style.display=idx!==null?'block':'none';
   document.getElementById('modalSearchSection').style.display='block';
@@ -1057,8 +1045,8 @@ function openModalBank(idx){
 function duplicateFromBank(idx){
   var item=state.bank[idx];
   if(!item) return;
-  // Ouvrir la modal comme un NOUVEL item (editIdx=null) pré-rempli avec les stats de l'original
-  modalBankData={item:null, editIdx:null, compte:null, nativeKeys:[]};
+  // Ouvrir la modal comme un NOUVEL item (editIdx=null) pré-rempli avec les exos de l'original
+  modalBankData={item:null, editIdx:null, compte:null};
   document.getElementById('modalBankTitle').textContent='Dupliquer : '+item.name;
   document.getElementById('modalBankDelete').style.display='none';
   document.getElementById('modalSearchSection').style.display='block';
@@ -1083,10 +1071,9 @@ function duplicateFromBank(idx){
 }
 
 function preloadModalItem(item){
-  modalBankData.item={name:item.name,icon:item.icon||'',type:item.type||'',stats:Object.assign({},item.stats||{}),exos:Object.assign({},item.exos||{})};
-  modalBankData.nativeKeys=item.nativeKeys||Object.keys(item.stats||{});
+  modalBankData.item={name:item.name,icon:item.icon||'',type:item.type||'',exos:Object.assign({},item.exos||{}),ankama_id:item.ankama_id||null};
   modalBankData.compte=item.compte||null;
-  showModalItem(item.name,item.icon||'',item.type||'',item.stats||{},modalBankData.nativeKeys);
+  showModalItem(item.name,item.icon||'',item.type||'');
 }
 
 function renderCompteChips(){
@@ -1129,128 +1116,51 @@ function modalSearch(){
     .catch(function(){ el.innerHTML='<div class="empty-state">Erreur réseau</div>'; });
 }
 
+function resetModalItem(){
+  modalBankData.item=null;
+  document.getElementById('modalSearchSection').style.display='block';
+  document.getElementById('modalItemSection').style.display='none';
+  document.getElementById('modalSearchInput').value='';
+  document.getElementById('modalSearchResults').innerHTML='';
+}
+
 function selectModalItem(idx){
   var item=modalSearchCache[idx];
   if(!item) return;
   var ico=item.image_urls&&item.image_urls.icon?item.image_urls.icon:'';
   var type=item.type&&item.type.name?item.type.name:'';
-  modalBankData.item={name:item.name,icon:ico,type:type,stats:{},exos:{},ankama_id:item.ankama_id||null};
-  modalBankData.nativeKeys=[];
-  showModalItem(item.name,ico,type,{},[]);
-  document.getElementById('modalStatGrid').innerHTML='<div class="loading"><span class="spinner"></span>Chargement des stats...</div>';
-
-  fetch(API+'/items/equipment/'+item.ankama_id)
-    .then(function(r){return r.json();})
-    .then(function(full){
-      var stats={};
-      var nativeKeys=[];
-      var statMaxima={}; // jet max de l'API par stat
-      if(full.effects){
-        // Stats cosmétiques / non-gameplay à ignorer
-        var STATS_BLACKLIST=['Attitude','Aura','Dragodinde familière','Emote','Montilier familier',
-          'Muldo familier','Volkorne familier','Chauve-souris familière','Familier','Montilier',
-          'Muldo','Volkorne','Attitude (illimité)','Emote (illimité)'];
-        full.effects.forEach(function(eff){
-          if(!eff.type||!eff.type.name) return;
-          var k=eff.type.name;
-          if(STATS_BLACKLIST.indexOf(k)>=0) return; // ignorer les stats cosmétiques
-          var maxVal=eff.int_maximum&&eff.int_maximum!==0?eff.int_maximum:(eff.int_minimum||0);
-          if(!maxVal) return;
-          stats[k]=(stats[k]||0)+maxVal;
-          statMaxima[k]=(statMaxima[k]||0)+maxVal;
-          if(nativeKeys.indexOf(k)<0) nativeKeys.push(k);
-        });
-      }
-      var setInfo=full.parent_set||full.set||null;
-      if(setInfo&&(setInfo.id||setInfo.ankama_id)){
-        modalBankData.item.setId=setInfo.id||setInfo.ankama_id;
-        modalBankData.item.setName=setInfo.name||'Panoplie';
-        modalBankData.item.setBonuses={};
-        // Fetch bonus panoplie
-        fetch(API+'/sets/'+(setInfo.id||setInfo.ankama_id))
-          .then(function(r2){return r2.json();})
-          .then(function(setData){
-            var bonuses={};
-            var effObj=setData.effects||{};
-            Object.keys(effObj).forEach(function(minCount){
-              var items=effObj[minCount];
-              if(!items||!Array.isArray(items)) return;
-              var parts=[];
-              items.forEach(function(e){
-                if(e.formatted) parts.push(e.formatted);
-                else {
-                  var v=e.int_minimum||0;
-                  var n=e.type&&e.type.name?e.type.name:'?';
-                  if(v) parts.push((v>0?'+':'')+v+' '+n);
-                }
-              });
-              if(parts.length) bonuses[parseInt(minCount)]=parts.join(', ');
-            });
-            modalBankData.item.setBonuses=bonuses;
-          }).catch(function(){});
-      }
-      modalBankData.item.stats=stats;
-      modalBankData.item.statMaxima=statMaxima;
-      // Stocker les conditions d'équipement
-      modalBankData.item.conditions=full.conditions||null;
-      modalBankData.nativeKeys=nativeKeys;
-      renderModalStats();
-    })
-    .catch(function(){
-      document.getElementById('modalStatGrid').innerHTML='<div style="color:var(--red);padding:8px">Erreur chargement</div>';
-    });
+  modalBankData.item={name:item.name,icon:ico,type:type,exos:{},ankama_id:item.ankama_id||null};
+  showModalItem(item.name,ico,type);
 }
 
-function showModalItem(name,ico,type,stats,nativeKeys){
+function showModalItem(name,ico,type){
   document.getElementById('modalSearchSection').style.display='none';
   document.getElementById('modalItemSection').style.display='block';
   document.getElementById('modalItemName').textContent=name;
   document.getElementById('modalItemType').textContent=type;
   if(ico) document.getElementById('modalItemIco').src=ico;
-  modalBankData.nativeKeys=nativeKeys||Object.keys(stats);
-  modalBankData.item.stats=Object.assign({},stats);
   if(!modalBankData.item.exos) modalBankData.item.exos={};
   renderModalStats();
   renderCompteChips();
 }
 
 function renderModalStats(){
-  var stats=modalBankData.item.stats||{};
   var exos=modalBankData.item.exos||{};
-  var nativeKeys=modalBankData.nativeKeys||[];
-  var statMaxima=modalBankData.item.statMaxima||{};
   var h='';
 
-  h+='<div class="modal-section-title" style="margin-bottom:6px">Stats (ton jet réel)</div>';
-  if(nativeKeys.length){
-    h+='<div class="stat-edit-grid">';
-    nativeKeys.forEach(function(k){
-      var v=stats[k]!==undefined?stats[k]:0;
-      var maxV=statMaxima[k]||0;
-      var isOver=maxV>0&&v>maxV;
-      h+='<div class="stat-edit-row'+(isOver?' stat-over':'')+'">'; 
-      h+='<span class="stat-edit-name'+(isOver?' over-name':'')+'">'+k+(isOver?' ⚡':'')+'</span>';
-      h+='<input class="stat-edit-input" type="number" value="'+v+'" data-stat="'+k+'" data-type="native" data-max="'+maxV+'" onchange="updateModalStat(this)">';
-      h+='</div>';
-    });
-    h+='</div>';
-  } else {
-    h+='<div style="font-size:12px;color:var(--text-dim);padding:8px 0">Aucune stat détectée</div>';
-  }
-
-  // Exos existants
   var exoKeys=Object.keys(exos);
   if(exoKeys.length){
-    h+='<div class="modal-section-title" style="margin-top:8px;margin-bottom:6px">Forgemagies</div>';
     h+='<div class="stat-edit-grid">';
     exoKeys.forEach(function(k){
       h+='<div class="exo-row">';
       h+='<span class="exo-name">⚡ '+k+'</span>';
-      h+='<input class="stat-edit-input" type="number" value="'+exos[k]+'" data-stat="'+k+'" data-type="exo" onchange="updateModalStat(this)">';
+      h+='<input class="stat-edit-input" type="number" value="'+exos[k]+'" data-stat="'+k+'" onchange="updateModalStat(this)">';
       h+='<button data-exokey="'+k+'" onclick="removeExo(this.dataset.exokey)" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:0 3px">✕</button>';
       h+='</div>';
     });
     h+='</div>';
+  } else {
+    h+='<div style="font-size:12px;color:var(--text-dim);padding:8px 0">Aucune forgemagie ajoutée</div>';
   }
 
   document.getElementById('modalStatGrid').innerHTML=h;
@@ -1279,19 +1189,9 @@ function removeExo(k){
 
 function updateModalStat(el){
   var k=el.getAttribute('data-stat');
-  var t=el.getAttribute('data-type');
   var v=parseInt(el.value)||0;
-  var maxV=parseInt(el.getAttribute('data-max'))||0;
-  if(t==='exo'){
-    if(!modalBankData.item.exos) modalBankData.item.exos={};
-    modalBankData.item.exos[k]=v;
-  } else {
-    modalBankData.item.stats[k]=v;
-    // Marquer visuellement si over
-    var row=el.parentElement;
-    if(maxV>0&&v>maxV){ row.classList.add('stat-over'); el.previousElementSibling&&el.previousElementSibling.classList.add('over-name'); }
-    else { row.classList.remove('stat-over'); el.previousElementSibling&&el.previousElementSibling.classList.remove('over-name'); }
-  }
+  if(!modalBankData.item.exos) modalBankData.item.exos={};
+  modalBankData.item.exos[k]=v;
 }
 
 function saveBankItem(){
@@ -1302,15 +1202,8 @@ function saveBankItem(){
     name:modalBankData.item.name,
     icon:modalBankData.item.icon||'',
     type:modalBankData.item.type||'',
-    stats:modalBankData.item.stats||{},
     exos:modalBankData.item.exos||{},
     compte:modalBankData.compte,
-    nativeKeys:modalBankData.nativeKeys||[],
-    setId:modalBankData.item.setId||null,
-    setName:modalBankData.item.setName||null,
-    setBonuses:modalBankData.item.setBonuses||{},
-    statMaxima:modalBankData.item.statMaxima||{},
-    conditions:modalBankData.item.conditions||null,
     ankama_id:modalBankData.item.ankama_id||null
   };
 
@@ -1514,6 +1407,7 @@ function loadFromFirestore(cb){
           state.bank=d.bank||[];
           state.tracking=d.tracking||{};
           state.dofusTracker=d.dofusTracker||{};
+          cleanupLegacyItemFields();
           // Mettre aussi à jour le localStorage comme cache
           try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({bank:state.bank, updatedAt:remoteUpdated})); }catch(e){}
         } else {
@@ -1910,7 +1804,7 @@ renderBank();
 renderTracking();
 renderDofusTab();
 // icônes nav intégrées directement dans le HTML (SVG base64)
-showView('bank');
+showView('tracking');
 // Firebase init (après le rendu initial depuis localStorage)
 initFirebase();
 // Pill init après rendu
