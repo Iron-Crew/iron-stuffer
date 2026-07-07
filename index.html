@@ -186,7 +186,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .tracking-check.state3{background:var(--red);border-color:var(--red);color:#fff}
 
 /* Tableau ACTIVITÉS — même pattern que le tableau Dofus (sticky + scroll horizontal) */
-.tracking-wrap{overflow:auto;max-height:calc(100vh - 420px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
+.tracking-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
 .tracking-table{border-collapse:collapse;min-width:100%;font-size:11px}
 .tracking-table th,.tracking-table td{white-space:nowrap}
 .tracking-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
@@ -374,6 +374,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
   <!-- VUE BANQUE -->
   <div class="view" id="view-bank"></div>
 
+  <!-- VUE KAMAS -->
+  <div class="view" id="view-kamas"></div>
+
 </div>
 
 <!-- BOTTOM NAV -->
@@ -391,6 +394,10 @@ input,button,select{font-family:'Rajdhani',sans-serif}
     <button class="bnav-btn" id="nav-bank" onclick="showView('bank')">
       <span class="ico" id="ico-bank"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTE0Ni44NTcgMjAuODQyYy0xMi41MzUtLjAzNi0yNC4yNjggMi44Ni0zNy4yODUgOS40MjRoLjAwNEM2MS4zNTYgNTQuNiAxOS45NjYgMTIwLjczNCAxNy45ODIgMTc1LjkxbDQxLjg0OCAxNC4yMzZjNC4zMy02MS44OSA0Ny4wNTctMTI4LjM3IDEwMS41MjctMTU1Ljg2aC4wMDJhMTMzLjY1MiAxMzMuNjUyIDAgMCAxIDEzLjE4NS01LjhsLTIyLjI2LTcuNDVhODMuNjg3IDgzLjY4NyAwIDAgMC01LjQyOC0uMTk0em01OS4zNCAyMC4xOWMtMTAuNDc4LS4wOS0yMi44MzIgMy4wOTMtMzYuNDI0IDkuOTQzbC4wMDQtLjAwNGMtNDguMjMgMjQuMzQtODkuNjI1IDkwLjUxMy05MS41NDggMTQ1LjQzNmwxNTYuNDg1IDUzLjI0YzMuODY1LTYyLjIyIDQ2Ljc5Ny0xMjkuMzcyIDEwMS42MTMtMTU3LjAzNWguMDAybC4wMDItLjAwM2ExMzQuMzk5IDEzNC4zOTkgMCAwIDEgMTIuODMyLTUuNjY2bC0xMzQuNTQtNDUuMDM2YTQzLjkwNSA0My45MDUgMCAwIDAtOC40MjctLjg3M3ptMTc0Ljk3IDU4LjMyM2MtMTAuNDc2LS4wOS0yMi44MyAzLjA5Mi0zNi40MiA5Ljk0bC0uMDA1LjAwMmMtNDguNTc3IDI0LjUxOC05MC4yMjUgOTEuNDczLTkxLjU4NiAxNDYuNjIzbDQ2LjIwNSAxNS43MmMzLjkxNC02Mi4xODggNDYuODI1LTEyOS4yNzQgMTAxLjYwNy0xNTYuOTJhMTI4LjU4OCAxMjguNTg4IDAgMCAxIDEzLjUzLTUuOTFsLTI2LjU0NC04Ljg4NGE0NC43ODggNDQuNzg4IDAgMCAwLTYuNzg1LS41N3ptNjMuNTU0IDIyLjAxNGMtMTAuMjY3LjA5My0yMi4wOTQgMy4zNTMtMzUuMzMzIDEwLjAzNC00Ny4xNTggMjMuOC04Ny43NzcgODcuNTg3LTkxLjM2MiAxNDEuNzVsMTc0LjU1LTczLjcyNmMtLjQwNC0zOS4wMS0xMC43NTQtNjEuMzA0LTI0LjQxNS03MS4wODJhMzYuMDU3IDM2LjA1NyAwIDAgMC03LjU1LTQuMTM3bC0uMDEuMDM0LTQuNzM1LTEuNTg0Yy0zLjQ4LS44ODctNy4xOTUtMS4zMjctMTEuMTQ0LTEuMjl6TTE3LjkgMTk1LjYyMmwtLjAzNSAxODcuNDg0TDU5LjQ2IDM5Ny41OFYyMDkuNzY0bC00MS41Ni0xNC4xNHptNjAuMjUgMjAuNDk4djE4Ny45NjJsMTU2LjI4MiA1NC4zN1YyNjkuMjg4bC0yOS4wNTMtOS44ODZ2MTE5LjQzTDEwNC4zMjUgMzQ0Ljc1VjIyNS4wMjVMNzguMTUgMjE2LjEyem00MTQuMjIgMy42ODNMMzE4LjQzMyAyOTMuMjd2MTg5LjIzNmwxNzMuOTM1LTczLjUwNHYtMTg5LjJ6bS0zNjkuMzU0IDExLjU4MnY5OS45NDdsNjMuNjc1IDIxLjQ3N3YtOTkuNzYzbC02My42NzQtMjEuNjYyem0zMS4zMDYgMjguNzk3YzkuNzA1IDAgMTcuNTczIDcuODY3IDE3LjU3MyAxNy41NzIgMCA2LjM0LTMuMzcgMTEuODgtOC40MDcgMTQuOTd2MjguNTNoLTE4LjY5di0yOC43NDZjLTQuODM4LTMuMTMtOC4wNDgtOC41NjItOC4wNDgtMTQuNzU0IDAtOS43MDUgNy44NjctMTcuNTcyIDE3LjU3Mi0xNy41NzJ6bTk4Ljc5NyAxNS40NjR2MTg5LjMwN2w0Ni42MjYgMTYuMjJWMjkxLjUxbC00Ni42MjctMTUuODY0eiIgZmlsbD0iIzdjNWNiZiIgZmlsbC1vcGFjaXR5PSIxIj48L3BhdGg+PC9nPjwvc3ZnPg==" style="width:24px;height:24px;object-fit:contain"></span>
       Banque
+    </button>
+    <button class="bnav-btn" id="nav-kamas" onclick="showView('kamas')">
+      <span class="ico" id="ico-kamas"><img src="https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png" style="width:24px;height:24px;object-fit:contain"></span>
+      Kamas
     </button>
   </div>
 </div>
@@ -643,6 +650,8 @@ function showView(v){
     document.getElementById('nav-tracking').classList.add('active');
   } else if(v==='dofus'){
     document.getElementById('nav-dofus').classList.add('active');
+  } else if(v==='kamas'){
+    document.getElementById('nav-kamas').classList.add('active');
   }
   updateNavPill();
   // Header
@@ -665,6 +674,12 @@ function showView(v){
     sub.textContent='';
     sub.classList.add('hidden');
     renderDofusTab();
+  } else if(v==='kamas'){
+    title.textContent='KAMAS';
+    title.classList.add('large');
+    sub.textContent='';
+    sub.classList.add('hidden');
+    renderKamasTab();
   }
 }
 
@@ -1480,6 +1495,9 @@ var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
   var CHASSE_ARME_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/78059-64.png';
   var CHASSEUR200_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/20014-64.png';
+  // Icônes provisoires — à remplacer par les icônes choisies via game-icons.net
+  var VULKANIA_ACCES_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/16317-64.png';
+  var QUEST_VULKANIA_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/121000-64.png';
 
 function getTrackingState(){
   if(!state.tracking) state.tracking={};
@@ -1488,6 +1506,8 @@ function getTrackingState(){
   if(!t.justicier) t.justicier={};
   if(!t.parcho) t.parcho={};
   if(!t.parangon) t.parangon={};
+  if(!t.vulkaniaAcces) t.vulkaniaAcces={};
+  if(!t.questVulkania) t.questVulkania={};
   if(!t.lastReset) t.lastReset=null;
   checkJusticierReset();
   return t;
@@ -1503,6 +1523,7 @@ function checkJusticierReset(){
   while(d.getDay()!==2) d.setDate(d.getDate()-1);
   if(!lastReset||lastReset<d){
     t.justicier={};
+    t.questVulkania={};
     t.lastReset=d.toISOString();
   }
 }
@@ -1568,24 +1589,39 @@ function cycleParangon(pid){
   }
 }
 
-function renderTracking(){
+function cycleVulkaniaAcces(pid){
   var t=getTrackingState();
+  if(!t.vulkaniaAcces) t.vulkaniaAcces={};
+  var cur=t.vulkaniaAcces[pid]||0;
+  t.vulkaniaAcces[pid]=(cur+1)%2;
+  saveState();
+  var btn=document.querySelector('[data-vapid="'+pid+'"]');
+  if(btn){
+    var v=t.vulkaniaAcces[pid];
+    btn.className='tracking-check'+(v===1?' state2':'');
+    btn.textContent=v===1?'✓':'';
+  }
+}
 
-  // Prochain reset mardi (justicier uniquement)
-  var now=new Date();
-  var next=new Date(now);
-  next.setHours(0,0,0,0);
-  next.setDate(next.getDate()+((2-next.getDay()+7)%7||7));
-  var diff=next-now;
-  var days=Math.floor(diff/86400000);
-  var hours=Math.floor((diff%86400000)/3600000);
-  var resetStr='Reset dans '+days+'j '+hours+'h';
+function cycleQuestVulkania(pid){
+  var t=getTrackingState();
+  if(!t.questVulkania) t.questVulkania={};
+  var cur=t.questVulkania[pid]||0;
+  t.questVulkania[pid]=(cur+1)%2;
+  saveState();
+  var btn=document.querySelector('[data-qvpid="'+pid+'"]');
+  if(btn){
+    var v=t.questVulkania[pid];
+    btn.className='tracking-check'+(v===1?' state2':'');
+    btn.textContent=v===1?'✓':'';
+  }
+}
 
+function renderKamasTab(){
+  var t=getTrackingState();
   var total=COMPTES.reduce(function(sum,c){ return sum+(t.kamas[c.id]||0); },0);
 
   var h='<div class="tracking-section">';
-
-  // ── BLOC KAMAS ──
   h+='<div class="tracking-block">';
   h+='<div class="tracking-block-title"><img src="'+KAMAS_ICO+'"> KAMAS</div>';
   h+='<div class="kamas-total-row">';
@@ -1606,13 +1642,31 @@ function renderTracking(){
     h+='</div>';
   });
   h+='</div></div>';
+  h+='</div>';
 
-  // ── BLOC ACTIVITÉS (tableau, scroll horizontal, colonne noms fixe) ──
-  h+='<div class="tracking-block" style="padding:14px 0 0">';
-  h+='<div class="tracking-block-title" style="padding:0 14px 12px">📋 ACTIVITÉS</div>';
+  document.getElementById('view-kamas').innerHTML=h;
+}
+
+function renderTracking(){
+  var t=getTrackingState();
+
+  // Prochain reset mardi (colonnes hebdo : Justicier + Quête Vulkania)
+  var now=new Date();
+  var next=new Date(now);
+  next.setHours(0,0,0,0);
+  next.setDate(next.getDate()+((2-next.getDay()+7)%7||7));
+  var diff=next-now;
+  var days=Math.floor(diff/86400000);
+  var hours=Math.floor((diff%86400000)/3600000);
+  var resetStr='Reset dans '+days+'j '+hours+'h';
+
+  // ── TABLEAU ACTIVITÉS EN PLEINE PAGE (comme Dofus) ──
+  var h='<div class="tracking-section">';
   h+='<div class="tracking-wrap">';
   h+='<table class="tracking-table"><thead><tr>';
   h+='<th class="tracking-th-name">Personnage</th>';
+  h+='<th class="tracking-th-col" title="Vulkania Accès"><img src="'+VULKANIA_ACCES_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Vulkania Accès</span></th>';
+  h+='<th class="tracking-th-col" title="Quête Vulkania - '+resetStr+'"><img src="'+QUEST_VULKANIA_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Quête Vulkania</span><span class="tracking-th-col-sub">'+resetStr+'</span></th>';
   h+='<th class="tracking-th-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Justicier</span><span class="tracking-th-col-sub">'+resetStr+'</span></th>';
   h+='<th class="tracking-th-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Full Parcho</span></th>';
   h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Parangon</span></th>';
@@ -1621,13 +1675,21 @@ function renderTracking(){
   h+='</tr></thead><tbody>';
 
   COMPTES.forEach(function(c){
-    h+='<tr class="tracking-tr-compte"><td colspan="6">'+c.name+'</td></tr>';
+    h+='<tr class="tracking-tr-compte"><td colspan="8">'+c.name+'</td></tr>';
     c.persos.forEach(function(p){
+      var vva=(t.vulkaniaAcces&&t.vulkaniaAcces[p.id])||0;
+      var vqv=(t.questVulkania&&t.questVulkania[p.id])||0;
       var vj=t.justicier[p.id]||0;
       var vp=(t.parcho&&t.parcho[p.id])||0;
       var vpar=(t.parangon&&t.parangon[p.id])||0;
       var vca=(t.armeChasse&&t.armeChasse[p.id])||0;
       var vc200=(t.chasseur200&&t.chasseur200[p.id])||0;
+
+      var vaClass='tracking-check'+(vva===1?' state2':'');
+      var vaIcon=vva===1?'✓':'';
+
+      var qvClass='tracking-check'+(vqv===1?' state2':'');
+      var qvIcon=vqv===1?'✓':'';
 
       var jClass='tracking-check'+(vj===1?' state2':'');
       var jIcon=vj===1?'✓':'';
@@ -1654,6 +1716,10 @@ function renderTracking(){
       }
       h+='<span class="tracking-td-pname">'+p.name+'</span>';
       h+='</div></td>';
+      // Vulkania Accès
+      h+='<td class="tracking-td-cell"><div class="'+vaClass+'" data-vapid="'+p.id+'" onclick="cycleVulkaniaAcces(this.dataset.vapid)">'+vaIcon+'</div></td>';
+      // Quête Vulkania
+      h+='<td class="tracking-td-cell"><div class="'+qvClass+'" data-qvpid="'+p.id+'" onclick="cycleQuestVulkania(this.dataset.qvpid)">'+qvIcon+'</div></td>';
       // Justicier
       h+='<td class="tracking-td-cell"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
       // Full Parcho
@@ -1669,8 +1735,6 @@ function renderTracking(){
   });
 
   h+='</tbody></table></div>';
-  h+='</div>';
-
   h+='</div>';
 
   document.getElementById('view-tracking').innerHTML=h;
@@ -1803,7 +1867,8 @@ loadState();
 renderBank();
 renderTracking();
 renderDofusTab();
-// icônes nav intégrées directement dans le HTML (SVG base64)
+renderKamasTab();
+// icônes nav intégrées directement dans le HTML
 showView('tracking');
 // Firebase init (après le rendu initial depuis localStorage)
 initFirebase();
