@@ -69,8 +69,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 /* ── HEADER ── */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,252,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--gold-border);display:flex;align-items:center;padding:0 16px;height:52px;transition:background var(--t-med),border-color var(--t-med)}
 [data-theme="dark"] .hdr{background:rgba(15,10,26,0.88)}
-.hdr-back{background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px 4px 0;display:none;transition:color var(--t-fast)}
-.hdr-back.visible{display:block}
 .hdr-title{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:4px;text-transform:uppercase;flex:1;transition:color var(--t-fast),font-size var(--t-med),letter-spacing var(--t-med)}
 .hdr-title.large{font-size:20px;letter-spacing:6px}
 .hdr-sub{font-size:11px;color:var(--text-dim);letter-spacing:1.5px}
@@ -95,102 +93,12 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .view{display:none;opacity:0}
 .view.active{display:block;animation:fadeSlideIn 0.22s ease forwards}
 
-/* ── PERSOS ── */
-.persos-header{padding:16px;font-family:'Cinzel',serif;font-size:11px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase}
-.perso-filters{display:flex;gap:6px;padding:0 12px 10px}
-.perso-filter{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all var(--t-fast)}
-.perso-filter.active{background:var(--gold);border-color:var(--gold);color:#fff}
-.perso-filter:hover{border-color:var(--gold);color:var(--gold)}
-.compte-section{margin-bottom:8px;padding:0 12px}
-.compte-title{font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:8px 0 6px}
-.perso-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.perso-card{background:var(--surface-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:12px;cursor:pointer;transition:all var(--t-med);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-card)}
-.perso-card:hover{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
-.perso-card-ico{width:36px;height:36px;object-fit:contain;border-radius:8px}
-.perso-card-name{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--text)}
-.perso-card-classe{font-size:10px;color:var(--text-dim);letter-spacing:1.5px}
-
-/* ── BUILDS ── */
-.builds-header{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between}
-.builds-grid{display:grid;grid-template-columns:1fr;gap:8px;padding:0 12px}
-.build-card{background:var(--surface-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all var(--t-med);box-shadow:var(--shadow-card)}
-.build-card:hover{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
-.build-card-ico{font-size:22px}
-.build-card-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--text);flex:1;letter-spacing:0.5px}
-.build-card-meta{font-size:11px;color:var(--text-dim)}
-.build-card-edit{background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-dim);padding:4px;transition:color var(--t-fast)}
-.build-card-edit:hover{color:var(--gold)}
-.add-build-btn{margin:8px 12px 0;width:calc(100% - 24px);background:var(--gold-light);border:2px dashed var(--gold-border);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;padding:12px;border-radius:var(--radius);cursor:pointer;transition:all var(--t-med)}
-.add-build-btn:hover{background:rgba(124,92,191,0.15);border-color:var(--gold);transform:translateY(-1px)}
-
-/* ── STUFFER LAYOUT ── */
-.stuffer-wrap{padding:12px}
-.stuffer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.stuffer-col{display:flex;flex-direction:column;gap:6px}
-
-/* Slots équipement — glassmorphism */
-.eq-slot{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;padding:8px 10px;cursor:pointer;transition:all var(--t-med);min-height:54px;display:flex;flex-direction:column;gap:3px;position:relative;box-shadow:var(--shadow-card)}
-.eq-slot:hover{border-color:var(--gold);background:var(--gold-light);transform:translateY(-1px);box-shadow:var(--shadow-hover)}
-.eq-slot.active{border-color:var(--gold);border-width:2px;background:var(--gold-light);box-shadow:0 0 0 3px rgba(124,92,191,0.15),var(--shadow)}
-.eq-slot.filled{background:var(--surface-glass)}
-.eq-slot.just-equipped{animation:slotPop 0.38s var(--t-spring) forwards}
-.slot-lbl{font-size:8px;color:var(--text-dim);font-weight:700;letter-spacing:2px;text-transform:uppercase}
-.slot-body{display:flex;align-items:center;gap:6px;flex:1}
-.slot-ico{width:28px;height:28px;object-fit:contain;border-radius:6px;flex-shrink:0}
-.slot-item-name{font-size:11px;font-weight:700;color:var(--text);flex:1;line-height:1.2}
-.slot-source{font-size:9px;font-weight:700;white-space:nowrap}
-.slot-empty{font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:4px}
-.slot-clear{position:absolute;top:4px;right:4px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:12px;line-height:1;padding:2px;opacity:0;transition:opacity var(--t-fast)}
-.eq-slot:hover .slot-clear{opacity:1}
-
-/* Pastilles */
-.slot-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.slot-dot.green{background:var(--green)}
-.slot-dot.yellow{background:var(--yellow)}
-
-/* Dofus row */
-.dofus-row{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:8px}
-.dofus-slot{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all var(--t-med);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 2px;min-height:52px;position:relative;box-shadow:var(--shadow-card)}
-.dofus-slot:hover{border-color:var(--gold);background:var(--gold-light);transform:translateY(-1px);box-shadow:var(--shadow-hover)}
-.dofus-slot.active{border-color:var(--gold);border-width:2px;box-shadow:0 0 0 3px rgba(124,92,191,0.15),var(--shadow)}
-.dofus-slot.filled{background:var(--surface-glass)}
-.dofus-slot.just-equipped{animation:slotPop 0.38s var(--t-spring) forwards}
-.dofus-slot img{width:32px;height:32px;object-fit:contain}
-.dofus-lbl{font-size:7px;color:var(--text-dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;margin-top:2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:normal;word-break:break-word;line-height:1.2}
-.dofus-clear{position:absolute;top:2px;right:2px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:1px;opacity:0}
-.dofus-slot:hover .dofus-clear{opacity:1}
-
 /* ── STATS COMPACTES (banque/overlay) ── */
 .stat-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--bg2)}
 .stat-chip.pos{color:var(--green)}
 .stat-chip.neg{color:var(--red)}
 .stat-chip.exo{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
 .stat-chip.over-chip{background:rgba(124,92,191,0.15);border:1px solid var(--gold-border);color:var(--gold);font-weight:700}
-
-/* ── PAGE SÉLECTION ITEM ── */
-.select-header{padding:12px 16px;background:var(--surface-glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:52px;z-index:50}
-.select-title{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px;margin-bottom:6px}
-.select-search{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text);outline:none;transition:border-color var(--t-fast)}
-.select-search:focus{border-color:var(--gold)}
-.select-empty{text-align:center;padding:40px 20px;color:var(--text-dim)}
-.select-empty-ico{font-size:40px;margin-bottom:12px}
-.select-empty-txt{font-size:13px;line-height:1.5}
-.item-cards{display:flex;flex-direction:column;gap:8px;padding:12px}
-.item-card{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:12px;cursor:pointer;display:flex;gap:12px;transition:all var(--t-med);box-shadow:var(--shadow-card)}
-.item-card:hover{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
-.item-card-ico{width:48px;height:48px;object-fit:contain;border-radius:8px;background:var(--bg2);flex-shrink:0;border:1px solid var(--border)}
-.item-card-body{flex:1;min-width:0}
-.item-card-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;letter-spacing:0.3px}
-.item-card-type{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.item-card-stats{display:flex;flex-wrap:wrap;gap:4px}
-.stat-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--bg2)}
-.stat-chip.pos{color:var(--green)}
-.stat-chip.neg{color:var(--red)}
-.stat-chip.exo{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
-.item-card-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.item-card-dot.green{background:var(--green)}
-.item-card-dot.yellow{background:var(--yellow)}
-.item-card-dot.grey{background:var(--border)}
 
 /* ── BANQUE ── */
 .bank-header{padding:16px;display:flex;align-items:center;justify-content:space-between}
@@ -211,16 +119,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .bank-btn.primary{background:var(--gold-light);border-color:var(--gold-border);color:var(--gold)}
 .bank-btn.danger{background:#fff0ee;border-color:#fccbc7;color:var(--red)}
 [data-theme="dark"] .bank-btn.danger{background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.35)}
-.bank-item-usage{font-size:10px;color:var(--text-dim);font-style:italic;margin-top:4px}
-.bank-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
-
-/* ── ITEMS LIBRES ── */
-.free-items-section{padding:12px}
-.free-items-header{font-family:'Cinzel',serif;font-size:10px;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.free-count{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border);border-radius:10px;padding:1px 8px;font-family:'Rajdhani',sans-serif;font-size:11px}
-
-/* ── TOOLTIP ── */
-#stuffTooltip{display:none;position:fixed;z-index:999;background:rgba(15,8,32,0.97);border:1px solid var(--gold-border);border-radius:14px;padding:12px 14px;max-width:220px;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(168,126,232,0.1);font-family:'Rajdhani',sans-serif;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 
 /* ── MODALS ── */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
@@ -264,8 +162,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .exo-val-row{display:flex;gap:6px}
 .exo-val-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:13px;color:var(--text)}
 .exo-confirm-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
-.build-modal-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:'Cinzel',serif;color:var(--text);outline:none;margin-bottom:12px;transition:border-color var(--t-fast)}
-.build-modal-input:focus{border-color:var(--gold)}
 
 /* ── Helpers ── */
 .empty-state{text-align:center;padding:32px 20px;color:var(--text-dim);font-size:13px;background:var(--bg2);border-radius:var(--radius)}
@@ -274,9 +170,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:rgba(15,8,32,0.97);color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;border:1px solid var(--gold-border);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{opacity:1}
 .section-label{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:12px 12px 4px}
-
-/* Pastilles */
-.slot-dot.red,.item-card-dot.red,.bank-item-dot.red{background:#e74c3c}
 .stat-chip.over-chip{background:rgba(124,92,191,0.15);border:1px solid var(--gold-border);color:var(--gold);font-weight:700}
 
 /* ── TRACKING ── */
@@ -294,24 +187,28 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .kamas-card.total .kamas-card-val{font-size:20px}
 .kamas-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:13px;font-weight:700;color:var(--gold);font-family:'Cinzel',serif;text-align:center;outline:none;transition:border-color var(--t-fast)}
 .kamas-input:focus{border-color:var(--gold)}
-.tracking-compte-lbl{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:8px 0 4px;margin-top:4px}
-.tracking-perso-row{display:flex;align-items:center;gap:10px;padding:5px 6px;border-radius:8px;transition:background var(--t-fast)}
-.tracking-perso-row:hover{background:var(--bg2)}
-.tracking-perso-ico{width:22px;height:22px;object-fit:contain;border-radius:4px;flex-shrink:0}
-.tracking-perso-name{font-size:12px;font-weight:700;color:var(--text);flex:1;letter-spacing:0.3px}
-.tracking-perso-classe{font-size:10px;color:var(--text-dim)}
-.tracking-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);flex-shrink:0;background:var(--surface)}
+.tracking-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);flex-shrink:0;background:var(--surface);margin:0 auto}
 .tracking-check.state1{background:#f0a500;border-color:#f0a500;color:#fff}
 .tracking-check.state2{background:var(--green);border-color:var(--green);color:#fff}
 .tracking-check.state3{background:var(--red);border-color:var(--red);color:#fff}
 
-/* Tableau multi-colonnes tracking */
-.tracking-row{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:8px;transition:background var(--t-fast)}
-.tracking-row:hover{background:var(--bg2)}
-.tracking-header{position:sticky;top:52px;z-index:10;padding:6px 6px 4px;border-bottom:2px solid var(--border);margin-bottom:4px;background:var(--bg2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.tracking-cell-name{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.tracking-cell-col{width:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex-shrink:0;font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;gap:3px}
-.tracking-col-ico{width:36px;height:36px;object-fit:contain;display:block;margin:3px auto;border-radius:4px}
+/* Tableau ACTIVITÉS — même pattern que le tableau Dofus (sticky + scroll horizontal) */
+.tracking-wrap{overflow:auto;max-height:calc(100vh - 420px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
+.tracking-table{border-collapse:collapse;min-width:100%;font-size:11px}
+.tracking-table th,.tracking-table td{white-space:nowrap}
+.tracking-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
+.tracking-th-col{position:sticky;top:0;z-index:10;padding:4px 3px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:58px;max-width:58px;vertical-align:middle}
+.tracking-th-col img{width:28px;height:28px;object-fit:contain;display:block;margin:2px auto;border-radius:4px}
+.tracking-th-col-lbl{font-size:7px;color:var(--text-dim);font-weight:700;text-transform:uppercase;display:block;margin-top:2px;white-space:normal;max-width:54px;line-height:1.15}
+.tracking-th-col-sub{font-size:6.5px;color:var(--gold2);font-weight:700;display:block;margin-top:1px;white-space:normal}
+.tracking-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
+.tracking-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:5px 8px;min-width:120px}
+.tracking-td-name-inner{display:flex;align-items:center;gap:6px}
+.tracking-td-ico{width:18px;height:18px;object-fit:contain;flex-shrink:0;border-radius:3px}
+.tracking-td-pname{font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.2px}
+.tracking-td-cell{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:4px;text-align:center;width:58px;max-width:58px;background:var(--surface)}
+.tracking-tr-perso:hover .tracking-td-name{background:var(--bg2)}
+.tracking-tr-perso:hover .tracking-td-cell{background:var(--bg2)}
 
 /* ── DOFUS TRACKER ── */
 .dofus-section{padding:12px}
@@ -464,10 +361,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 
 <!-- HEADER -->
 <div class="hdr" id="hdr">
-  <button class="hdr-back" id="hdrBack" onclick="goBack()">←</button>
   <div style="flex:1">
-    <div class="hdr-title" id="hdrTitle">IRON STUFFER</div>
-    <div class="hdr-sub" id="hdrSub">Gestionnaire de builds</div>
+    <div class="hdr-title large" id="hdrTitle">IRON STUFFER</div>
+    <div class="hdr-sub hidden" id="hdrSub"></div>
   </div>
   <button class="auth-btn" id="authBtn" onclick="handleAuth()">⏳</button>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
@@ -476,20 +372,8 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- VUE PERSOS -->
-  <div class="view active" id="view-persos"></div>
-
-  <!-- VUE BUILDS -->
-  <div class="view" id="view-builds"></div>
-
-  <!-- VUE STUFFER -->
-  <div class="view" id="view-stuffer"></div>
-
-  <!-- VUE SÉLECTION ITEM -->
-  <div class="view" id="view-select"></div>
-
   <!-- VUE BANQUE -->
-  <div class="view" id="view-bank"></div>
+  <div class="view active" id="view-bank"></div>
 
   <!-- VUE TRACKING -->
   <div class="view" id="view-tracking"></div>
@@ -503,11 +387,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 <div class="bottom-nav">
   <div class="bnav-inner" id="bnavInner">
     <div class="bnav-pill" id="bnavPill"></div>
-    <button class="bnav-btn active" id="nav-persos" onclick="showView('persos')">
-      <span class="ico" id="ico-persos"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGRlZnM+PHBhdHRlcm4+PHBhdHRlcm4gaWQ9InBhdHRlcm4iIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiI+PHBhdGggZD0iTSAwLDE2IGwgMTYsLTE2IE0gLTQsNCBsIDgsLTggTSAxMiwyMCBsIDgsLTgiIHN0cm9rZS13aWR0aD0iMiIgc2hhcGUtcmVuZGVyaW5nPSJhdXRvIiBzdHJva2U9IiM3YzVjYmYiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjwvcGF0aD48L3BhdHRlcm4+PC9wYXR0ZXJuPjwvZGVmcz48cG9seWdvbiBwb2ludHM9IjQwNi40Nyw0NjMuMTEsMjU2LDQyNi42NywxMDUuNTMsNDYzLjExLDkzLjY5LDMwOC43NCwxMi41MywxNzYuODksMTU1LjY4LDExNy45MywyNTYsMCwzNTYuMzIsMTE3LjkzLDQ5OS40NywxNzYuODksNDE4LjMxLDMwOC43NCIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgZmlsbC1vcGFjaXR5PSIxIj48L3BvbHlnb24+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTQ1Ljk1IDE0LjU1M2MtMTkuMzguODEtMzAuNTk0IDExLjM1Ny0zMC4yODIgMzAuMjgzbDE5Ljc2OCAzMC43OGM0LjQzLTEuMjEzIDkuMzYtMy44MzggMTQuMjQ4LTcuMzM1bDQyLjQ3NCA1OS45MzVjLTE3LjAxOCAyMC44My0zMS4yNTggNDQuNDQtNDIuNzEgNzAuODM2bDI2LjU1IDI2LjU1MmMxMS4yNzUtMjMuNiAyNC42MzQtNDQuODI2IDM5LjkxOC02My44NjRsMjEwLjgyIDI5Ny40NzUgMTY2LjgwNyAzMy4yMTNMNDYwLjMzIDMyNS42MiAxNjIuNzggMTE0Ljc0NWMxOS45MDctMTYuMTA4IDQxLjg0Mi0yOS45MSA2NS42NTItNDEuNTc4bC0yNi41NTMtMjYuNTVjLTI3LjIwNiAxMS44MDMtNTEuNDQyIDI2LjU3Ni03Mi43MzUgNDQuMjkyTDY5LjM5IDQ4LjU2YzMuNDQzLTQuODIzIDYuMDYyLTkuNzM1IDcuMzQyLTE0LjI0MmwtMzAuNzgtMTkuNzY1em00MDAuODQgODYuOTMzdi4wMDhsLjAwMy0uMDA4aC0uMDAyem0wIC4wMDgtMjguMDI4IDEyNC45Ny0yNS4xMTYtODAuNTkzLTE4LjEwNSA3MC42NjctMjYuODYyLTQ5LjY0LS41ODQgNTcuODE4IDEyOC40ODQgOTEuNjkgMTUuMTg0IDg3LjAxNy0xLjE2OC0xODYuODg1LTM0LjQ1NyAzOS43MTMtOS4zNDYtMTU0Ljc1NnptLTMwMC45NSAyNy45OCAyMjIuMjI0IDE5Ni4zNjggMjUuNjQ1IDY2Ljc1LTY2Ljc1LTI1LjY0NUwxMzAuNiAxNDQuNzM0YTMwOC40NTMgMzA4LjQ1MyAwIDAgMSAxNS4yMzgtMTUuMjZ6bTMyLjMwNSAxOTYuMjc0di4wMDRoLjAwNWwtLjAwNS0uMDA0em0uMDA1LjAwNCAyOC4wMjggMjIuNzc1LTM2LjIxIDQuMDg4IDU3LjgyIDE5LjI3Mi0xMDUuNzA2IDQuMDkgMTE1LjA1IDI3LjQ1TDEzNi4xIDQyMi4xMTRsMTI3LjMxNiAyNS42OTYtNjcuMTY0IDQzLjgwMyAyMDguNDk0IDEuNzUyLTg3LjAxNy0xNS4xODUtMTA0LjU0LTE1MC42NzYtMzUuMDM3LTEuNzUyeiIgZmlsbD0iIzdjNWNiZiIgZmlsbC1vcGFjaXR5PSIxIj48L3BhdGg+PC9nPjwvc3ZnPg==" style="width:24px;height:24px;object-fit:contain"></span>
-      Persos
-    </button>
-    <button class="bnav-btn" id="nav-bank" onclick="showView('bank')">
+    <button class="bnav-btn active" id="nav-bank" onclick="showView('bank')">
       <span class="ico" id="ico-bank"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTE0Ni44NTcgMjAuODQyYy0xMi41MzUtLjAzNi0yNC4yNjggMi44Ni0zNy4yODUgOS40MjRoLjAwNEM2MS4zNTYgNTQuNiAxOS45NjYgMTIwLjczNCAxNy45ODIgMTc1LjkxbDQxLjg0OCAxNC4yMzZjNC4zMy02MS44OSA0Ny4wNTctMTI4LjM3IDEwMS41MjctMTU1Ljg2aC4wMDJhMTMzLjY1MiAxMzMuNjUyIDAgMCAxIDEzLjE4NS01LjhsLTIyLjI2LTcuNDVhODMuNjg3IDgzLjY4NyAwIDAgMC01LjQyOC0uMTk0em01OS4zNCAyMC4xOWMtMTAuNDc4LS4wOS0yMi44MzIgMy4wOTMtMzYuNDI0IDkuOTQzbC4wMDQtLjAwNGMtNDguMjMgMjQuMzQtODkuNjI1IDkwLjUxMy05MS41NDggMTQ1LjQzNmwxNTYuNDg1IDUzLjI0YzMuODY1LTYyLjIyIDQ2Ljc5Ny0xMjkuMzcyIDEwMS42MTMtMTU3LjAzNWguMDAybC4wMDItLjAwM2ExMzQuMzk5IDEzNC4zOTkgMCAwIDEgMTIuODMyLTUuNjY2bC0xMzQuNTQtNDUuMDM2YTQzLjkwNSA0My45MDUgMCAwIDAtOC40MjctLjg3M3ptMTc0Ljk3IDU4LjMyM2MtMTAuNDc2LS4wOS0yMi44MyAzLjA5Mi0zNi40MiA5Ljk0bC0uMDA1LjAwMmMtNDguNTc3IDI0LjUxOC05MC4yMjUgOTEuNDczLTkxLjU4NiAxNDYuNjIzbDQ2LjIwNSAxNS43MmMzLjkxNC02Mi4xODggNDYuODI1LTEyOS4yNzQgMTAxLjYwNy0xNTYuOTJhMTI4LjU4OCAxMjguNTg4IDAgMCAxIDEzLjUzLTUuOTFsLTI2LjU0NC04Ljg4NGE0NC43ODggNDQuNzg4IDAgMCAwLTYuNzg1LS41N3ptNjMuNTU0IDIyLjAxNGMtMTAuMjY3LjA5My0yMi4wOTQgMy4zNTMtMzUuMzMzIDEwLjAzNC00Ny4xNTggMjMuOC04Ny43NzcgODcuNTg3LTkxLjM2MiAxNDEuNzVsMTc0LjU1LTczLjcyNmMtLjQwNC0zOS4wMS0xMC43NTQtNjEuMzA0LTI0LjQxNS03MS4wODJhMzYuMDU3IDM2LjA1NyAwIDAgMC03LjU1LTQuMTM3bC0uMDEuMDM0LTQuNzM1LTEuNTg0Yy0zLjQ4LS44ODctNy4xOTUtMS4zMjctMTEuMTQ0LTEuMjl6TTE3LjkgMTk1LjYyMmwtLjAzNSAxODcuNDg0TDU5LjQ2IDM5Ny41OFYyMDkuNzY0bC00MS41Ni0xNC4xNHptNjAuMjUgMjAuNDk4djE4Ny45NjJsMTU2LjI4MiA1NC4zN1YyNjkuMjg4bC0yOS4wNTMtOS44ODZ2MTE5LjQzTDEwNC4zMjUgMzQ0Ljc1VjIyNS4wMjVMNzguMTUgMjE2LjEyem00MTQuMjIgMy42ODNMMzE4LjQzMyAyOTMuMjd2MTg5LjIzNmwxNzMuOTM1LTczLjUwNHYtMTg5LjJ6bS0zNjkuMzU0IDExLjU4MnY5OS45NDdsNjMuNjc1IDIxLjQ3N3YtOTkuNzYzbC02My42NzQtMjEuNjYyem0zMS4zMDYgMjguNzk3YzkuNzA1IDAgMTcuNTczIDcuODY3IDE3LjU3MyAxNy41NzIgMCA2LjM0LTMuMzcgMTEuODgtOC40MDcgMTQuOTd2MjguNTNoLTE4LjY5di0yOC43NDZjLTQuODM4LTMuMTMtOC4wNDgtOC41NjItOC4wNDgtMTQuNzU0IDAtOS43MDUgNy44NjctMTcuNTcyIDE3LjU3Mi0xNy41NzJ6bTk4Ljc5NyAxNS40NjR2MTg5LjMwN2w0Ni42MjYgMTYuMjJWMjkxLjUxbC00Ni42MjctMTUuODY0eiIgZmlsbD0iIzdjNWNiZiIgZmlsbC1vcGFjaXR5PSIxIj48L3BhdGg+PC9nPjwvc3ZnPg==" style="width:24px;height:24px;object-fit:contain"></span>
       Banque
     </button>
@@ -521,9 +401,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
     </button>
   </div>
 </div>
-
-<!-- TOOLTIP -->
-<div id="stuffTooltip"></div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -586,23 +463,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
   </div>
 </div>
 
-<!-- MODAL BUILD -->
-<div class="modal-overlay" id="modalBuild" onclick="if(event.target===this)closeModal('modalBuild')">
-  <div class="modal">
-    <div class="modal-title">
-      <span id="modalBuildTitle">Nouveau build</span>
-      <button class="modal-close" onclick="closeModal('modalBuild')">✕</button>
-    </div>
-    <div class="modal-section-title">Nom du build</div>
-    <input class="build-modal-input" id="modalBuildInput" placeholder="Ex: Build Feu PvP">
-    <div class="modal-footer">
-      <button class="modal-btn cancel" onclick="closeModal('modalBuild')">Annuler</button>
-      <button class="modal-btn danger" id="modalBuildDelete" onclick="deleteBuild()" style="display:none;flex:0.6">🗑</button>
-      <button class="modal-btn save" onclick="saveBuildName()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
 <script>
 // ════════════════════════════════════════════════
 // CONFIG
@@ -657,25 +517,6 @@ var COMPTES = [
 
 var WEAPON_TYPES=['Épée','Arc','Baguette','Bâton','Dague','Faux','Marteau','Pelle','Pioche','Hache','Lance','Pistolet','Poing','Outil'];
 
-var SLOTS_LEFT = [
-  {id:'chapeau',  lbl:'Chapeau',  ico:'🎩', types:['Chapeau']},
-  {id:'amulette', lbl:'Amulette', ico:'📿', types:['Amulette']},
-  {id:'cape',     lbl:'Cape',     ico:'🪄', types:['Cape']},
-  {id:'ceinture', lbl:'Ceinture', ico:'👜', types:['Ceinture']},
-  {id:'anneau1',  lbl:'Anneau 1', ico:'💍', types:['Anneau']},
-  {id:'anneau2',  lbl:'Anneau 2', ico:'💍', types:['Anneau']}
-];
-
-var SLOTS_RIGHT = [
-  {id:'arme',    lbl:'Arme',     ico:'⚔️',  types:['Épée','Arc','Baguette','Bâton','Dague','Faux','Marteau','Pelle','Pioche','Hache']},
-  {id:'bouclier',lbl:'Bouclier', ico:'🛡️',  types:['Bouclier']},
-  {id:'bottes',  lbl:'Bottes',   ico:'👢',  types:['Bottes']},
-  {id:'monture', lbl:'Familier', ico:'🐾',  types:['Familier','Dragodinde','Montilier','Muldo','Volkorne']}
-];
-
-var DOFUS_SLOTS = ['dofus1','dofus2','dofus3','dofus4','dofus5','dofus6'];
-var DOFUS_TYPES = ['Dofus','Trophée','Prysmaradite'];
-
 // ── 29 Dofus à tracker ──
 var DOFUS_TRACKER_LIST = [
   {id:'dofawa',       name:'Dofawa',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23009-64.png'},
@@ -719,16 +560,14 @@ var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do M�
 // ════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════
-var state = {builds:{}, bank:[]};
-var nav = {view:'persos', persoId:null, buildId:null, activeSlot:null, selectSlotId:null, selectSlotTypes:[], bankFilters:[]};
+var state = {bank:[]};
+var nav = {view:'bank', bankFilters:[]};
 var modalBankData = {item:null, editIdx:null, compte:null, nativeKeys:[]};
-var modalBuildData = {persoId:null, buildId:null};
 var modalSearchCache = [];
 
 function loadState(){
   try{
     var s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-    state.builds=s.builds||{};
     state.bank=s.bank||[];
     state.tracking=s.tracking||{};
     state.dofusTracker=s.dofusTracker||{};
@@ -744,7 +583,6 @@ function saveState(){
     clearTimeout(window._syncTimer);
     window._syncTimer=setTimeout(function(){
       window._fsDb.collection('users').doc(uid).collection('data').doc('state').set({
-        builds: state.builds,
         bank: state.bank,
         tracking: state.tracking||{},
         dofusTracker: state.dofusTracker||{},
@@ -759,8 +597,6 @@ function saveState(){
     }, 800); // debounce 800ms pour éviter trop d'écritures
   }
 }
-function getBuilds(pid){ return state.builds[pid]||[]; }
-function getBuild(pid,bid){ return (state.builds[pid]||[]).filter(function(b){return b.id===bid;})[0]||null; }
 function persoById(pid){
   for(var i=0;i<COMPTES.length;i++){
     for(var j=0;j<COMPTES[i].persos.length;j++){
@@ -798,9 +634,7 @@ function showView(v){
   nav.view=v;
   // Nav buttons
   document.querySelectorAll('.bnav-btn').forEach(function(b){b.classList.remove('active');});
-  if(v==='persos'||v==='builds'||v==='stuffer'||v==='select'){
-    document.getElementById('nav-persos').classList.add('active');
-  } else if(v==='bank'){
+  if(v==='bank'){
     document.getElementById('nav-bank').classList.add('active');
   } else if(v==='tracking'){
     document.getElementById('nav-tracking').classList.add('active');
@@ -809,86 +643,26 @@ function showView(v){
   }
   updateNavPill();
   // Header
-  var back = document.getElementById('hdrBack');
   var title = document.getElementById('hdrTitle');
   var sub = document.getElementById('hdrSub');
-  if(v==='persos'){
-    back.classList.remove('visible');
-    title.textContent='IRON STUFFER';
-    title.classList.add('large');
-    sub.textContent='';
-    sub.classList.add('hidden');
-  } else if(v==='builds'){
-    back.classList.add('visible');
-    title.classList.remove('large');
-    sub.classList.remove('hidden');
-    var p=persoById(nav.persoId);
-    title.textContent=p?p.name:'Builds';
-    sub.textContent=p?p.classe:'';
-  } else if(v==='stuffer'){
-    back.classList.add('visible');
-    title.classList.remove('large');
-    sub.classList.remove('hidden');
-    var b=getBuild(nav.persoId,nav.buildId);
-    title.textContent=b?b.name:'Build';
-    var p2=persoById(nav.persoId);
-    sub.textContent=p2?p2.name+' — '+p2.classe:'';
-  } else if(v==='select'){
-    back.classList.add('visible');
-    title.classList.remove('large');
-    sub.classList.remove('hidden');
-    title.textContent='Choisir un item';
-    var sl=getSlotLabel(nav.selectSlotId);
-    sub.textContent=sl;
-  } else if(v==='bank'){
-    back.classList.remove('visible');
+  if(v==='bank'){
     title.textContent='MA BANQUE';
     title.classList.add('large');
     sub.textContent='';
     sub.classList.add('hidden');
   } else if(v==='tracking'){
-    back.classList.remove('visible');
     title.textContent='TRACKING';
     title.classList.add('large');
     sub.textContent='';
     sub.classList.add('hidden');
     renderTracking();
   } else if(v==='dofus'){
-    back.classList.remove('visible');
     title.textContent='DOFUS';
     title.classList.add('large');
     sub.textContent='';
     sub.classList.add('hidden');
     renderDofusTab();
   }
-}
-
-function goBack(){
-  if(nav.view==='builds'){ showView('persos'); }
-  else if(nav.view==='stuffer'){ showView('builds'); renderBuilds(); }
-  else if(nav.view==='select'){ showView('stuffer'); renderStuffer(); }
-}
-
-function openPerso(pid){
-  nav.persoId=pid;
-  nav.buildId=null;
-  showView('builds');
-  renderBuilds();
-}
-
-function openBuild(bid){
-  nav.buildId=bid;
-  nav.activeSlot=null;
-  showView('stuffer');
-  renderStuffer();
-}
-
-function getSlotLabel(id){
-  if(!id) return '';
-  var all=SLOTS_LEFT.concat(SLOTS_RIGHT);
-  for(var i=0;i<all.length;i++) if(all[i].id===id) return all[i].lbl;
-  if(DOFUS_SLOTS.indexOf(id)>=0) return 'Dofus / Trophée / Prysmaradite';
-  return id;
 }
 
 // ════════════════════════════════════════════════
@@ -905,915 +679,9 @@ var CLASS_ICONS_STUFFER = {"F\u00e9ca": "data:image/png;base64,iVBORw0KGgoAAAANS
 
 
 // ════════════════════════════════════════════════
-// VUE PERSOS
-// ════════════════════════════════════════════════
-var persoFilter = 'all'; // 'all' | 'with' | 'without'
-
-function setPersoFilter(f){
-  persoFilter = f;
-  renderPersos();
-}
-
-function renderPersos(){
-  var starUri = document.querySelector('.compte-title img') ? document.querySelector('.compte-title img').src : '';
-  // Récupérer l'URI de l'étoile depuis le DOM si dispo, sinon depuis le premier rendu
-  var h='';
-
-  // Boutons filtres
-  h+='<div style="display:flex;gap:8px;padding:12px 12px 4px">';
-  var filters=[['all','Tous'],['with','Avec build(s)'],['without','Sans build']];
-  filters.forEach(function(f){
-    var active=persoFilter===f[0];
-    h+='<button class="perso-filter'+(active?' active':'')+'" onclick="setPersoFilter(\''+f[0]+'\')">'+f[1]+'</button>';
-  });
-  h+='</div>';
-
-  var starImg = '<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0ibTI1Ni40MzggMjUuNzgtNDEuNzUgMTI3LjE5IDQxLjYyNSAzMCA0Mi4wOTMtMzAuMjItNDEuOTctMTI2Ljk3em0tOTAuMTU3IDkxLjA2NGMtMTYuMzMgMC0yOS4zNzQgMTMuMDQzLTI5LjM3NCAyOS4zNzUgMCAxNi4zMyAxMy4wNDQgMjkuMzc0IDI5LjM3NSAyOS4zNzQgMTYuMzMzIDAgMjkuMzQ1LTEzLjA0NCAyOS4zNDUtMjkuMzc1IDAtMTYuMzMzLTEzLjAxMi0yOS4zNzYtMjkuMzQ0LTI5LjM3NnptMTc5Ljk3LjM3NWMtMTYuMzMyIDAtMjkuMzc1IDEzLjA0Mi0yOS4zNzUgMjkuMzc0IDAgMTYuMzMgMTMuMDQzIDI5LjM0NCAyOS4zNzUgMjkuMzQ0czI5LjM3NS0xMy4wMTMgMjkuMzc1LTI5LjM0NGMwLTE2LjMzMi0xMy4wNDMtMjkuMzc1LTI5LjM3NS0yOS4zNzV6TTIwNy41IDE3MC44NDNjLTUuNzk1IDkuNjUtMTQuODk1IDE3LjEyNC0yNS42ODggMjAuODQ0TDE5Ny41OTUgMjQxbDIuMDYyIDYuNDM4LTUuNDcgMy45NjgtNDkuMDYgMzUuODEzYzUuNzcyIDcuNDA0IDkuNDM4IDE2LjUyNSAxMC4wNiAyNi40MzZsNTkuNjU4LjI4IDYuNzUuMDMzIDIuMDk0IDYuNDA1TDI0MyAzNzkuMTg4YTQ3LjU4NSA0Ny41ODUgMCAwIDEgMTMuNzgtMi4wMzJjNC42NTIgMCA5LjE0NS42OSAxMy40MDggMS45MzhsMTkuNS01OC45NyAyLjA5My02LjQwNSA2Ljc1LS4wMzMgNTYuNzItLjE1NmMuODMtMTAuMzkgNS4wMDYtMTkuODQ4IDExLjQzOC0yNy4zNDJsLTQ4LjAzMi0zNS4yMkwzMTMuMjIgMjQ3bDIuMDkyLTYuNDA2IDE1LjYyNS00OC41YTQ4LjQ0MyA0OC40NDMgMCAwIDEtMjYtMjEuMDNsLTQzLjE4NyAzMS4wMy01LjQ3IDMuOTA2LTUuNDY3LTMuOTA2LTQzLjMxMy0zMS4yNXptLTQ0LjM3NSAyMy43OC0xNDAuMTg4LjY1NyAxMDguMTU3IDc5IDQ2LjYyNS0zNC0xNC41OTUtNDUuNjU1em0xODYuNTMuMjUtMTQuNSA0NS4wMzIgNDYuODc2IDM0LjM0NGMuMjQtLjExNy40OC0uMjMuNzItLjM0NGwxMDcuMTg4LTc4LjYyNS0xNDAuMjgyLS40MDV6bS0yNDIuNDA1IDkyLjQ0Yy0xNi4zMzItLjAwMi0yOS4zNzUgMTMuMDQyLTI5LjM3NSAyOS4zNzMgMCAxNi4zMzIgMTMuMDQzIDI5LjM3NSAyOS4zNzUgMjkuMzc1czI5LjM3NS0xMy4wNDMgMjkuMzc1LTI5LjM3NWMwLTE2LjMzLTEzLjA0My0yOS4zNzUtMjkuMzc1LTI5LjM3NXptMjk1Ljg3NS42ODZjLTE2LjMzMiAwLTI5LjM3NSAxMy4wNDMtMjkuMzc1IDI5LjM3NXMxMy4wNDMgMjkuMzc1IDI5LjM3NSAyOS4zNzUgMjkuMzc1LTEzLjA0MyAyOS4zNzUtMjkuMzc1UzQxOS40NTcgMjg4IDQwMy4xMjUgMjg4em0tNDYuNTk0IDQ0LjIyLTUxLjIxNy4xMjQtMTguMzQ0IDU1LjQ3IDExMy43OCA4MS43OC00NC4yMi0xMzcuMzc1em0tMjAwLjUuMTI0LTQzLjkwNSAxMzcuMjUgMTEzLjkwNi04Mi4xODgtMTgtNTQuODEyLTUyLS4yNXptMTAwLjc1IDYzLjVjLTE2LjMzIDAtMjkuMzc0IDEzLjA0My0yOS4zNzQgMjkuMzc1IDAgMTYuMzMgMTMuMDQ0IDI5LjM3NCAyOS4zNzUgMjkuMzc0IDE2LjMzMyAwIDI5LjM3Ni0xMy4wNDQgMjkuMzc2LTI5LjM3NSAwLTE2LjMzMy0xMy4wNDMtMjkuMzc2LTI5LjM3NS0yOS4zNzZ6IiBmaWxsPSIjN2M1Y2JmIiBmaWxsLW9wYWNpdHk9IjEiPjwvcGF0aD48L2c+PC9zdmc+" style="width:10px;height:10px;object-fit:contain;vertical-align:middle;margin-right:6px;opacity:0.8">';
-
-  COMPTES.forEach(function(c){
-    // Filtrer les persos selon le filtre actif
-    var persosToShow = c.persos.filter(function(p){
-      var builds = getBuilds(p.id);
-      if(persoFilter==='with') return builds.length > 0;
-      if(persoFilter==='without') return builds.length === 0;
-      return true;
-    });
-    if(!persosToShow.length) return; // masquer le compte entier si aucun perso
-
-    h+='<div class="compte-section">';
-    h+='<div class="compte-title">'+starImg+c.name+'</div>';
-    h+='<div class="perso-grid">';
-    persosToShow.forEach(function(p){
-      var builds=getBuilds(p.id);
-      h+='<div class="perso-card" data-pid="'+p.id+'" onclick="openPerso(this.dataset.pid)">';
-      if(CLASS_ICONS_STUFFER[p.classe]){
-        h+='<img class="perso-card-ico" src="'+CLASS_ICONS_STUFFER[p.classe]+'" alt="'+p.classe+'">';
-      } else {
-        h+='<span class="perso-card-ico" style="font-size:28px;display:flex;align-items:center;justify-content:center">'+getClassEmoji(p.classe)+'</span>';
-      }
-      h+='<div>';
-      h+='<div class="perso-card-name">'+p.name+'</div>';
-      h+='<div class="perso-card-classe">'+p.classe+' · '+builds.length+' build'+(builds.length!==1?'s':'')+'</div>';
-      h+='</div></div>';
-    });
-    h+='</div></div>';
-  });
-  document.getElementById('view-persos').innerHTML=h;
-}
-
-// ════════════════════════════════════════════════
-// VUE BUILDS
-// ════════════════════════════════════════════════
-function renderBuilds(){
-  var p=persoById(nav.persoId);
-  if(!p) return;
-  var builds=getBuilds(nav.persoId);
-  var h='<div class="builds-header">';
-  h+='<div style="font-family:\'Cinzel\',serif;font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase">'+builds.length+' build'+(builds.length!==1?'s':'')+'</div>';
-  h+='</div>';
-  h+='<div class="builds-grid">';
-  builds.forEach(function(b){
-    var slotCount=b.slots?Object.values(b.slots).filter(function(s){return s&&s.name;}).length:0;
-    var buildIco='';
-    if(CLASS_ICONS_STUFFER[p.classe]){
-      buildIco='<img src="'+CLASS_ICONS_STUFFER[p.classe]+'" style="width:40px;height:40px;object-fit:contain;border-radius:8px;flex-shrink:0">';
-    } else {
-      buildIco='<span style="font-size:32px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+getClassEmoji(p.classe)+'</span>';
-    }
-    h+='<div class="build-card" data-bid="'+b.id+'" onclick="openBuild(this.dataset.bid)">';
-    h+=buildIco;
-    h+='<div style="flex:1">';
-    h+='<div class="build-card-name">'+b.name+'</div>';
-    h+='<div class="build-card-meta">'+slotCount+' item'+(slotCount!==1?'s':'')+' équipé'+(slotCount!==1?'s':'')+'</div>';
-    h+='</div>';
-    h+='<button class="build-card-edit" data-pid="'+nav.persoId+'" data-bid="'+b.id+'" onclick="event.stopPropagation();openModalBuild(this.dataset.pid,this.dataset.bid)">✏️</button>';
-    h+='</div>';
-  });
-  h+='</div>';
-  if(builds.length<6){
-    h+='<button class="add-build-btn" data-pid="'+nav.persoId+'" onclick="openModalBuild(this.dataset.pid,null)">+ Nouveau build</button>';
-  }
-  document.getElementById('view-builds').innerHTML=h;
-}
-
-// ════════════════════════════════════════════════
-// VUE STUFFER
-// ════════════════════════════════════════════════
-// ════════════════════════════════════════════════
-// HELPERS POUR LA VUE BUILD
-// ════════════════════════════════════════════════
-var BASE_STATS = {
-  PA:7, PM:3, PO:0, Pods:1000, PI:1,
-  Vitalité:0, Sagesse:0, Force:0, Intelligence:0, Agilité:0, Chance:0,
-  Initiative:0, '% Critique':0, Prospection:0, Soin:0, Tacle:0, Fuite:0, Puissance:0
-};
-
-function normalizeStatName(k){
-  var map={
-    'Vitalite':'Vitalité','Vitalité':'Vitalité',
-    'Agilite':'Agilité','Portee':'PO','Portée':'PO',
-    'Critique':'% Critique','Taux Critique':'% Critique',
-    'Dommage Critiques':'Do Critique','Dommages Critiques':'Do Critique','Dommage Critique':'Do Critique',
-    'Soin':'Soin','Soins':'Soin','Prospection':'Prospection','Pods':'Pods',
-    'Invocation':'PI',
-    'Dommage Feu':'Do Feu','Dommages Feu':'Do Feu',
-    'Dommage Terre':'Do Terre','Dommages Terre':'Do Terre',
-    'Dommage Eau':'Do Eau','Dommages Eau':'Do Eau',
-    'Dommage Air':'Do Air','Dommages Air':'Do Air',
-    'Dommage Neutre':'Do Neutre','Dommages Neutre':'Do Neutre',
-    'Dommage Poussée':'Do Poussée','Dommages Poussée':'Do Poussée',
-    'Dommages':'Do Neutre Pur','Dommage':'Do Neutre Pur',
-    'Retrait PA':'Ret. PA','Retrait PM':'Ret. PM','Esquive PM':'Esq. PM','Esquive PA':'Esq. PA',
-    'Résistance Critiques':'Ré Critique','Résistance Critique':'Ré Critique',
-    'Résistance Poussée':'Ré Poussée',
-    'Résistance Terre':'Ré Terre','Résistance Feu':'Ré Feu','Résistance Eau':'Ré Eau',
-    'Résistance Air':'Ré Air','Résistance Neutre':'Ré Neutre',
-    '% Résistance Terre':'% Ré Terre','% Résistance Feu':'% Ré Feu','% Résistance Eau':'% Ré Eau',
-    '% Résistance Air':'% Ré Air','% Résistance Neutre':'% Ré Neutre',
-    '% Résistance Mêlée':'% Ré Mélée','% Résistance Distance':'% Ré Dist',
-    '% Résistance mêlée':'% Ré Mélée','% Résistance distance':'% Ré Dist',
-    '% Dommages Sorts':'% Do Sorts','% Dommages aux sorts':'% Do Sorts',
-    '% Dommages Distance':'% Do Dist','% Dommages distance':'% Do Dist',
-    '% Dommages Mélée':'% Do Mélée','% Dommages mêlée':'% Do Mélée',
-    '% Dommages Armes':'% Do Armes',
-    'Puissance':'Puissance'
-  };
-  return map[k]||k;
-}
-
-function getBuildInvested(){
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b) return {};
-  if(!b.invested) b.invested={
-    vita:0,sagesse:0,force:0,intel:0,chance:0,agi:0,
-    parchoVita:0,parchoSage:0,parchoForce:0,parchoIntel:0,parchoChance:0,parchoAgi:0
-  };
-  return b.invested;
-}
-
-function setInvested(el){
-  var key=el.getAttribute('data-key');
-  var val=parseInt(el.value)||0;
-  if(val<0) val=0;
-  var isParcho=key.indexOf('parcho')===0;
-  if(isParcho&&val>100) val=100;
-  var inv=getBuildInvested();
-  inv[key]=val;
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(b){ b.invested=inv; saveState(); }
-  renderStuffer();
-}
-
-// ════════════════════════════════════════════════
-// VUE BUILD — Design type Dofusbook avec tabs
-// ════════════════════════════════════════════════
-var buildActiveTab = 'stats'; // 'stats' | 'panoplies' | 'fm'
-function setBuildTab(t){
-  buildActiveTab = t;
-  renderStuffer();
-}
-
-// Notes par build (texte libre)
-function setBuildNotes(val){
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b) return;
-  b.notes = val.substring(0, 255);
-  saveState();
-  var counter=document.getElementById('buildNotesCount');
-  if(counter) counter.textContent=b.notes.length+' / 255';
-}
-
-function renderStuffer(){
-  var p=persoById(nav.persoId);
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!p||!b) return;
-
-  document.getElementById('hdrTitle').textContent=b.name;
-  document.getElementById('hdrSub').textContent=p.name+' — '+p.classe;
-  document.getElementById('hdrSub').classList.remove('hidden');
-
-  var slots=b.slots||{};
-
-  // ═══════════════════════════════════════════
-  // CALCUL DES TOTAUX
-  // ═══════════════════════════════════════════
-  var totals={};
-  Object.keys(BASE_STATS).forEach(function(k){ totals[k]=BASE_STATS[k]; });
-  var exoTotals={};
-
-  var allSlotIds=SLOTS_LEFT.map(function(s){return s.id;})
-    .concat(SLOTS_RIGHT.map(function(s){return s.id;}))
-    .concat(DOFUS_SLOTS);
-
-  allSlotIds.forEach(function(sid){
-    var item=slots[sid];
-    if(!item) return;
-    var rawStats=item.stats||{};
-    var rawExos=item.exos||{};
-    if(item.bankRef!==undefined){
-      var bi=state.bank[item.bankRef];
-      if(bi){ rawStats=bi.stats||{}; rawExos=bi.exos||{}; }
-    }
-    // Cumul stats
-    Object.keys(rawStats).forEach(function(k){
-      var n=normalizeStatName(k);
-      var v=parseInt(rawStats[k])||0;
-      totals[n]=(totals[n]||0)+v;
-    });
-    // Cumul exos (qui s'ajoutent aux stats ET sont trackés à part)
-    Object.keys(rawExos).forEach(function(k){
-      var n=normalizeStatName(k);
-      var v=parseInt(rawExos[k])||0;
-      totals[n]=(totals[n]||0)+v;
-      exoTotals[n]=(exoTotals[n]||0)+v;
-    });
-  });
-
-  // Bonus panoplies
-  var sets={};
-  Object.values(slots).forEach(function(item){
-    if(!item||!item.setId) return;
-    if(!sets[item.setId]) sets[item.setId]={count:0,bonuses:item.setBonuses||{},name:item.setName||'Panoplie',items:[]};
-    sets[item.setId].count++;
-    sets[item.setId].items.push(item);
-    if(item.setBonuses&&Object.keys(item.setBonuses).length) sets[item.setId].bonuses=item.setBonuses;
-  });
-  // Appliquer bonus actifs aux totaux
-  Object.keys(sets).forEach(function(sid){
-    var s=sets[sid];
-    var bonusKeys=Object.keys(s.bonuses).map(Number).sort(function(a,b){return a-b;});
-    var activeBonus=null;
-    bonusKeys.forEach(function(t){ if(s.count>=t) activeBonus=s.bonuses[t]; });
-    if(!activeBonus) return;
-    s.activeBonusText = activeBonus;
-    s.activeBonusLevel = bonusKeys.filter(function(t){return s.count>=t;}).pop();
-    activeBonus.split(', ').forEach(function(part){
-      var m=part.trim().match(/^([+-]?\d+)%?\s+(.+)$/);
-      if(m){
-        var v=parseInt(m[1]);
-        var n=normalizeStatName(m[2].trim());
-        if(!isNaN(v)) totals[n]=(totals[n]||0)+v;
-      }
-    });
-  });
-
-  // Parchos investis
-  var inv=getBuildInvested();
-  if(inv){
-    totals['Vitalité']=(totals['Vitalité']||0)+(inv.vita||0)+(inv.parchoVita||0);
-    totals['Sagesse']=(totals['Sagesse']||0)+Math.floor((inv.sagesse||0)/3)+(inv.parchoSage||0);
-    totals['Force']=(totals['Force']||0)+(inv.force||0)+(inv.parchoForce||0);
-    totals['Intelligence']=(totals['Intelligence']||0)+(inv.intel||0)+(inv.parchoIntel||0);
-    totals['Chance']=(totals['Chance']||0)+(inv.chance||0)+(inv.parchoChance||0);
-    totals['Agilité']=(totals['Agilité']||0)+(inv.agi||0)+(inv.parchoAgi||0);
-  }
-  totals['PdV']=1050+(totals['Vitalité']||0);
-  // Dommages purs s'ajoutent aux 5 éléments
-  var doPur=totals['Do Neutre Pur']||0;
-  if(doPur){
-    ['Do Feu','Do Terre','Do Eau','Do Air','Do Neutre'].forEach(function(k){
-      totals[k]=(totals[k]||0)+doPur;
-    });
-  }
-  window._lastTotals=totals;
-
-  // ═══════════════════════════════════════════
-  // HTML
-  // ═══════════════════════════════════════════
-  var h='<div class="build-page">';
-
-  // ── HEADER BUILD (titre + niveau) ──
-  h+='<div class="build-hdr">';
-  h+='<div class="build-hdr-name">'+b.name+'</div>';
-  h+='<div class="build-hdr-lvl">'+(b.level||200)+'</div>';
-  h+='</div>';
-
-  // ── GRILLE ÉQUIPEMENTS 4 colonnes (style Dofusbook) ──
-  h+='<div class="bpage-card">';
-  h+='<div class="build-section-title"><span class="sec-line"></span><span>Équipements</span><span class="sec-line"></span></div>';
-  h+='<div class="eq-grid4">';
-  var ALL_SLOTS=SLOTS_LEFT.concat(SLOTS_RIGHT);
-  ALL_SLOTS.forEach(function(sl){
-    h+=renderSlotCompact(sl.id, sl.lbl, sl.ico, slots[sl.id]);
-  });
-  DOFUS_SLOTS.forEach(function(id,i){
-    h+=renderSlotCompact(id, 'Dofus '+(i+1), '🥚', slots[id]);
-  });
-  h+='</div></div>';
-
-  // ── TABS ──
-  var tabs=[
-    {id:'stats', lbl:'Stats'},
-    {id:'panoplies', lbl:'Panoplies'},
-    {id:'fm', lbl:'FM'}
-  ];
-  h+='<div class="build-tabs">';
-  tabs.forEach(function(t){
-    var act=buildActiveTab===t.id?' active':'';
-    h+='<button class="build-tab'+act+'" onclick="setBuildTab(\''+t.id+'\')">'+t.lbl+'</button>';
-  });
-  h+='</div>';
-
-  // ═══════════════════════════════════════════
-  // TAB STATS
-  // ═══════════════════════════════════════════
-  if(buildActiveTab==='stats'){
-
-    // ─── Stats principales ───
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Stats principales</span><span class="sec-line"></span></div>';
-
-    // Paires de stats (gauche / droite)
-    var mainStats=[
-      [{k:'PdV',     bonus:false}, {k:'Initiative', bonus:false}],
-      [{k:'Prospection', bonus:false, alias:'PP'}, {k:'% Critique', bonus:false, alias:'Critique'}],
-      [{k:'PA', bonus:true},  {k:'PI', bonus:false}],
-      [{k:'PM', bonus:true},  {k:'Soin', bonus:false}],
-      [{k:'PO', bonus:true},  null]
-    ];
-    mainStats.forEach(function(pair){
-      h+='<div class="stat-pair-row">';
-      pair.forEach(function(s){
-        if(!s){ h+='<div></div>'; return; }
-        var v=totals[s.k]||0;
-        h+=statItemHTML(s.k, v, s.alias, s.bonus);
-      });
-      h+='</div>';
-    });
-    h+='</div>';
-
-    // ─── Caractéristiques (avec base/parcho) ───
-    h+='<div class="bpage-card">';
-    h+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:8px;padding-right:4px">';
-    h+='<span class="carac-hdr-lbl" style="color:var(--gold)">+⚡</span>';
-    h+='<span class="carac-hdr-lbl">Base</span>';
-    h+='<span class="carac-hdr-lbl" style="color:var(--green)">Parcho</span>';
-    h+='</div>';
-    var puissance=totals['Puissance']||0;
-    // Puissance s'ajoute uniquement à Force, Intelligence, Chance, Agilité
-    var puissanceStats=['Force','Intelligence','Chance','Agilité'];
-    var caracList=[
-      {k:'Vitalité',     invKey:'vita',    parchoKey:'parchoVita'},
-      {k:'Sagesse',      invKey:'sagesse', parchoKey:'parchoSage'},
-      {k:'Force',        invKey:'force',   parchoKey:'parchoForce'},
-      {k:'Intelligence', invKey:'intel',   parchoKey:'parchoIntel'},
-      {k:'Chance',       invKey:'chance',  parchoKey:'parchoChance'},
-      {k:'Agilité',      invKey:'agi',     parchoKey:'parchoAgi'},
-      {k:'Puissance',    invKey:null,      parchoKey:null}
-    ];
-    caracList.forEach(function(c){
-      var v=totals[c.k]||0;
-      var baseVal=c.invKey?(inv[c.invKey]||0):0;
-      var parchoVal=c.parchoKey?(inv[c.parchoKey]||0):0;
-      var hasPuissance=puissanceStats.indexOf(c.k)>=0;
-      // +⚡ = pts investis + parcho + puissance si stat éligible
-      var bonusVal=c.invKey?((inv[c.invKey]||0)+(inv[c.parchoKey]||0)+(hasPuissance?puissance:0)):0;
-      h+='<div class="carac-row">';
-      h+='<span class="carac-ico">'+getStatIcon(c.k)+'</span>';
-      h+='<span class="carac-val">'+v+'</span>';
-      h+='<span class="carac-lbl">'+c.k+'</span>';
-      if(c.invKey){
-        h+='<span style="width:44px;text-align:center;font-size:13px;font-weight:700;color:var(--gold)">'+(bonusVal>0?bonusVal:'')+'</span>';
-        h+='<input class="carac-input base" type="number" min="0" data-key="'+c.invKey+'" value="'+baseVal+'" onchange="setInvested(this)">';
-        h+='<input class="carac-input parcho" type="number" min="0" max="100" data-key="'+c.parchoKey+'" value="'+parchoVal+'" onchange="setInvested(this)">';
-      } else {
-        h+='<span style="width:44px"></span>';
-        h+='<span style="width:44px"></span>';
-        h+='<span style="width:44px"></span>';
-      }
-      h+='</div>';
-    });
-    h+='</div>';
-
-    // ─── Secondaires ───
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Secondaires</span><span class="sec-line"></span></div>';
-    var secStats=['Fuite','Tacle','Esq. PA','Ret. PA','Esq. PM','Ret. PM','Pods'];
-    h+='<div class="stat-grid">';
-    for(var i=0;i<secStats.length;i+=2){
-      var s1=secStats[i], s2=secStats[i+1];
-      h+='<div class="stat-pair-row">';
-      h+=statItemHTML(s1, totals[s1]||0);
-      h+=s2?statItemHTML(s2, totals[s2]||0):'<div></div>';
-      h+='</div>';
-    }
-    h+='</div></div>';
-
-    // ─── Dommages ───
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Dommages</span><span class="sec-line"></span></div>';
-    var dmgStats=['Do Neutre','Do Critique','Do Terre','Do Poussée','Do Feu','% Do Armes','Do Eau','% Do Sorts','Do Air','% Do Mélée','% Do Dist'];
-    h+='<div class="stat-grid">';
-    for(var i=0;i<dmgStats.length;i+=2){
-      var s1=dmgStats[i], s2=dmgStats[i+1];
-      h+='<div class="stat-pair-row">';
-      h+=statItemHTML(s1, totals[s1]||0);
-      h+=s2?statItemHTML(s2, totals[s2]||0):'<div></div>';
-      h+='</div>';
-    }
-    h+='</div></div>';
-
-    // ─── Résistances ───
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Résistances</span><span class="sec-line"></span></div>';
-    var resPairs=[
-      ['Ré Neutre','% Ré Neutre'],
-      ['Ré Terre','% Ré Terre'],
-      ['Ré Feu','% Ré Feu'],
-      ['Ré Eau','% Ré Eau'],
-      ['Ré Air','% Ré Air'],
-      ['Ré Critique','Ré Poussée'],
-      ['% Ré Mélée','% Ré Dist']
-    ];
-    h+='<div class="stat-grid">';
-    resPairs.forEach(function(pair){
-      h+='<div class="stat-pair-row">';
-      h+=statItemHTML(pair[0], totals[pair[0]]||0);
-      h+=statItemHTML(pair[1], totals[pair[1]]||0);
-      h+='</div>';
-    });
-    h+='</div></div>';
-
-    // ─── Exos ───
-    var exoKeys=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
-    if(exoKeys.length){
-      h+='<div class="bpage-card">';
-      h+='<div class="build-section-title"><span class="sec-line"></span><span>Exo / Over des items</span><span class="sec-line"></span></div>';
-      h+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
-      exoKeys.forEach(function(k){
-        var v=exoTotals[k];
-        var sign=v>0?'+':'';
-        h+='<div class="exo-chip">';
-        var ic=getStatIcon(k);
-        if(ic) h+=ic;
-        h+='<span class="exo-val">'+sign+v+'</span>';
-        h+='<span class="exo-lbl">'+k+'</span>';
-        h+='</div>';
-      });
-      h+='</div></div>';
-    }
-
-    // ─── Notes ───
-    var notes=b.notes||'';
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Résumé du stuff</span><span class="sec-line"></span></div>';
-    h+='<textarea class="build-notes" maxlength="255" placeholder="Ajoute ici quelques notes ou informations sur ce stuff…" oninput="setBuildNotes(this.value)">'+notes.replace(/</g,'&lt;')+'</textarea>';
-    h+='<div class="build-notes-count" id="buildNotesCount">'+notes.length+' / 255</div>';
-    h+='</div>';
-  }
-
-  // ═══════════════════════════════════════════
-  // TAB PANOPLIES
-  // ═══════════════════════════════════════════
-  if(buildActiveTab==='panoplies'){
-    var setIds=Object.keys(sets);
-    if(setIds.length===0){
-      h+='<div class="build-card empty-state">Aucune panoplie active sur ce build.</div>';
-    } else {
-      h+='<div style="font-size:12px;color:var(--text-dim);margin-bottom:10px;padding:0 4px">'+setIds.length+' panoplie'+(setIds.length>1?'s':'')+' active'+(setIds.length>1?'s':'')+'</div>';
-      setIds.forEach(function(sid){
-        var s=sets[sid];
-        h+='<div class="build-card panoplie-card">';
-        // Header panoplie
-        h+='<div class="panoplie-hdr">';
-        h+='<span class="panoplie-name">'+s.name+'</span>';
-        h+='<span class="panoplie-arrow">→</span>';
-        var lvls=Object.keys(s.bonuses).map(Number);
-        var maxLvl=lvls.length?Math.max.apply(null,lvls):s.count;
-        h+='<span class="panoplie-meta">'+s.count+'/'+maxLvl+' items</span>';
-        h+='</div>';
-        // Items vignettes
-        h+='<div class="panoplie-items">';
-        s.items.forEach(function(it){
-          h+='<div class="panoplie-item">';
-          h+='<div class="panoplie-item-img">';
-          if(it.icon) h+='<img src="'+it.icon+'" alt="'+it.name+'" onerror="this.style.display=\'none\'">';
-          h+='</div>';
-          h+='<span class="panoplie-item-lbl">'+(it.type||'').substring(0,10)+'</span>';
-          h+='</div>';
-        });
-        h+='</div>';
-        // Bonus actifs
-        if(s.activeBonusText){
-          h+='<div class="panoplie-bonus-hdr">';
-          h+='<span>Bonus</span>';
-          h+='<span class="panoplie-bonus-count">'+s.activeBonusLevel+'</span>';
-          h+='<span>items</span>';
-          h+='<div class="sec-line"></div>';
-          h+='</div>';
-          h+='<div class="panoplie-bonus-list">';
-          s.activeBonusText.split(', ').forEach(function(bonus){
-            h+='<div class="panoplie-bonus-item"><div class="dot"></div>'+bonus+'</div>';
-          });
-          h+='</div>';
-        }
-        h+='</div>';
-      });
-    }
-  }
-
-  // ═══════════════════════════════════════════
-  // TAB FM (Forgemagie)
-  // ═══════════════════════════════════════════
-  if(buildActiveTab==='fm'){
-    h+='<div class="bpage-card">';
-    h+='<div class="build-section-title"><span class="sec-line"></span><span>Forgemagie globale</span><span class="sec-line"></span></div>';
-    // Récap exos cumulés en forme FM
-    var exoKeys2=Object.keys(exoTotals).filter(function(k){return exoTotals[k]!==0;});
-    if(exoKeys2.length===0){
-      h+='<div class="empty-state" style="padding:20px 0">Aucun exo/forgemagie sur ce build</div>';
-    } else {
-      h+='<div style="display:flex;flex-direction:column;gap:6px">';
-      exoKeys2.forEach(function(k){
-        var v=exoTotals[k];
-        var sign=v>0?'+':'';
-        h+='<div class="fm-row">';
-        var ic=getStatIcon(k);
-        if(ic) h+=ic;
-        h+='<span class="fm-val">'+sign+v+'</span>';
-        h+='<span class="fm-lbl">'+k+'</span>';
-        h+='</div>';
-      });
-      h+='</div>';
-    }
-    h+='</div>';
-  }
-
-  h+='</div>'; // fin build-page
-  document.getElementById('view-stuffer').innerHTML=h;
-}
-
-// Helper pour générer un item de stat (icône + valeur + label)
-function statItemHTML(key, value, aliasLabel, showBonus){
-  var ic=getStatIcon(key);
-  var lbl=aliasLabel||key;
-  var isNeg=value<0;
-  var bonusHtml='';
-  if(showBonus){
-    var bonusVal='+0';
-    // PA/PM/PO : bonus = somme des exos PA/PM/PO + bonus panoplie
-    // On approxime via totals[key] - basePlafond
-    var caps={PA:7,PM:3,PO:0};
-    if(caps[key]!==undefined){
-      var diff=value-caps[key];
-      bonusVal=(diff>=0?'+':'')+diff;
-    }
-    var bonusClass=bonusVal==='+0'?'zero':'plus';
-    bonusHtml='<span class="stat-bonus '+bonusClass+'">'+bonusVal+'</span>';
-  }
-  return '<div class="stat-item">'
-    +'<span class="stat-item-ico">'+(ic||'')+'</span>'
-    +'<span class="stat-item-val'+(isNeg?' neg':'')+'">'+value+'</span>'
-    +'<span class="stat-item-lbl">'+lbl+'</span>'
-    +bonusHtml
-    +'</div>';
-}
-
-// ── Rendu d'un slot ──
-
-// Slot compact pour la grille 4 colonnes style Dofusbook
-function renderSlotCompact(slotId, lbl, ico, item){
-  var isActive=nav.activeSlot===slotId;
-  var dotInfo=item&&item.bankRef!==undefined?getItemDotFromBank(item.bankRef):null;
-  var src=item?getItemSource(item):null;
-
-  var h='<div class="eq-slot4'+(item?' filled':'')+(isActive?' active':'')+'" data-slotid="'+slotId+'" onclick="selectSlot(this.dataset.slotid)">';
-
-  if(item&&item.icon){
-    h+='<img src="'+item.icon+'" alt="'+item.name+'" onerror="this.style.display=\'none\'" style="width:75%;height:75%;object-fit:contain">';
-  } else {
-    h+='<span class="eq-slot4-empty">'+ico+'<br><span class="eq-slot4-lbl">'+lbl+'</span></span>';
-  }
-
-  // Pastille compte (point coloré en haut à droite)
-  if(dotInfo){
-    var dotColor=dotInfo.wrongCompte?'var(--red)':dotInfo.usage>1?'var(--gold)':'var(--green)';
-    h+='<span class="eq-slot4-dot" style="background:'+dotColor+'"></span>';
-  }
-
-  // Tooltip au hover : nom + compte
-  if(item){
-    h+='<div class="eq-slot4-tooltip">';
-    h+='<div class="eq-slot4-tooltip-name">'+item.name+'</div>';
-    if(src) h+='<div class="eq-slot4-tooltip-src" style="color:var(--green)">'+src.label+'</div>';
-    h+='</div>';
-    h+='<button class="eq-slot4-clear" onclick="event.stopPropagation();clearSlot(\''+slotId+'\')">✕</button>';
-  }
-
-  h+='</div>';
-  return h;
-}
-
-function renderSlot(sl, item){
-  var isActive=nav.activeSlot===sl.id;
-  var h='<div class="eq-slot '+(item?'filled':'')+(isActive?' active':'')+'" data-slotid="'+sl.id+'" onclick="selectSlot(this.dataset.slotid)">';
-  h+='<div class="slot-lbl">'+sl.lbl+'</div>';
-  h+='<div class="slot-body">';
-  if(item){
-    if(item.icon){
-      h+='<img class="slot-ico" src="'+item.icon+'" data-slotid="'+sl.id+'" onerror="this.style.display=\'none\'">';
-    }
-    var src=getItemSource(item);
-    var dotInfo=getItemDot(item);
-    h+='<div style="flex:1;min-width:0">';
-    h+='<div class="slot-item-name">'+item.name+'</div>';
-    if(src){
-      h+='<div class="slot-source" style="color:'+(src.type==='bank'?'var(--green)':'var(--yellow)')+'">'+src.label+'</div>';
-    }
-    h+='</div>';
-    if(dotInfo) h+=renderDots(dotInfo);
-    h+='<button class="slot-clear" data-slotid="'+sl.id+'" onclick="event.stopPropagation();clearSlot(this.dataset.slotid)">✕</button>';
-  } else {
-    h+='<span class="slot-empty">'+sl.ico+' Vide</span>';
-  }
-  h+='</div></div>';
-  return h;
-}
-
-function getItemSource(item){
-  if(item.bankRef!==undefined){
-    var bi=state.bank[item.bankRef];
-    if(bi){
-      var cname=bi.compte||'?';
-      COMPTES.forEach(function(c){ if(c.id===bi.compte) cname=c.name; });
-      return {type:'bank', label:cname};
-    }
-  }
-  return null;
-}
-
-function getItemDot(item){
-  if(item.bankRef===undefined) return null;
-  var bankIdx=item.bankRef;
-  var bi=state.bank[bankIdx];
-  if(!bi) return null;
-  var usageCount=0;
-  COMPTES.forEach(function(c){
-    c.persos.forEach(function(p){
-      getBuilds(p.id).forEach(function(b){
-        if(!b.slots) return;
-        Object.values(b.slots).forEach(function(s){
-          if(s&&s.bankRef===bankIdx) usageCount++;
-        });
-      });
-    });
-  });
-  // Vérifier si l'item est sur un autre compte que le perso actuel
-  var currentCompte=compteOfPerso(nav.persoId);
-  var wrongCompte=currentCompte&&bi.compte&&bi.compte!==currentCompte.id;
-  return {usage:usageCount, wrongCompte:wrongCompte};
-}
-
-function renderDots(dotInfo){
-  if(!dotInfo) return '';
-  var h='<div style="display:flex;gap:3px;flex-shrink:0">';
-  if(dotInfo.usage===0) h+='<div class="slot-dot grey" title="Non utilisé"></div>';
-  else if(dotInfo.usage===1) h+='<div class="slot-dot green" title="Utilisé dans 1 build"></div>';
-  else h+='<div class="slot-dot yellow" title="Partagé entre plusieurs builds"></div>';
-  if(dotInfo.wrongCompte) h+='<div class="slot-dot red" title="Autre compte"></div>';
-  h+='</div>';
-  return h;
-}
-
-// ── Sélection de slot → page dédiée ──
-function selectSlot(slotId){
-  if(nav.activeSlot===slotId){
-    nav.activeSlot=null;
-    renderStuffer();
-    return;
-  }
-  nav.activeSlot=slotId;
-  nav.selectSlotId=slotId;
-  nav.selectAccountFilter='compte'; // reset au filtre compte par défaut
-
-  // Trouver les types acceptés
-  var all=SLOTS_LEFT.concat(SLOTS_RIGHT);
-  var found=null;
-  for(var i=0;i<all.length;i++) if(all[i].id===slotId){ found=all[i]; break; }
-  nav.selectSlotTypes=found?found.types:DOFUS_SLOTS.indexOf(slotId)>=0?DOFUS_TYPES:[];
-
-  showView('select');
-  renderSelectPage();
-}
-
-function clearSlot(slotId){
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b||!b.slots) return;
-  delete b.slots[slotId];
-  saveState();
-  renderStuffer();
-}
-
-// ════════════════════════════════════════════════
-// VUE SÉLECTION ITEM (depuis banque uniquement)
-// ════════════════════════════════════════════════
-function renderSelectPage(){
-  var slotTypes=nav.selectSlotTypes;
-  var slotId=nav.selectSlotId;
-  // Filtre compte : 'compte' par défaut, 'all' si explicitement choisi
-  if(!nav.selectAccountFilter) nav.selectAccountFilter='compte';
-  var currentCompte=compteOfPerso(nav.persoId);
-  var currentCompteId=currentCompte?currentCompte.id:null;
-
-  // Filtrer les items de la banque par type de slot ET par compte si filtre actif
-  function itemMatchesSlot(item){
-    if(!slotTypes||!slotTypes.length) return true;
-    var t=item.type||'';
-    return slotTypes.some(function(st){
-      return t.toLowerCase().indexOf(st.toLowerCase())>-1 || st.toLowerCase().indexOf(t.toLowerCase())>-1;
-    });
-  }
-
-  function itemMatchesCompte(item){
-    if(nav.selectAccountFilter==='all') return true;
-    return item.compte===currentCompteId;
-  }
-
-  var available=state.bank.filter(function(item){ return itemMatchesSlot(item); });
-  var filtered=available.filter(function(item){ return itemMatchesCompte(item); });
-
-  var h='';
-
-  // Header sticky
-  h+='<div class="select-header">';
-  h+='<div class="select-title">'+getSlotLabel(slotId)+'</div>';
-  // Filtres compte
-  h+='<div style="display:flex;gap:6px;margin-bottom:8px">';
-  h+='<button class="bank-filter'+(nav.selectAccountFilter==='compte'?' active':'')+'" onclick="setSelectFilter(\'compte\')">Items du compte</button>';
-  h+='<button class="bank-filter'+(nav.selectAccountFilter==='all'?' active':'')+'" onclick="setSelectFilter(\'all\')">Tout</button>';
-  h+='</div>';
-  h+='<input class="select-search" id="selectSearch" placeholder="Filtrer..." oninput="filterSelectItems()" value="">';
-  h+='</div>';
-
-  if(!filtered.length){
-    h+='<div class="select-empty">';
-    h+='<div class="select-empty-ico">🎒</div>';
-    if(!available.length){
-      h+='<div class="select-empty-txt">Aucun item de ce type dans ta banque.<br>Ajoute tes équipements depuis l\'onglet <strong>Banque</strong> !</div>';
-    } else {
-      h+='<div class="select-empty-txt">Aucun item de ce type pour ce compte.<br>Clique sur <strong>Tout</strong> pour voir tous les items.</div>';
-    }
-    h+='</div>';
-  } else {
-    h+='<div class="item-cards" id="selectItemCards">';
-    state.bank.forEach(function(item, realIdx){
-      if(itemMatchesSlot(item) && itemMatchesCompte(item)){
-        h+=renderSelectCard(item, realIdx);
-      }
-    });
-    h+='</div>';
-  }
-
-  document.getElementById('view-select').innerHTML=h;
-}
-
-function setSelectFilter(f){
-  nav.selectAccountFilter=f;
-  renderSelectPage();
-  // Restaurer le focus sur la recherche si besoin
-  var s=document.getElementById('selectSearch');
-  if(s) s.focus();
-}
-
-function renderSelectCard(item, bankIdx){
-  // Calcul pastille
-  var dotInfo=getItemDotFromBank(bankIdx);
-
-  var h='<div class="item-card" data-bidx="'+bankIdx+'" onclick="equipFromBankSelect('+bankIdx+')">';
-  h+='<div style="position:relative">';
-  if(item.icon){
-    h+='<img class="item-card-ico" src="'+item.icon+'" onerror="this.style.display=\'none\'">';
-  } else {
-    h+='<div class="item-card-ico" style="display:flex;align-items:center;justify-content:center;font-size:22px">⚔️</div>';
-  }
-  h+='</div>';
-  h+='<div class="item-card-body">';
-  h+='<div class="item-card-name">'+item.name+'</div>';
-  h+='<div class="item-card-type">';
-  h+=item.type||'';
-  // Compte
-  var cname=item.compte||'?';
-  COMPTES.forEach(function(c){ if(c.id===item.compte) cname=c.name; });
-  h+='<span style="color:var(--text-dim)">'+cname+'</span>';
-  if(dotInfo) h+=renderDots(dotInfo).replace('slot-dot','item-card-dot');
-  h+='</div>';
-  // Stats
-  h+='<div class="item-card-stats">';
-  var stats=item.stats||{};
-  Object.keys(stats).slice(0,8).forEach(function(k){
-    var v=parseInt(stats[k])||0;
-    if(!v) return;
-    h+='<span class="stat-chip '+(v>0?'pos':'neg')+'">'+(v>0?'+':'')+v+' '+k+'</span>';
-  });
-  // Exos
-  var exos=item.exos||{};
-  Object.keys(exos).forEach(function(k){
-    var v=parseInt(exos[k])||0;
-    if(!v) return;
-    h+='<span class="stat-chip exo">⚡ '+(v>0?'+':'')+v+' '+k+'</span>';
-  });
-  h+='</div>';
-  h+='</div></div>';
-  return h;
-}
-
-function getItemDotFromBank(bankIdx){
-  var bi=state.bank[bankIdx];
-  var usageCount=0;
-  var isWrongCompte=false;
-  var biCompte=bi?bi.compte:null;
-
-  COMPTES.forEach(function(c){
-    c.persos.forEach(function(p){
-      getBuilds(p.id).forEach(function(b){
-        if(!b.slots) return;
-        Object.values(b.slots).forEach(function(s){
-          if(s&&s.bankRef===bankIdx){
-            usageCount++;
-            // Mauvais compte = item banque compte X utilisé dans build d'un perso du compte Y
-            if(biCompte && c.id !== biCompte) isWrongCompte=true;
-          }
-        });
-      });
-    });
-  });
-  var currentCompte=compteOfPerso(nav.persoId);
-  var wrongCompteSlot=bi&&currentCompte&&biCompte&&biCompte!==currentCompte.id;
-  return {usage:usageCount, wrongCompte:wrongCompteSlot, isWrongCompteBuild:isWrongCompte};
-}
-
-function filterSelectItems(){
-  var q=(document.getElementById('selectSearch').value||'').toLowerCase().trim();
-  var cards=document.querySelectorAll('.item-card');
-  cards.forEach(function(card){
-    var name=card.querySelector('.item-card-name');
-    if(!name){ card.style.display=''; return; }
-    if(!q||name.textContent.toLowerCase().indexOf(q)>-1){
-      card.style.display='';
-    } else {
-      card.style.display='none';
-    }
-  });
-}
-
-function equipFromBankSelect(bankIdx){
-  var item=state.bank[bankIdx];
-  if(!item||!nav.selectSlotId) return;
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b) return;
-  if(!b.slots) b.slots={};
-
-  // Vérifier Prysmaradite : max 1 sur les 6 slots dofus
-  if(item.type==='Prysmaradite'){
-    var alreadyHasPrysma=DOFUS_SLOTS.some(function(sid){
-      return b.slots[sid]&&b.slots[sid].type==='Prysmaradite'&&sid!==nav.selectSlotId;
-    });
-    if(alreadyHasPrysma){ showToast('Tu ne peux avoir qu\'une seule Prysmaradite !'); return; }
-  }
-  // P1 : Unicité dofus/trophées par ankama_id
-  var isDofusSlot=DOFUS_SLOTS.indexOf(nav.selectSlotId)>=0;
-  if(isDofusSlot&&item.ankama_id){
-    var duplicate=DOFUS_SLOTS.some(function(sid){
-      return sid!==nav.selectSlotId&&b.slots[sid]&&b.slots[sid].ankama_id===item.ankama_id;
-    });
-    if(duplicate){ showToast('Cet item est déjà dans un autre slot !'); return; }
-  }
-
-  b.slots[nav.selectSlotId]={
-    name:item.name,
-    icon:item.icon||'',
-    type:item.type||'',
-    stats:item.stats||{},
-    exos:item.exos||{},
-    statMaxima:item.statMaxima||{},
-    bankRef:bankIdx,
-    setId:item.setId||null,
-    setName:item.setName||null,
-    setBonuses:item.setBonuses||{},
-    ankama_id:item.ankama_id||null,
-    conditions:item.conditions||null
-  };
-  saveState();
-  nav.activeSlot=null;
-  showToast(item.name+' équipé !');
-  showView('stuffer');
-  renderStuffer();
-  // Micro-animation : pop sur le slot équipé
-  var slotEl=document.querySelector('[data-slotid="'+nav.selectSlotId+'"]');
-  if(slotEl){
-    slotEl.classList.add('just-equipped');
-    slotEl.addEventListener('animationend',function(){ slotEl.classList.remove('just-equipped'); },{once:true});
-  }
-}
-
-
-// ════════════════════════════════════════════════
 // BANQUE
 // ════════════════════════════════════════════════
 var BANK_FILTER_TYPES=[
-  {id:'free',    lbl:'Non utilisés', group:'statut'},
-  {id:'shared',  lbl:'Partagés',     group:'statut'},
-  {id:'other',   lbl:'Autre compte', group:'statut'},
   {id:'noexo',   lbl:'Sans exo(s)',  group:'statut'},
   {id:'Chapeau', lbl:'Coiffe',       group:'type'},
   {id:'Amulette',lbl:'Amulette',     group:'type'},
@@ -1900,12 +768,8 @@ function bankItemMatchesFilters(item, idx){
   // Filtre recherche texte
   if(bankSearch && item.name.toLowerCase().indexOf(bankSearch)<0) return false;
   if(!nav.bankFilters.length) return true;
-  var dotInfo=getItemDotFromBank(idx);
   var passes=true;
   nav.bankFilters.forEach(function(fid){
-    if(fid==='free'   && dotInfo.usage!==0) passes=false;
-    if(fid==='shared' && dotInfo.usage<=1)  passes=false;
-    if(fid==='other'  && !dotInfo.isWrongCompteBuild) passes=false;
     if(fid==='noexo'){
       // Exclure les items qui ne peuvent jamais avoir d'exo
       var t=item.type||'';
@@ -1922,7 +786,7 @@ function bankItemMatchesFilters(item, idx){
     } else if(fid==='Arme'){
       var t3=item.type||'';
       if(!WEAPON_TYPES.some(function(wt){return t3.toLowerCase()===wt.toLowerCase();})) passes=false;
-    } else if(!['free','shared','other','noexo'].includes(fid)){
+    } else if(fid!=='noexo'){
       var t4=item.type||'';
       if(t4.toLowerCase().indexOf(fid.toLowerCase())<0) passes=false;
     }
@@ -1931,7 +795,7 @@ function bankItemMatchesFilters(item, idx){
 }
 
 function exportBank(){
-  var data=JSON.stringify({bank:state.bank, builds:state.builds}, null, 2);
+  var data=JSON.stringify({bank:state.bank}, null, 2);
   var blob=new Blob([data],{type:'application/json'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');
@@ -1956,7 +820,6 @@ function importBank(){
         if(!data.bank) { showToast('Fichier invalide'); return; }
         if(!confirm('Remplacer toute la banque ('+data.bank.length+' items) ? Cette action est irréversible.')) return;
         state.bank=data.bank;
-        if(data.builds) state.builds=data.builds;
         saveState();
         renderBank();
         showToast('Import réussi — '+data.bank.length+' items chargés !');
@@ -2114,23 +977,7 @@ function renderBank(){
 }
 
 function renderBankCard(item, idx){
-  var dotInfo=getItemDotFromBank(idx);
-  // Builds qui utilisent cet item
-  var usages=[];
-  COMPTES.forEach(function(c){
-    c.persos.forEach(function(p){
-      getBuilds(p.id).forEach(function(b){
-        if(!b.slots) return;
-        Object.values(b.slots).forEach(function(s){
-          if(s&&s.bankRef===idx) usages.push(p.name+' — '+b.name);
-        });
-      });
-    });
-  });
-
   var h='<div class="bank-item">';
-  // Pastille
-  h+=renderDots(dotInfo).replace('slot-dot','bank-item-dot');
   if(item.icon){
     h+='<img class="bank-item-ico" src="'+item.icon+'" onerror="this.style.display=\'none\'">';
   } else {
@@ -2167,10 +1014,6 @@ function renderBankCard(item, idx){
       h+='<span class="stat-chip exo">⚡ '+(v>0?'+':'')+v+' '+k+'</span>';
     });
     h+='</div>';
-  }
-  // Usages
-  if(usages.length){
-    h+='<div class="bank-item-usage">Utilisé dans : '+usages.join(', ')+'</div>';
   }
   h+='<div class="bank-item-actions">';
   h+='<button class="bank-btn primary" data-idx="'+idx+'" onclick="openModalBank(parseInt(this.dataset.idx))">✏️ Modifier</button>';
@@ -2486,70 +1329,10 @@ function deleteBankItem(){
   if(modalBankData.editIdx===null) return;
   if(!confirm('Supprimer cet item ?')) return;
   state.bank.splice(modalBankData.editIdx,1);
-  // Mettre à jour les bankRef dans les builds
-  COMPTES.forEach(function(c){
-    c.persos.forEach(function(p){
-      getBuilds(p.id).forEach(function(b){
-        if(!b.slots) return;
-        Object.keys(b.slots).forEach(function(sid){
-          var s=b.slots[sid];
-          if(!s) return;
-          if(s.bankRef===modalBankData.editIdx) delete b.slots[sid];
-          else if(s.bankRef>modalBankData.editIdx) s.bankRef--;
-        });
-      });
-    });
-  });
   saveState();
   closeModal('modalBank');
   renderBank();
   showToast('Item supprimé');
-}
-
-// ════════════════════════════════════════════════
-// MODAL BUILD
-// ════════════════════════════════════════════════
-function openModalBuild(pid,bid){
-  modalBuildData={persoId:pid, buildId:bid};
-  document.getElementById('modalBuildTitle').textContent=bid?'Modifier le build':'Nouveau build';
-  document.getElementById('modalBuildDelete').style.display=bid?'block':'none';
-  var b=bid?getBuild(pid,bid):null;
-  document.getElementById('modalBuildInput').value=b?b.name:'';
-  document.getElementById('modalBuild').classList.add('active');
-}
-
-function saveBuildName(){
-  var name=(document.getElementById('modalBuildInput').value||'').trim();
-  if(!name){ showToast('Donne un nom au build'); return; }
-  var pid=modalBuildData.persoId;
-  var bid=modalBuildData.buildId;
-  if(!state.builds[pid]) state.builds[pid]=[];
-  if(bid){
-    var b=getBuild(pid,bid);
-    if(b) b.name=name;
-  } else {
-    var newBuild={id:'b_'+Date.now(), name:name, slots:{}, invested:{
-      vita:0,sagesse:0,force:0,intel:0,chance:0,agi:0,
-      parchoVita:0,parchoSage:0,parchoForce:0,parchoIntel:0,parchoChance:0,parchoAgi:0
-    }};
-    state.builds[pid].push(newBuild);
-  }
-  saveState();
-  closeModal('modalBuild');
-  renderBuilds();
-  showToast(bid?'Build modifié':'Build créé !');
-}
-
-function deleteBuild(){
-  var pid=modalBuildData.persoId;
-  var bid=modalBuildData.buildId;
-  if(!bid) return;
-  if(!confirm('Supprimer ce build ?')) return;
-  state.builds[pid]=(state.builds[pid]||[]).filter(function(b){return b.id!==bid;});
-  saveState();
-  closeModal('modalBuild');
-  renderBuilds();
-  showToast('Build supprimé');
 }
 
 function closeModal(id){
@@ -2662,88 +1445,6 @@ function getStatIcon(k){
   return '<span style="font-size:10px;opacity:0.5">\u25aa</span>';
 }
 
-function showTooltip(e, slotId){
-  var b=getBuild(nav.persoId,nav.buildId);
-  if(!b||!b.slots) return;
-  var item=b.slots[slotId];
-  if(!item) return;
-  var tip=document.getElementById('stuffTooltip');
-  if(!tip) return;
-  var stats=Object.assign({},item.stats||{});
-  var exos={};
-  var statMaxima={};
-  if(item.bankRef!==undefined){
-    var bi=state.bank[item.bankRef];
-    if(bi){ exos=bi.exos||{}; statMaxima=bi.statMaxima||{}; }
-  } else {
-    exos=item.exos||{};
-    statMaxima=item.statMaxima||{};
-  }
-  var h='<div style="font-weight:700;font-size:13px;color:var(--gold2);margin-bottom:3px">'+item.name+'</div>';
-  if(item.type) h+='<div style="font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px">'+item.type+'</div>';
-  var keys=Object.keys(stats);
-  keys.forEach(function(k){
-    var v=parseInt(stats[k])||0;
-    if(!v) return;
-    var maxV=statMaxima[k]||0;
-    var isOver=maxV>0&&v>maxV;
-    var col=isOver?'var(--gold2)':'rgba(255,255,255,0.9)';
-    var ico=getStatIcon(k);
-    h+='<div style="font-size:11px;color:'+col+';display:flex;gap:5px;align-items:center;padding:1px 0">';
-    h+='<span style="width:16px;text-align:center">'+ico+'</span>';
-    h+='<span>'+(v>0?'+':'')+v+' '+k+(isOver?' ⚡':'')+'</span>';
-    h+='</div>';
-  });
-  var exoKeys=Object.keys(exos);
-  if(exoKeys.length){
-    h+='<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(155,127,212,0.4)">';
-    exoKeys.forEach(function(k){
-      var v=parseInt(exos[k])||0;
-      if(!v) return;
-      var ico=getStatIcon(k);
-      h+='<div style="font-size:11px;color:var(--gold2);display:flex;gap:5px;align-items:center;padding:1px 0">';
-      h+='<span style="width:16px;text-align:center">'+ico+'</span>';
-      h+='<span>⚡ '+(v>0?'+':'')+v+' '+k+'</span>';
-      h+='</div>';
-    });
-    h+='</div>';
-  }
-  if(!keys.length&&!exoKeys.length){
-    h+='<div style="font-size:11px;color:rgba(255,255,255,0.4);font-style:italic">Aucune stat</div>';
-  }
-  tip.innerHTML=h;
-  tip.style.display='block';
-  tip.style.left=(e.pageX+14)+'px';
-  tip.style.top=Math.max(10,e.pageY-10)+'px';
-}
-
-function hideTooltip(){
-  var tip=document.getElementById('stuffTooltip');
-  if(tip) tip.style.display='none';
-}
-
-// Listener permanent sur document.body
-(function setupTooltip(){
-  document.body.addEventListener('mouseover', function(e){
-    var el=e.target;
-    if(!el||el.tagName!=='IMG') return;
-    var slotId=el.dataset&&el.dataset.slotid;
-    if(!slotId) return;
-    showTooltip(e, slotId);
-  });
-  document.body.addEventListener('mousemove', function(e){
-    var tip=document.getElementById('stuffTooltip');
-    if(tip&&tip.style.display==='block'){
-      tip.style.left=(e.pageX+14)+'px';
-      tip.style.top=Math.max(10,e.pageY-10)+'px';
-    }
-  });
-  document.body.addEventListener('mouseout', function(e){
-    var el=e.target;
-    if(el&&el.tagName==='IMG'&&el.dataset&&el.dataset.slotid) hideTooltip();
-  });
-})();
-
 // ════════════════════════════════════════════════
 // TOAST
 // ════════════════════════════════════════════════
@@ -2752,30 +1453,6 @@ function showToast(msg){
   t.textContent=msg;
   t.classList.add('show');
   setTimeout(function(){ t.classList.remove('show'); }, 2200);
-}
-
-// ════════════════════════════════════════════════
-// ICÔNES NAV (injectées depuis les assets)
-// ════════════════════════════════════════════════
-function injectNavIcons(perrosUri, banqueUri){
-  if(perrosUri) document.getElementById('ico-persos').innerHTML='<img src="'+perrosUri+'" style="width:22px;height:22px;object-fit:contain;border-radius:4px">';
-  if(banqueUri) document.getElementById('ico-bank').innerHTML='<img src="'+banqueUri+'" style="width:22px;height:22px;object-fit:contain;border-radius:4px">';
-}
-
-// ════════════════════════════════════════════════
-// MIGRATION DONNÉES v1 → v2
-// ════════════════════════════════════════════════
-function migrateFromV1(){
-  try{
-    var old=JSON.parse(localStorage.getItem('iron_stuffer_v1')||'{}');
-    var current=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-    if(old.bank&&old.bank.length&&(!current.bank||!current.bank.length)){
-      state.bank=old.bank;
-      if(old.builds) state.builds=old.builds;
-      saveState();
-      showToast('Données migrées depuis v1 !');
-    }
-  }catch(e){}
 }
 
 // ════════════════════════════════════════════════
@@ -2807,9 +1484,9 @@ function initFirebase(){
       if(user){
         updateAuthBtn(user);
         loadFromFirestore(function(){
-          renderPersos();
           renderBank();
-          if(nav.view==='stuffer') renderStuffer();
+          if(nav.view==='tracking') renderTracking();
+          if(nav.view==='dofus') renderDofusTab();
         });
       } else {
         updateAuthBtn(null);
@@ -2834,12 +1511,11 @@ function loadFromFirestore(cb){
         var localUpdated=localRaw&&localRaw.updatedAt?localRaw.updatedAt:'';
         var remoteUpdated=d.updatedAt||'';
         if(remoteUpdated>=localUpdated){
-          state.builds=d.builds||{};
           state.bank=d.bank||[];
           state.tracking=d.tracking||{};
           state.dofusTracker=d.dofusTracker||{};
           // Mettre aussi à jour le localStorage comme cache
-          try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({builds:state.builds, bank:state.bank, updatedAt:remoteUpdated})); }catch(e){}
+          try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({bank:state.bank, updatedAt:remoteUpdated})); }catch(e){}
         } else {
           // localStorage plus récent → on upload vers Firestore
           saveState();
@@ -3037,22 +1713,21 @@ function renderTracking(){
   });
   h+='</div></div>';
 
-  // ── BLOC ACTIVITÉS (tableau multi-colonnes) ──
-  h+='<div class="tracking-block">';
+  // ── BLOC ACTIVITÉS (tableau, scroll horizontal, colonne noms fixe) ──
+  h+='<div class="tracking-block" style="padding:14px 0 0">';
+  h+='<div class="tracking-block-title" style="padding:0 14px 12px">📋 ACTIVITÉS</div>';
+  h+='<div class="tracking-wrap">';
+  h+='<table class="tracking-table"><thead><tr>';
+  h+='<th class="tracking-th-name">Personnage</th>';
+  h+='<th class="tracking-th-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Justicier</span><span class="tracking-th-col-sub">'+resetStr+'</span></th>';
+  h+='<th class="tracking-th-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Full Parcho</span></th>';
+  h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Parangon</span></th>';
+  h+='<th class="tracking-th-col" title="Arme de chasse"><img src="'+CHASSE_ARME_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Arme Chasse</span></th>';
+  h+='<th class="tracking-th-col" title="Chasseur 200"><img src="'+CHASSEUR200_ICO+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">Chasseur 200</span></th>';
+  h+='</tr></thead><tbody>';
 
-  // Header colonnes
-  h+='<div class="tracking-row tracking-header">';
-  h+='<div class="tracking-cell-name"></div>';
-  h+='<div class="tracking-cell-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
-  h+='<div class="tracking-cell-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
-  h+='<div class="tracking-cell-col" title="Parangon"><img src="'+PARANGON_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
-  h+='<div class="tracking-cell-col" title="Arme de chasse"><img src="'+CHASSE_ARME_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
-  h+='<div class="tracking-cell-col" title="Chasseur 200"><img src="'+CHASSEUR200_ICO+'" class="tracking-col-ico" onerror="this.style.opacity=0.2"></div>';
-  h+='</div>';
-
-  // Lignes persos
   COMPTES.forEach(function(c){
-    h+='<div class="tracking-compte-lbl">'+c.name+'</div>';
+    h+='<tr class="tracking-tr-compte"><td colspan="6">'+c.name+'</td></tr>';
     c.persos.forEach(function(p){
       var vj=t.justicier[p.id]||0;
       var vp=(t.parcho&&t.parcho[p.id])||0;
@@ -3075,31 +1750,33 @@ function renderTracking(){
       var c200Class='tracking-check'+(vc200===1?' state2':'');
       var c200Icon=vc200===1?'✓':'';
 
-      h+='<div class="tracking-row">';
-      // Nom + emoji classe
-      h+='<div class="tracking-cell-name">';
+      h+='<tr class="tracking-tr-perso">';
+      // Nom + icône classe (colonne fixe)
+      h+='<td class="tracking-td-name"><div class="tracking-td-name-inner">';
       if(CLASS_ICONS_STUFFER[p.classe]){
-        h+='<img class="tracking-perso-ico" src="'+CLASS_ICONS_STUFFER[p.classe]+'" alt="'+p.classe+'">';
+        h+='<img class="tracking-td-ico" src="'+CLASS_ICONS_STUFFER[p.classe]+'" alt="'+p.classe+'">';
       } else {
-        h+='<span class="tracking-perso-ico" style="font-size:16px;display:flex;align-items:center;justify-content:center">'+getClassEmoji(p.classe)+'</span>';
+        h+='<span class="tracking-td-ico" style="font-size:14px;display:flex;align-items:center;justify-content:center">'+getClassEmoji(p.classe)+'</span>';
       }
-      h+='<span class="tracking-perso-name">'+p.name+'</span>';
-      h+='</div>';
+      h+='<span class="tracking-td-pname">'+p.name+'</span>';
+      h+='</div></td>';
       // Justicier
-      h+='<div class="tracking-cell-col"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></div>';
+      h+='<td class="tracking-td-cell"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
       // Full Parcho
-      h+='<div class="tracking-cell-col"><div class="'+pClass+'" data-ppid="'+p.id+'" onclick="cycleParcho(this.dataset.ppid)">'+pIcon+'</div></div>';
+      h+='<td class="tracking-td-cell"><div class="'+pClass+'" data-ppid="'+p.id+'" onclick="cycleParcho(this.dataset.ppid)">'+pIcon+'</div></td>';
       // Parangon
-      h+='<div class="tracking-cell-col"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></div>';
+      h+='<td class="tracking-td-cell"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></td>';
       // Arme de chasse
-      h+='<div class="tracking-cell-col"><div class="'+caClass+'" data-acpid="'+p.id+'" onclick="cycleArmeChasse(this.dataset.acpid)">'+caIcon+'</div></div>';
+      h+='<td class="tracking-td-cell"><div class="'+caClass+'" data-acpid="'+p.id+'" onclick="cycleArmeChasse(this.dataset.acpid)">'+caIcon+'</div></td>';
       // Chasseur 200
-      h+='<div class="tracking-cell-col"><div class="'+c200Class+'" data-c200pid="'+p.id+'" onclick="cycleChasseur200(this.dataset.c200pid)">'+c200Icon+'</div></div>';
-      h+='</div>';
+      h+='<td class="tracking-td-cell"><div class="'+c200Class+'" data-c200pid="'+p.id+'" onclick="cycleChasseur200(this.dataset.c200pid)">'+c200Icon+'</div></td>';
+      h+='</tr>';
     });
   });
 
+  h+='</tbody></table></div>';
   h+='</div>';
+
   h+='</div>';
 
   document.getElementById('view-tracking').innerHTML=h;
@@ -3229,13 +1906,11 @@ function toggleTheme(){
 // INIT
 // ════════════════════════════════════════════════
 loadState();
-migrateFromV1();
-renderPersos();
 renderBank();
 renderTracking();
 renderDofusTab();
 // icônes nav intégrées directement dans le HTML (SVG base64)
-showView('persos');
+showView('bank');
 // Firebase init (après le rendu initial depuis localStorage)
 initFirebase();
 // Pill init après rendu
