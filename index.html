@@ -203,6 +203,15 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .tracking-tr-perso:hover .tracking-td-name{background:var(--bg2)}
 .tracking-tr-perso:hover .tracking-td-cell{background:var(--bg2)}
 
+/* ── JETONS ── */
+.jetons-th-col{width:78px;max-width:78px}
+.jetons-td-cell{width:78px;max-width:78px;padding:3px}
+.jetons-input{width:100%;box-sizing:border-box;background:var(--bg2);border:1.5px solid var(--border);border-radius:6px;padding:5px 2px;font-size:12px;font-weight:700;color:var(--text);text-align:center;font-family:'Cinzel',serif;outline:none;transition:border-color var(--t-fast)}
+.jetons-input:focus{border-color:var(--gold)}
+.jetons-tr-total td{background:var(--gold-light)}
+.jetons-tr-total td:first-child{background:var(--bg3)}
+.jetons-td-total{text-align:center;font-family:'Cinzel',serif;font-weight:800;color:var(--gold);font-size:12px;letter-spacing:0.3px}
+
 /* ── DOFUS TRACKER ── */
 .dofus-section{padding:12px}
 .dofus-legend{display:flex;align-items:center;gap:12px;padding:8px 12px;margin-bottom:10px;background:var(--surface-glass);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -368,6 +377,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
   <!-- VUE TRACKING -->
   <div class="view active" id="view-tracking"></div>
 
+  <!-- VUE JETONS -->
+  <div class="view" id="view-jetons"></div>
+
   <!-- VUE DOFUS -->
   <div class="view" id="view-dofus"></div>
 
@@ -386,6 +398,10 @@ input,button,select{font-family:'Rajdhani',sans-serif}
     <button class="bnav-btn active" id="nav-tracking" onclick="showView('tracking')">
       <span class="ico" id="ico-tracking"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTEwOS4yODUgMzAuNDAyYy0xNC44Mi0uMDA3LTMwLjQxNCAyLjE0NC00Ni44MjIgNi45MzJhOS41IDkuNSAwIDAgMC0uMTQ1LjA1IDkuNSA5LjUgMCAwIDAtLjQ5Ni4xNzMgOS41IDkuNSAwIDAgMC0uMzkuMTUyIDkuNSA5LjUgMCAwIDAtLjQ3LjIxOCA5LjUgOS41IDAgMCAwLS4zODQuMTkzIDkuNSA5LjUgMCAwIDAtLjQ2My4yNzMgOS41IDkuNSAwIDAgMC0uMzQyLjIyIDkuNSA5LjUgMCAwIDAtLjQzNS4zMiA5LjUgOS41IDAgMCAwLS4zMjQuMjU2IDkuNSA5LjUgMCAwIDAtLjM5Ny4zNTcgOS41IDkuNSAwIDAgMC0uMjk3LjI5IDkuNSA5LjUgMCAwIDAtLjM3LjQwNSA5LjUgOS41IDAgMCAwLS4yNDcuMjkzIDkuNSA5LjUgMCAwIDAtLjM0Mi40NjMgOS41IDkuNSAwIDAgMC0uMjE1LjMxNSA5LjUgOS41IDAgMCAwLS4yODIuNDcyIDkuNSA5LjUgMCAwIDAtLjE5My4zNTQgOS41IDkuNSAwIDAgMC0uMjMzLjQ5NyA5LjUgOS41IDAgMCAwLS4xNTYuMzY3IDkuNSA5LjUgMCAwIDAtLjE3OC41MTIgOS41IDkuNSAwIDAgMC0uMTIyLjM4NiA5LjUgOS41IDAgMCAwLS4xNy42ODhMMzMuNDIgMTU2LjU1YTkuNSA5LjUgMCAwIDAgNS42MjUgMTAuNjE0bDgyLjAyMyAzNC41NzggMzEuNjIgMTYyLjEzMy0xMTYuNTM0IDI1LjMxM2E5LjUgOS41IDAgMCAwLTcuNSA5LjE1NmwtMS4wNjIgNzYuNDdBOS41IDkuNSAwIDAgMCAzOS45NjcgNDg0bDE0Ni40NjgtNDYuODEzIDI0LjEyMy00LjY3N2MuMTc3LjAwMy4zNTMuMDE1LjUzLjAxNSA5Ljk1NiAwIDE5LjMzMi00Ljc0MiAyNS44OC0xMi40NzIgNi41NDMtNy43MjQgOS45NjYtMTcuNzkgOS45NTYtMjguMTZ2LS4wMjZjLjAwNi02LjU3NC0xLjM3Mi0xMy4wMzctNC4wNDUtMTguODU1bC0yNS4yNzMtMTMwLjU3IDEyNS43NzQgNTMuMDJhOS41IDkuNSAwIDAgMCAuMTU1LjA1OCA5LjUgOS41IDAgMCAwIC41NDUuMTk3IDkuNSA5LjUgMCAwIDAgLjM1LjExIDkuNSA5LjUgMCAwIDAgLjU0My4xMzggOS41IDkuNSAwIDAgMCAuNDE2LjA4NiA5LjUgOS41IDAgMCAwIC40ODMuMDczIDkuNSA5LjUgMCAwIDAgLjQ4Mi4wNSA5LjUgOS41IDAgMCAwIC40My4wMiA5LjUgOS41IDAgMCAwIC41NC4wMDQgOS41IDkuNSAwIDAgMCAuMzYzLS4wMWw4My40MDYtNS4yOGE5LjUgOS41IDAgMCAwIDcuOTctNS40MzhsNTAuNTIyLTEwNi45NTQuMDA4LS4wMTRhOS41IDkuNSAwIDAgMCAwLS4wMDIgOS41IDkuNSAwIDAgMCAuMDItLjA0NyA5LjUgOS41IDAgMCAwLTUuNTEtMTMuMTM3IDkzLjQ1IDkzLjQ1IDAgMCAwLTIzLjk1Ni05LjE0OEwxNTIuMjczIDM2LjY4OGE5LjUgOS41IDAgMCAwLS44MDItLjI2OGMtMTMuMzE3LTMuODQzLTI3LjM2NC02LjAxLTQyLjE4NS02LjAxOHpNODIuOTM4IDQ0LjEyNWE5LjUgOS41IDAgMCAxIDMuNjg3LjcybDI5MC43NSAxMTYuNTNhOS41MDggOS41MDggMCAwIDEgNS43NyAxMC43OSA5LjUgOS41IDAgMCAwLS43MDcgMS40NmwtLjgzNiAyLjA3YTkuNTA4IDkuNTA4IDAgMCAxLTExLjI5IDMuMzM2TDc5LjU2MyA2Mi40N2E5LjUgOS41IDAgMCAxIDMuMzc2LTE4LjM0NXptMzU3LjMwOCAxMjguMzY3YzQuNC4wMzggOC43NS41MDggMTMuMDY4IDEuNDA0bDE0Ljc0IDUuNzItMjMuNjcgNTAuMTE0Yy45MTItNC4wNTggMS4zNzgtOC4wODIgMS4zMzUtMTEuODU1LS4xLTguNzMyLTIuOTQtMTUuOTUtNy44NDUtMTkuNTYzLTQuOTA1LTMuNjEzLTExLjY4OC0zLjQ4LTE4LjM3NS4yNS0xLjY1LjkyLTMuMzA1IDIuMDYzLTQuOTA2IDMuMzc1LjYxNC0uODIyIDEuMTktMS43MiAxLjY4Ny0yLjY4NyAxLjQxNy0yLjc1NyAyLjI0OC01Ljk1MiAyLjIyLTguNzgtLjAzMi0yLjgzNS0uOTQ1LTUuMjQzLTIuNTYzLTYuNDdhNC4zNTQgNC4zNTQgMCAwIDAtMi43NS0uOTA2Yy0xLjAxLjAxNi0yLjEwMi4zMzItMy4xNTYuOTM3LTIuMTA3IDEuMjEyLTQuMDggMy41Mi01LjUgNi4yODItMS40MTcgMi43NjQtMi4yNSA1Ljk0OC0yLjIxNyA4Ljc4Mi4wMyAyLjgzMy45NDUgNS4yNDIgMi41NjIgNi40NyAxLjYxNyAxLjIyNSAzLjc5OCAxLjE0NyA1LjkwNi0uMDY0LTMuNDE2IDMuNTYyLTYuNTQ2IDcuOS05LjA5MiAxMi43Mi00LjYwOCA4LjcxNi03LjIyNiAxOC43OTgtNy4xMjUgMjcuNTMuMSA4LjczMiAzIDE1Ljk4IDcuOTA2IDE5LjU5NCA0LjkwNCAzLjYxNCAxMS42MjQgMy40NSAxOC4zMS0uMjggNC4xNzgtMi4zMzIgOC4yOS02LjAxOCAxMS45MS0xMC41ODJsLTguNDEgMTcuOC02Mi43NSA0IDM3LjI1My05Mi4zOWMxNC42MzUtNy43NDYgMjguMjcyLTExLjUxMyA0MS40NjMtMTEuNHptLTI5OC4wNzggMzguMTQ1IDE2LjAxNCA2Ljc1MiAyOS43MzIgMTM5LjU1NWEzMS45NzQgMzEuOTc0IDAgMCAwLTkuMzQyLTEuNDFjLTIuNzI0IDAtNS40LjM2Ni03Ljk4OCAxLjAzN2wtMjguNDE2LTE0NS45MzV6bTM3LjM1MyAxNS43NDggMTcuMDE3IDcuMTc0IDIzIDExOC44M2EzMS44NzUgMzEuODc1IDAgMCAwLTguNDQ3LTEuMTU2Yy0xLjY0MyAwLTMuMjY2LjE0LTQuODY1LjM5bC0yNi43MDQtMTI1LjI0ek0yMTEuMDkgMzcwLjNjMy44NjMgMCA4LjI1OCAxLjk3OCAxMS40NzIgNS43NzIgMy4yMTUgMy43OTUgNS40MzMgOS44OSA1LjQyNCAxNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwIC4wMjZjLjAxIDUuOTA1LTIuMjEgMTItNS40MjMgMTUuNzk1YTE3LjA1NCAxNy4wNTQgMCAwIDEtNS4xODggNC4xNDJsLTYuMTQzIDEuMTljMi4xMDYtNS4yNzMgMy4xODQtMTEuMDAyIDMuMTc4LTE2LjgyN3YtLjAyNWE0Ni4wODYgNDYuMDg2IDAgMCAwLTEuMzQyLTExLjEwNyA5LjUgOS41IDAgMCAwLS4xOTMtMi4yNDhsLTIuNjU2LTEyLjQ1OGMuMjktLjAyMi41ODMtLjA1NS44Ny0uMDU1em0tMzIuNTE4IDQuM2MzLjg2NCAwIDguMjYgMS45NzggMTEuNDc1IDUuNzczIDMuMjE0IDMuNzk1IDUuNDMgOS44OSA1LjQyMiAxNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwIC4wMjVjLjAwOCA1LjkwNS0yLjIxIDEyLTUuNDIzIDE1Ljc5NS0zLjIxNSAzLjc5NS03LjYxIDUuNzc0LTExLjQ3NSA1Ljc3NC0zLjg2MyAwLTguMjMzLTEuOTgtMTEuNDQ3LTUuNzc0LTMuMjE0LTMuNzk0LTUuNDU4LTkuODktNS40NS0xNS43OTVhOS40NyA5LjUzMiAwIDAgMCAwLS4wMjVjLS4wMDgtNS45MDUgMi4yMzYtMTIgNS40NS0xNS43OTVzNy41ODQtNS43NzMgMTEuNDQ3LTUuNzczem0tMzQuNDk2IDEwLjU5YTQ2LjA2MyA0Ni4wNjMgMCAwIDAtMS4zMTIgMTAuOTc4di4wMjVjLS4wMSAxMC4zNyAzLjQxIDIwLjQzNyA5Ljk1MyAyOC4xNi44MzguOTkgMS43MjMgMS45MyAyLjY0OCAyLjgxN0w0Ni43OCA0NjEuODc1bC43ODItNTUuNzIgOTYuNTE0LTIwLjk2NnoiIGZpbGw9IiM3YzVjYmYiIGZpbGwtb3BhY2l0eT0iMSI+PC9wYXRoPjwvZz48L3N2Zz4=" style="width:24px;height:24px;object-fit:contain"></span>
       Tracking
+    </button>
+    <button class="bnav-btn" id="nav-jetons" onclick="showView('jetons')">
+      <span class="ico" id="ico-jetons">🪙</span>
+      Jetons
     </button>
     <button class="bnav-btn" id="nav-dofus" onclick="showView('dofus')">
       <span class="ico" id="ico-dofus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:24px;height:24px;fill:currentColor"><path d="M256 32C160 32 96 192 96 320c0 64 32 160 160 160s160-96 160-160c0-128-64-288-160-288zm74.1 89.2 11.8 13.6-53 46.7 8.8 14.6c31.1 34.3 62.9 65.8 97.4 96.4l-12 13.4-19.6-17.3-25.7 114.6-17.6-4 16.4-73c-46.8-15-93.2-31.5-140.1-46.3-3.9 1.6-8 2.9-12 4.3l-6.7 36.6 51 31.9-9.6 15.2-44.9-28.1-5.4 29.8-17.8-3.2 13.8-75.4-33.9 11.8-6-17 63.7-22.2 21.6-9.3 70.9-50.9-32.9-54.8 15.4-9.2 15.8 26.4 50.6-44.6zM288 236.5c-22.1.2-37.7 13-44.6 42.7 47.1 16.7 71.4-.2 84.5-33.4-14.9-6.2-28.3-9.5-39.9-9.3zm-6 6.9a10.24 10.37 0 0 0-1.1 4.8 10.24 10.37 0 0 0 10.2 10.4 10.24 10.37 0 0 0 9.6-6.8 18.38 17.35 0 0 1 2.5 8.7 18.38 17.35 0 0 1-18.4 17.3 18.38 17.35 0 0 1-18.3-17.3 18.38 17.35 0 0 1 15.5-17.1z"/></svg></span>
@@ -569,6 +585,7 @@ function loadState(){
     state.bank=s.bank||[];
     state.tracking=s.tracking||{};
     state.dofusTracker=s.dofusTracker||{};
+    state.jetons=s.jetons||{};
   }catch(e){}
   cleanupLegacyItemFields();
 }
@@ -596,6 +613,7 @@ function saveState(){
         bank: state.bank,
         tracking: state.tracking||{},
         dofusTracker: state.dofusTracker||{},
+        jetons: state.jetons||{},
         updatedAt: new Date().toISOString()
       }).then(function(){
         window._syncPending=false;
@@ -648,6 +666,8 @@ function showView(v){
     document.getElementById('nav-bank').classList.add('active');
   } else if(v==='tracking'){
     document.getElementById('nav-tracking').classList.add('active');
+  } else if(v==='jetons'){
+    document.getElementById('nav-jetons').classList.add('active');
   } else if(v==='dofus'){
     document.getElementById('nav-dofus').classList.add('active');
   } else if(v==='kamas'){
@@ -668,6 +688,12 @@ function showView(v){
     sub.textContent='';
     sub.classList.add('hidden');
     renderTracking();
+  } else if(v==='jetons'){
+    title.textContent='JETONS';
+    title.classList.add('large');
+    sub.textContent='';
+    sub.classList.add('hidden');
+    renderJetonsTab();
   } else if(v==='dofus'){
     title.textContent='DOFUS';
     title.classList.add('large');
@@ -1394,7 +1420,9 @@ function initFirebase(){
         loadFromFirestore(function(){
           renderBank();
           if(nav.view==='tracking') renderTracking();
+          if(nav.view==='jetons') renderJetonsTab();
           if(nav.view==='dofus') renderDofusTab();
+          if(nav.view==='kamas') renderKamasTab();
         });
       } else {
         updateAuthBtn(null);
@@ -1422,9 +1450,10 @@ function loadFromFirestore(cb){
           state.bank=d.bank||[];
           state.tracking=d.tracking||{};
           state.dofusTracker=d.dofusTracker||{};
+          state.jetons=d.jetons||{};
           cleanupLegacyItemFields();
           // Mettre aussi à jour le localStorage comme cache
-          try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({bank:state.bank, updatedAt:remoteUpdated})); }catch(e){}
+          try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({bank:state.bank, jetons:state.jetons, updatedAt:remoteUpdated})); }catch(e){}
         } else {
           // localStorage plus récent → on upload vers Firestore
           saveState();
@@ -1523,6 +1552,98 @@ function checkJusticierReset(){
     t.justicier={};
     t.lastReset=d.toISOString();
   }
+}
+
+// ════════════════════════════════════════════════
+// JETONS
+// ════════════════════════════════════════════════
+var JETON_COLUMNS = [
+  {key:'almaton',    lbl:'Almaton'},
+  {key:'aviton',     lbl:'Aviton'},
+  {key:'fideliton',  lbl:'Fideliton'},
+  {key:'guildaton',  lbl:'Guildaton'},
+  {key:'kamaGlace',  lbl:'Kama de glace'},
+  {key:'kolizeton',  lbl:'Kolizéton'},
+  {key:'orichor',    lbl:'Orichor'},
+  {key:'recoGuilde', lbl:'Reco guilde'},
+  {key:'td',         lbl:'TD'}
+];
+
+function getJetonsState(){
+  if(!state.jetons) state.jetons={};
+  JETON_COLUMNS.forEach(function(col){
+    if(!state.jetons[col.key]) state.jetons[col.key]={};
+  });
+  return state.jetons;
+}
+
+function setJetonValue(el){
+  var jkey=el.getAttribute('data-jkey');
+  var pid=el.getAttribute('data-pid');
+  var v=parseInt(el.value)||0;
+  if(v<0) v=0;
+  if(v>99999) v=99999;
+  var j=getJetonsState();
+  j[jkey][pid]=v;
+  saveState();
+  el.value=v||'';
+  // Mettre à jour le total du compte pour cette colonne uniquement
+  var c=compteOfPerso(pid);
+  if(c){
+    var total=c.persos.reduce(function(sum,p){ return sum+(j[jkey][p.id]||0); },0);
+    var totalEl=document.querySelector('[data-jtotal="'+jkey+'-'+c.id+'"]');
+    if(totalEl) totalEl.textContent=total||'';
+  }
+}
+
+function renderJetonsTab(){
+  var j=getJetonsState();
+
+  var h='<div class="tracking-section">';
+  h+='<div class="tracking-wrap">';
+  h+='<table class="tracking-table jetons-table"><thead><tr>';
+  h+='<th class="tracking-th-name">Personnage</th>';
+  JETON_COLUMNS.forEach(function(col){
+    h+='<th class="tracking-th-col jetons-th-col" title="'+col.lbl+'"><span style="font-size:16px">🪙</span><span class="tracking-th-col-lbl">'+col.lbl+'</span></th>';
+  });
+  h+='</tr></thead><tbody>';
+
+  COMPTES.forEach(function(c){
+    h+='<tr class="tracking-tr-compte jetons-tr-total">';
+    h+='<td>'+c.name+'</td>';
+    JETON_COLUMNS.forEach(function(col){
+      var total=c.persos.reduce(function(sum,p){ return sum+(j[col.key][p.id]||0); },0);
+      h+='<td class="jetons-td-total" data-jtotal="'+col.key+'-'+c.id+'">'+(total||'')+'</td>';
+    });
+    h+='</tr>';
+    c.persos.forEach(function(p){
+      h+='<tr class="tracking-tr-perso">';
+      h+='<td class="tracking-td-name"><div class="tracking-td-name-inner">';
+      if(CLASS_ICONS_STUFFER[p.classe]){
+        h+='<img class="tracking-td-ico" src="'+CLASS_ICONS_STUFFER[p.classe]+'" alt="'+p.classe+'">';
+      } else {
+        h+='<span class="tracking-td-ico" style="font-size:14px;display:flex;align-items:center;justify-content:center">'+getClassEmoji(p.classe)+'</span>';
+      }
+      h+='<span class="tracking-td-pname">'+p.name+'</span>';
+      h+='</div></td>';
+      JETON_COLUMNS.forEach(function(col){
+        var val=j[col.key][p.id]||0;
+        h+='<td class="tracking-td-cell jetons-td-cell">';
+        h+='<input class="jetons-input" type="text" inputmode="numeric" maxlength="5" ';
+        h+='value="'+(val||'')+'" data-jkey="'+col.key+'" data-pid="'+p.id+'" ';
+        h+='onfocus="this.select()" ';
+        h+='oninput="this.value=this.value.replace(/[^0-9]/g,String.fromCharCode(39)+String.fromCharCode(39))" ';
+        h+='onchange="setJetonValue(this)">';
+        h+='</td>';
+      });
+      h+='</tr>';
+    });
+  });
+
+  h+='</tbody></table></div>';
+  h+='</div>';
+
+  document.getElementById('view-jetons').innerHTML=h;
 }
 
 function formatKamas(val){
@@ -1842,6 +1963,7 @@ function toggleTheme(){
 loadState();
 renderBank();
 renderTracking();
+renderJetonsTab();
 renderDofusTab();
 renderKamasTab();
 // icônes nav intégrées directement dans le HTML
