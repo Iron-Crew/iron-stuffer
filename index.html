@@ -82,11 +82,11 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,252,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--gold-border);display:flex;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));position:fixed;transition:background var(--t-med),border-color var(--t-med)}
 [data-theme="dark"] .bottom-nav{background:rgba(15,10,26,0.88)}
 .bnav-inner{display:flex;flex:1;position:relative}
-.bnav-pill{position:absolute;bottom:2px;height:3px;border-radius:2px;background:var(--gold);transition:left var(--t-spring),width var(--t-spring),background var(--t-fast);pointer-events:none}
+.bnav-pill{position:absolute;top:1px;bottom:1px;border-radius:14px;background:radial-gradient(circle,var(--gold-light) 0%,rgba(124,92,191,0) 72%);box-shadow:0 0 14px 1px var(--gold-border),inset 0 0 10px var(--gold-light);transition:left var(--t-spring),width var(--t-spring),background var(--t-fast);pointer-events:none}
 .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;padding:3px 0;transition:color var(--t-fast);position:relative}
 .bnav-btn .ico{font-size:20px;display:flex;align-items:center;justify-content:center;width:26px;height:26px;transition:transform var(--t-spring)}
 .bnav-btn.active{color:var(--gold)}
-.bnav-btn.active .ico{transform:scale(1.15)}
+.bnav-btn.active .ico{transform:scale(1.15);filter:drop-shadow(0 0 6px var(--gold-border))}
 
 /* ── CONTENT & VIEW TRANSITIONS ── */
 .content{padding-top:60px;padding-bottom:70px;min-height:100vh}
@@ -186,7 +186,12 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .tracking-check.state3{background:var(--red);border-color:var(--red);color:#fff}
 
 /* Tableau ACTIVITÉS — même pattern que le tableau Dofus (sticky + scroll horizontal) */
-.tracking-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
+.tracking-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius);scrollbar-width:thin;scrollbar-color:var(--gold-glow) transparent}
+.tracking-wrap::-webkit-scrollbar{width:9px;height:9px}
+.tracking-wrap::-webkit-scrollbar-track{background:var(--bg2);border-radius:8px}
+.tracking-wrap::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold2),var(--gold));border-radius:8px;border:2px solid var(--bg2);background-clip:padding-box}
+.tracking-wrap::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold-glow),var(--gold2));background-clip:padding-box}
+.tracking-wrap::-webkit-scrollbar-corner{background:transparent}
 .tracking-table{border-collapse:collapse;min-width:100%;font-size:11px}
 .tracking-table th,.tracking-table td{white-space:nowrap}
 .tracking-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
@@ -220,7 +225,12 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-legend-dot.empty{background:var(--surface)}
 .dofus-legend-dot.encours{background:#f0a500;border-color:#f0a500}
 .dofus-legend-dot.valide{background:var(--green);border-color:var(--green)}
-.dofus-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius)}
+.dofus-wrap{overflow:auto;max-height:calc(100vh - 140px);-webkit-overflow-scrolling:touch;border-radius:var(--radius);scrollbar-width:thin;scrollbar-color:var(--gold-glow) transparent}
+.dofus-wrap::-webkit-scrollbar{width:9px;height:9px}
+.dofus-wrap::-webkit-scrollbar-track{background:var(--bg2);border-radius:8px}
+.dofus-wrap::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold2),var(--gold));border-radius:8px;border:2px solid var(--bg2);background-clip:padding-box}
+.dofus-wrap::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold-glow),var(--gold2));background-clip:padding-box}
+.dofus-wrap::-webkit-scrollbar-corner{background:transparent}
 .dofus-table{border-collapse:collapse;min-width:100%;font-size:11px}
 .dofus-table th,.dofus-table td{white-space:nowrap}
 .dofus-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
@@ -1518,7 +1528,7 @@ function updateSyncDot(status){
 // TRACKING
 // ════════════════════════════════════════════════
 var JUSTICIER_ICO = 'https://api.dofusdb.fr/img/items/15848.png';
-var KAMAS_ICO = 'data:image/png;base64,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';
+var KAMAS_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png';
 
 var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
@@ -1627,7 +1637,7 @@ function renderJetonsTab(){
 
   COMPTES.forEach(function(c){
     h+='<tr class="tracking-tr-compte jetons-tr-total">';
-    h+='<td>'+c.name+'</td>';
+    h+='<td class="tracking-td-name">'+c.name+'</td>';
     JETON_COLUMNS.forEach(function(col){
       var total=c.persos.reduce(function(sum,p){ return sum+(j[col.key][p.id]||0); },0);
       h+='<td class="jetons-td-total" data-jtotal="'+col.key+'-'+c.id+'">'+(total||'')+'</td>';
@@ -1795,7 +1805,7 @@ function renderTracking(){
   h+='</tr></thead><tbody>';
 
   COMPTES.forEach(function(c){
-    h+='<tr class="tracking-tr-compte"><td colspan="7">'+c.name+'</td></tr>';
+    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'</td><td colspan="6"></td></tr>';
     c.persos.forEach(function(p){
       var vso=(t.saisonOcre&&t.saisonOcre[p.id])||0;
       var vj=t.justicier[p.id]||0;
