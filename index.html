@@ -1568,15 +1568,15 @@ function checkJusticierReset(){
 // JETONS
 // ════════════════════════════════════════════════
 var JETON_COLUMNS = [
-  {key:'almaton',    lbl:'Almaton'},
-  {key:'aviton',     lbl:'Aviton'},
-  {key:'fideliton',  lbl:'Fideliton'},
-  {key:'guildaton',  lbl:'Guildaton'},
-  {key:'kamaGlace',  lbl:'Kama de glace'},
-  {key:'kolizeton',  lbl:'Kolizéton'},
-  {key:'orichor',    lbl:'Orichor'},
-  {key:'recoGuilde', lbl:'Reco guilde'},
-  {key:'td',         lbl:'TD'}
+  {key:'almaton',    lbl:'Almaton',      ico:'https://api.dofusdb.fr/img/items/148009.png'},
+  {key:'aviton',     lbl:'Aviton',       ico:'https://api.dofusdb.fr/img/items/148008.png'},
+  {key:'fideliton',  lbl:'Fideliton',    ico:'https://api.dofusdb.fr/img/items/148027.png'},
+  {key:'guildaton',  lbl:'Guildaton',    ico:'https://api.dofusdb.fr/img/items/148035.png'},
+  {key:'kamaGlace',  lbl:'Kama de glace',ico:'https://api.dofusdb.fr/img/items/24825.png'},
+  {key:'kolizeton',  lbl:'Kolizéton',    ico:'https://api.dofusdb.fr/img/items/148001.png'},
+  {key:'orichor',    lbl:'Orichor',      ico:'https://api.dofusdb.fr/img/items/15883.png'},
+  {key:'recoGuilde', lbl:'Reco guilde',  ico:'https://api.dofusdb.fr/img/items/165069.png'},
+  {key:'td',         lbl:'TD',           ico:'https://api.dofusdb.fr/img/items/15266.png'}
 ];
 
 function getJetonsState(){
@@ -1631,7 +1631,7 @@ function renderJetonsTab(){
   h+='<table class="tracking-table jetons-table"><thead><tr>';
   h+='<th class="tracking-th-name">Personnage</th>';
   JETON_COLUMNS.forEach(function(col){
-    h+='<th class="tracking-th-col jetons-th-col" title="'+col.lbl+'"><span style="font-size:16px;display:block;margin:2px auto;text-align:center">🪙</span><span class="tracking-th-col-lbl">'+col.lbl+'</span></th>';
+    h+='<th class="tracking-th-col jetons-th-col" title="'+col.lbl+'"><img src="'+col.ico+'" onerror="this.style.opacity=0.2"><span class="tracking-th-col-lbl">'+col.lbl+'</span></th>';
   });
   h+='</tr></thead><tbody>';
 
