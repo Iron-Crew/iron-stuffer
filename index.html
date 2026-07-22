@@ -69,7 +69,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 /* ── HEADER ── */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,252,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--gold-border);display:flex;align-items:center;padding:0 16px;height:52px;transition:background var(--t-med),border-color var(--t-med)}
 [data-theme="dark"] .hdr{background:rgba(15,10,26,0.88)}
-.hdr-title{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:4px;text-transform:uppercase;flex:1;transition:color var(--t-fast),font-size var(--t-med),letter-spacing var(--t-med)}
+.hdr-title{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--gold);letter-spacing:4px;text-transform:uppercase;flex-shrink:0;transition:color var(--t-fast),font-size var(--t-med),letter-spacing var(--t-med)}
 .hdr-title.large{font-size:20px;letter-spacing:6px}
 .hdr-sub{font-size:11px;color:var(--text-dim);letter-spacing:1.5px}
 .hdr-sub.hidden{display:none}
@@ -208,9 +208,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .jetons-td-cell{width:78px;max-width:78px;padding:3px}
 .jetons-input{width:100%;box-sizing:border-box;background:var(--bg2);border:1.5px solid var(--border);border-radius:6px;padding:5px 2px;font-size:12px;font-weight:700;color:var(--text);text-align:center;font-family:'Cinzel',serif;outline:none;transition:border-color var(--t-fast)}
 .jetons-input:focus{border-color:var(--gold)}
-.jetons-tr-total td{background:var(--gold-light)}
+.jetons-tr-total td{background:var(--gold-light);font-size:12px}
 .jetons-tr-total td:first-child{background:var(--bg3)}
-.jetons-td-total{text-align:center;font-family:'Cinzel',serif;font-weight:800;color:var(--gold);font-size:12px;letter-spacing:0.3px}
+.jetons-tr-total .jetons-td-total{text-align:center;font-family:'Cinzel',serif;font-weight:800;color:var(--gold);font-size:12px;letter-spacing:0.3px}
 
 /* ── DOFUS TRACKER ── */
 .dofus-section{padding:12px}
@@ -363,7 +363,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 
 <!-- HEADER -->
 <div class="hdr" id="hdr">
-  <div style="flex:1">
+  <div style="flex:1;display:flex;align-items:baseline;gap:8px;min-width:0">
     <div class="hdr-title large" id="hdrTitle">IRON STUFFER</div>
     <div class="hdr-sub hidden" id="hdrSub"></div>
   </div>
@@ -400,7 +400,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
       Tracking
     </button>
     <button class="bnav-btn" id="nav-jetons" onclick="showView('jetons')">
-      <span class="ico" id="ico-jetons">🪙</span>
+      <span class="ico" id="ico-jetons"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyI+PGcgY2xhc3M9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSIgc3R5bGU9IiI+PHBhdGggZD0iTTI2NC40IDk1LjAxYy0zNS42LS4wNi04MC4yIDExLjE5LTEyNC4yIDM0LjA5Qzk2LjI3IDE1MiA2MS40NSAxODIgNDEuMDEgMjExLjNjLTIwLjQ1IDI5LjItMjUuOTggNTYuNC0xNS45MiA3NS44IDEwLjA3IDE5LjMgMzUuNTMgMzAuNCA3MS4yMiAzMC40IDM1LjY5LjEgODAuMjktMTEuMiAxMjQuMTktMzQgNDQtMjIuOSA3OC44LTUzIDk5LjItODIuMiAyMC41LTI5LjIgMjUuOS01Ni40IDE1LjktNzUuOC0xMC4xLTE5LjMtMzUuNS0zMC40OS03MS4yLTMwLjQ5em05MS45IDcwLjI5Yy0zLjUgMTUuMy0xMS4xIDMxLTIxLjggNDYuMy0yMi42IDMyLjMtNTkuNSA2My44LTEwNS43IDg3LjgtNDYuMiAyNC4xLTkzLjEgMzYuMi0xMzIuNSAzNi4yLTE4LjYgMC0zNS44NC0yLjgtNTAuMzctOC43bDEwLjU5IDIwLjRjMTAuMDggMTkuNCAzNS40NyAzMC41IDcxLjE4IDMwLjUgMzUuNyAwIDgwLjMtMTEuMiAxMjQuMi0zNC4xIDQ0LTIyLjggNzguOC01Mi45IDk5LjItODIuMiAyMC40LTI5LjIgMjYtNTYuNCAxNS45LTc1Ljd6bTI4LjggMTYuOGMxMS4yIDI2LjcgMi4yIDU5LjItMTkuMiA4OS43LTE4LjkgMjcuMS00Ny44IDUzLjQtODMuNiA3NS40IDExLjEgMS4yIDIyLjcgMS44IDM0LjUgMS44IDQ5LjUgMCA5NC4zLTEwLjYgMTI1LjktMjcuMSAzMS43LTE2LjUgNDkuMS0zOC4xIDQ5LjEtNTkuOSAwLTIxLjgtMTcuNC00My40LTQ5LjEtNTkuOS0xNi4xLTguNC0zNS43LTE1LjMtNTcuNi0yMHptMTA2LjcgMTI0LjhjLTEwLjIgMTEuOS0yNC4yIDIyLjQtNDAuNyAzMS0zNSAxOC4yLTgyLjIgMjkuMS0xMzQuMyAyOS4xLTIxLjIgMC00MS42LTEuOC02MC43LTUuMi0yMy4yIDExLjctNDYuNSAyMC40LTY4LjkgMjYuMSAxLjIuNyAyLjQgMS4zIDMuNyAyIDMxLjYgMTYuNSA3Ni40IDI3LjEgMTI1LjkgMjcuMXM5NC4zLTEwLjYgMTI1LjktMjcuMWMzMS43LTE2LjUgNDkuMS0zOC4xIDQ5LjEtNTkuOXoiIGZpbGw9IiM3YzVjYmYiIGZpbGwtb3BhY2l0eT0iMSI+PC9wYXRoPjwvZz48L3N2Zz4=" style="width:24px;height:24px;object-fit:contain"></span>
       Jetons
     </button>
     <button class="bnav-btn" id="nav-dofus" onclick="showView('dofus')">
@@ -691,9 +691,9 @@ function showView(v){
   } else if(v==='jetons'){
     title.textContent='JETONS';
     title.classList.add('large');
-    sub.textContent='';
-    sub.classList.add('hidden');
+    sub.classList.remove('hidden');
     renderJetonsTab();
+    updateJetonsHeaderDate();
   } else if(v==='dofus'){
     title.textContent='DOFUS';
     title.classList.add('large');
@@ -1585,6 +1585,7 @@ function setJetonValue(el){
   if(v>99999) v=99999;
   var j=getJetonsState();
   j[jkey][pid]=v;
+  j._lastUpdated=new Date().toISOString();
   saveState();
   el.value=v||'';
   // Mettre à jour le total du compte pour cette colonne uniquement
@@ -1593,6 +1594,22 @@ function setJetonValue(el){
     var total=c.persos.reduce(function(sum,p){ return sum+(j[jkey][p.id]||0); },0);
     var totalEl=document.querySelector('[data-jtotal="'+jkey+'-'+c.id+'"]');
     if(totalEl) totalEl.textContent=total||'';
+  }
+  updateJetonsHeaderDate();
+}
+
+function updateJetonsHeaderDate(){
+  var sub=document.getElementById('hdrSub');
+  if(!sub||nav.view!=='jetons') return;
+  var j=getJetonsState();
+  if(j._lastUpdated){
+    var d=new Date(j._lastUpdated);
+    var dd=String(d.getDate()).padStart(2,'0');
+    var mm=String(d.getMonth()+1).padStart(2,'0');
+    var yyyy=d.getFullYear();
+    sub.textContent='· MAJ le '+dd+'/'+mm+'/'+yyyy;
+  } else {
+    sub.textContent='';
   }
 }
 
@@ -1604,7 +1621,7 @@ function renderJetonsTab(){
   h+='<table class="tracking-table jetons-table"><thead><tr>';
   h+='<th class="tracking-th-name">Personnage</th>';
   JETON_COLUMNS.forEach(function(col){
-    h+='<th class="tracking-th-col jetons-th-col" title="'+col.lbl+'"><span style="font-size:16px">🪙</span><span class="tracking-th-col-lbl">'+col.lbl+'</span></th>';
+    h+='<th class="tracking-th-col jetons-th-col" title="'+col.lbl+'"><span style="font-size:16px;display:block;margin:2px auto;text-align:center">🪙</span><span class="tracking-th-col-lbl">'+col.lbl+'</span></th>';
   });
   h+='</tr></thead><tbody>';
 
