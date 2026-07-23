@@ -80,7 +80,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .theme-toggle:hover{background:var(--gold-light);border-color:var(--gold)}
 
 /* Bouton Modifier/Enregistrer */
-.edit-mode-btn{background:var(--bg2);border:1.5px solid var(--gold-border);border-radius:20px;color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;padding:5px 12px;white-space:nowrap;transition:all var(--t-fast);flex-shrink:0}
+.edit-mode-btn{background:var(--bg2);border:1.5px solid var(--gold-border);border-radius:20px;color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;padding:5px 12px;white-space:nowrap;transition:all var(--t-fast);flex-shrink:0;margin-right:10px}
 .edit-mode-btn:hover{background:var(--gold-light);border-color:var(--gold)}
 .edit-mode-btn.editing{background:var(--gold);border-color:var(--gold);color:#fff;box-shadow:0 0 10px var(--gold-border)}
 
@@ -192,7 +192,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .kamas-card.total .kamas-card-val{font-size:20px}
 .kamas-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:13px;font-weight:700;color:var(--gold);font-family:'Cinzel',serif;text-align:center;outline:none;transition:border-color var(--t-fast)}
 .kamas-input:focus{border-color:var(--gold)}
-.tracking-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);flex-shrink:0;background:var(--surface);margin:0 auto}
+.tracking-check{width:26px;height:26px;box-sizing:border-box;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);flex-shrink:0;background:var(--surface);margin:0 auto}
 .tracking-check.state1{background:#f0a500;border-color:#f0a500;color:#fff}
 .tracking-check.state2{background:var(--green);border-color:var(--green);color:#fff}
 .tracking-check.state3{background:var(--red);border-color:var(--red);color:#fff}
@@ -214,14 +214,14 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .tracking-td-name-inner{display:flex;align-items:center;gap:6px}
 .tracking-td-ico{width:18px;height:18px;object-fit:contain;flex-shrink:0;border-radius:3px}
 .tracking-td-pname{font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.2px}
-.tracking-td-cell{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:4px;text-align:center;width:58px;max-width:58px;background:var(--surface)}
+.tracking-td-cell{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:3px;text-align:center;width:58px;max-width:58px;background:var(--surface)}
 .tracking-tr-perso:hover .tracking-td-name{background:var(--bg2)}
 .tracking-tr-perso:hover .tracking-td-cell{background:var(--bg2)}
 
 /* ── JETONS ── */
 .jetons-th-col{width:78px;max-width:78px}
 .jetons-td-cell{width:78px;max-width:78px;padding:3px}
-.jetons-input{width:100%;box-sizing:border-box;background:var(--bg2);border:1.5px solid var(--border);border-radius:6px;padding:5px 2px;font-size:12px;font-weight:700;color:var(--text);text-align:center;font-family:'Cinzel',serif;outline:none;transition:border-color var(--t-fast)}
+.jetons-input{width:100%;height:26px;box-sizing:border-box;background:var(--bg2);border:1.5px solid var(--border);border-radius:6px;padding:0 2px;font-size:12px;font-weight:700;color:var(--text);text-align:center;font-family:'Cinzel',serif;outline:none;transition:border-color var(--t-fast)}
 .jetons-input:focus{border-color:var(--gold)}
 .jetons-tr-total td{background:var(--gold-light);font-size:12px}
 .jetons-tr-total td:first-child{background:var(--bg3)}
@@ -248,7 +248,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-th-dofus img{width:38px;height:38px;object-fit:contain;display:block;margin:3px auto;border-radius:4px}
 .dofus-th-dofus.special-col img{opacity:0.5}
 .dofus-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
-.dofus-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:4px 8px;min-width:120px}
+.dofus-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:5px 8px;min-width:120px}
 .dofus-td-name-inner{display:flex;align-items:center;gap:6px}
 .dofus-td-ico{width:18px;height:18px;object-fit:contain;flex-shrink:0}
 .dofus-td-pname{font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.2px}
@@ -1974,7 +1974,9 @@ function renderDofusTab(){
   });
   h+='</tr></thead><tbody>';
   COMPTES.forEach(function(c){
-    h+='<tr class="dofus-tr-compte"><td class="dofus-td-name" colspan="'+(DOFUS_TRACKER_LIST.length+1)+'">'+c.name+'</td></tr>';
+    h+='<tr class="dofus-tr-compte"><td class="dofus-td-name">'+c.name+'</td>';
+    DOFUS_TRACKER_LIST.forEach(function(){ h+='<td></td>'; });
+    h+='</tr>';
     c.persos.forEach(function(p){
       h+='<tr class="dofus-tr-perso">';
       h+='<td class="dofus-td-name"><div class="dofus-td-name-inner">';
