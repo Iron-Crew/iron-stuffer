@@ -73,10 +73,22 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .hdr-title.large{font-size:20px;letter-spacing:6px}
 .hdr-sub{font-size:11px;color:var(--text-dim);letter-spacing:1.5px}
 .hdr-sub.hidden{display:none}
+.hidden{display:none}
 
 /* Dark mode toggle */
 .theme-toggle{background:none;border:1px solid var(--gold-border);border-radius:20px;color:var(--gold);font-size:14px;cursor:pointer;padding:3px 10px;margin-left:8px;transition:all var(--t-fast);white-space:nowrap;line-height:1.4}
 .theme-toggle:hover{background:var(--gold-light);border-color:var(--gold)}
+
+/* Bouton Modifier/Enregistrer */
+.edit-mode-btn{background:var(--bg2);border:1.5px solid var(--gold-border);border-radius:20px;color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;padding:5px 12px;white-space:nowrap;transition:all var(--t-fast);flex-shrink:0}
+.edit-mode-btn:hover{background:var(--gold-light);border-color:var(--gold)}
+.edit-mode-btn.editing{background:var(--gold);border-color:var(--gold);color:#fff;box-shadow:0 0 10px var(--gold-border)}
+
+/* Verrouillage lecture seule */
+.view-locked .tracking-check,
+.view-locked .jetons-input,
+.view-locked .dofus-cell,
+.view-locked .kamas-input{pointer-events:none;opacity:0.55;filter:grayscale(0.35)}
 
 /* ── BOTTOM NAV ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(253,252,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--gold-border);display:flex;padding:6px 0;padding-bottom:max(6px,env(safe-area-inset-bottom));position:fixed;transition:background var(--t-med),border-color var(--t-med)}
@@ -192,12 +204,12 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .tracking-wrap::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold2),var(--gold));border-radius:8px;border:2px solid var(--bg2);background-clip:padding-box}
 .tracking-wrap::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold-glow),var(--gold2));background-clip:padding-box}
 .tracking-wrap::-webkit-scrollbar-corner{background:transparent}
-.tracking-table{border-collapse:collapse;min-width:100%;font-size:11px}
+.tracking-table{border-collapse:separate;border-spacing:0;min-width:100%;font-size:11px}
 .tracking-table th,.tracking-table td{white-space:nowrap}
 .tracking-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
 .tracking-th-col{position:sticky;top:0;z-index:10;padding:6px 3px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:52px;max-width:52px;vertical-align:middle}
 .tracking-th-col img{width:38px;height:38px;object-fit:contain;display:block;margin:2px auto;border-radius:4px}
-.tracking-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
+.tracking-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
 .tracking-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:5px 8px;min-width:120px}
 .tracking-td-name-inner{display:flex;align-items:center;gap:6px}
 .tracking-td-ico{width:18px;height:18px;object-fit:contain;flex-shrink:0;border-radius:3px}
@@ -229,13 +241,13 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .dofus-wrap::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--gold2),var(--gold));border-radius:8px;border:2px solid var(--bg2);background-clip:padding-box}
 .dofus-wrap::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold-glow),var(--gold2));background-clip:padding-box}
 .dofus-wrap::-webkit-scrollbar-corner{background:transparent}
-.dofus-table{border-collapse:collapse;min-width:100%;font-size:11px}
+.dofus-table{border-collapse:separate;border-spacing:0;min-width:100%;font-size:11px}
 .dofus-table th,.dofus-table td{white-space:nowrap}
 .dofus-th-name{position:sticky;left:0;top:0;z-index:11;background:var(--bg2);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:8px 10px;border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);min-width:120px}
 .dofus-th-dofus{position:sticky;top:0;z-index:10;padding:3px 2px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);text-align:center;background:var(--bg2);width:50px;max-width:50px;vertical-align:middle}
 .dofus-th-dofus img{width:38px;height:38px;object-fit:contain;display:block;margin:3px auto;border-radius:4px}
 .dofus-th-dofus.special-col img{opacity:0.5}
-.dofus-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
+.dofus-tr-compte td{background:var(--bg3);font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:5px 10px;border-top:2px solid var(--gold-border)}
 .dofus-td-name{position:sticky;left:0;z-index:2;background:var(--surface);border-right:2px solid var(--gold-border);border-bottom:1px solid var(--border);padding:4px 8px;min-width:120px}
 .dofus-td-name-inner{display:flex;align-items:center;gap:6px}
 .dofus-td-ico{width:18px;height:18px;object-fit:contain;flex-shrink:0}
@@ -375,6 +387,7 @@ input,button,select{font-family:'Rajdhani',sans-serif}
     <div class="hdr-title large" id="hdrTitle">IRON STUFFER</div>
     <div class="hdr-sub hidden" id="hdrSub"></div>
   </div>
+  <button class="edit-mode-btn hidden" id="editModeBtn" onclick="toggleEditMode()">✏️ Modifier</button>
   <button class="auth-btn" id="authBtn" onclick="handleAuth()">⏳</button>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
 </div>
@@ -714,6 +727,36 @@ function showView(v){
     sub.textContent='';
     sub.classList.add('hidden');
     renderKamasTab();
+  }
+  // Bouton Modifier/Enregistrer — visible sur Tracking/Jetons/Dofus/Kamas, toujours réinitialisé en lecture seule au changement d'onglet
+  editMode=false;
+  var editBtn=document.getElementById('editModeBtn');
+  var EDIT_MODE_VIEWS=['tracking','jetons','dofus','kamas'];
+  if(EDIT_MODE_VIEWS.indexOf(v)>=0){
+    editBtn.classList.remove('hidden');
+    editBtn.classList.remove('editing');
+    editBtn.textContent='✏️ Modifier';
+  } else {
+    editBtn.classList.add('hidden');
+  }
+  var viewEl=document.getElementById('view-'+v);
+  if(viewEl) viewEl.classList.add('view-locked');
+}
+
+var editMode=false;
+function toggleEditMode(){
+  editMode=!editMode;
+  var editBtn=document.getElementById('editModeBtn');
+  var viewEl=document.getElementById('view-'+nav.view);
+  if(editMode){
+    editBtn.classList.add('editing');
+    editBtn.textContent='💾 Enregistrer';
+    if(viewEl) viewEl.classList.remove('view-locked');
+  } else {
+    editBtn.classList.remove('editing');
+    editBtn.textContent='✏️ Modifier';
+    if(viewEl) viewEl.classList.add('view-locked');
+    showToast('Modifications enregistrées');
   }
 }
 
