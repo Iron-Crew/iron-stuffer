@@ -539,7 +539,8 @@ var COMPTES = [
     {id:'ironi', name:'Iron-I',     classe:'Crâ'},
     {id:'blood', name:'Iron-Blood', classe:'Sacrieur'},
     {id:'sm',    name:'Iron-SM',    classe:'Osamodas'},
-    {id:'spear', name:'Iron-Spear', classe:'Forgelance'}
+    {id:'spear', name:'Iron-Spear', classe:'Forgelance'},
+    {id:'mask',  name:'Iron-Mask',  classe:'Zobal'}
   ]},
   {id:'c6', name:'Compte 6', persos:[
     {id:'ironv',   name:'Iron-V',      classe:'Crâ'},
@@ -1575,8 +1576,6 @@ var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
   var CHASSE_ARME_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/78059-64.png';
   var CHASSEUR200_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/20014-64.png';
-  // Icône provisoire — à remplacer par l'icône Dofus Ocre choisie
-  var SAISON_OCRE_ICO = 'https://api.dofusdb.fr/img/items/23012.png';
 
 function getTrackingState(){
   if(!state.tracking) state.tracking={};
@@ -1585,7 +1584,6 @@ function getTrackingState(){
   if(!t.justicier) t.justicier={};
   if(!t.parcho) t.parcho={};
   if(!t.parangon) t.parangon={};
-  if(!t.saisonOcre) t.saisonOcre={};
   if(!t.lastReset) t.lastReset=null;
   checkJusticierReset();
   return t;
@@ -1775,20 +1773,6 @@ function cycleParangon(pid){
   }
 }
 
-function cycleSaisonOcre(pid){
-  var t=getTrackingState();
-  if(!t.saisonOcre) t.saisonOcre={};
-  var cur=t.saisonOcre[pid]||0;
-  t.saisonOcre[pid]=(cur+1)%2;
-  saveState();
-  var btn=document.querySelector('[data-sopid="'+pid+'"]');
-  if(btn){
-    var v=t.saisonOcre[pid];
-    btn.className='tracking-check'+(v===1?' state2':'');
-    btn.textContent=v===1?'✓':'';
-  }
-}
-
 function renderKamasTab(){
   var t=getTrackingState();
   var total=COMPTES.reduce(function(sum,c){ return sum+(t.kamas[c.id]||0); },0);
@@ -1837,7 +1821,6 @@ function renderTracking(){
   h+='<div class="tracking-wrap">';
   h+='<table class="tracking-table"><thead><tr>';
   h+='<th class="tracking-th-name">Personnage</th>';
-  h+='<th class="tracking-th-col" title="Saison Ocre"><img src="'+SAISON_OCRE_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"></th>';
@@ -1846,17 +1829,13 @@ function renderTracking(){
   h+='</tr></thead><tbody>';
 
   COMPTES.forEach(function(c){
-    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'</td><td colspan="6"></td></tr>';
+    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'</td><td colspan="5"></td></tr>';
     c.persos.forEach(function(p){
-      var vso=(t.saisonOcre&&t.saisonOcre[p.id])||0;
       var vj=t.justicier[p.id]||0;
       var vp=(t.parcho&&t.parcho[p.id])||0;
       var vpar=(t.parangon&&t.parangon[p.id])||0;
       var vca=(t.armeChasse&&t.armeChasse[p.id])||0;
       var vc200=(t.chasseur200&&t.chasseur200[p.id])||0;
-
-      var soClass='tracking-check'+(vso===1?' state2':'');
-      var soIcon=vso===1?'✓':'';
 
       var jClass='tracking-check'+(vj===1?' state2':'');
       var jIcon=vj===1?'✓':'';
@@ -1883,8 +1862,6 @@ function renderTracking(){
       }
       h+='<span class="tracking-td-pname">'+p.name+'</span>';
       h+='</div></td>';
-      // Saison Ocre
-      h+='<td class="tracking-td-cell"><div class="'+soClass+'" data-sopid="'+p.id+'" onclick="cycleSaisonOcre(this.dataset.sopid)">'+soIcon+'</div></td>';
       // Justicier
       h+='<td class="tracking-td-cell"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
       // Full Parcho
