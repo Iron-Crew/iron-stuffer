@@ -1572,6 +1572,17 @@ function updateSyncDot(status){
 var JUSTICIER_ICO = 'https://api.dofusdb.fr/img/items/15848.png';
 var KAMAS_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png';
 
+var ACCES_LIST = [
+  {id:'pandala',    name:'Pandala',      emoji:'🐼'},
+  {id:'otomai',     name:'Otomaï',       emoji:'🏝️'},
+  {id:'moon',       name:'Île de Moon',  emoji:'🦧'},
+  {id:'osavora',    name:'Osavora',      emoji:'🐲'},
+  {id:'enutrosor',  name:'Enutrosor',    emoji:'💰'},
+  {id:'xelorium',   name:'Xélorium',     emoji:'⏳'},
+  {id:'ecaflipus',  name:'Ecaflipus',    emoji:'🎲'},
+  {id:'srambad',    name:'Srambad',      emoji:'💀'}
+];
+
 var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
   var CHASSE_ARME_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/78059-64.png';
@@ -1584,6 +1595,7 @@ function getTrackingState(){
   if(!t.justicier) t.justicier={};
   if(!t.parcho) t.parcho={};
   if(!t.parangon) t.parangon={};
+  if(!t.acces) t.acces={};
   if(!t.lastReset) t.lastReset=null;
   checkJusticierReset();
   return t;
@@ -1732,6 +1744,21 @@ function setKamas(compteId, val){
   }
 }
 
+function cycleAccesCell(pid, accesId){
+  var t=getTrackingState();
+  if(!t.acces) t.acces={};
+  var key=pid+'_'+accesId;
+  var cur=t.acces[key]||0;
+  t.acces[key]=(cur+1)%2;
+  saveState();
+  var btn=document.querySelector('[data-acell="'+key+'"]');
+  if(btn){
+    var v=t.acces[key];
+    btn.className='tracking-check'+(v===1?' state2':'');
+    btn.textContent=v===1?'✓':'';
+  }
+}
+
 function cycleJusticier(pid){
   var t=getTrackingState();
   var cur=t.justicier[pid]||0;
@@ -1821,6 +1848,9 @@ function renderTracking(){
   h+='<div class="tracking-wrap">';
   h+='<table class="tracking-table"><thead><tr>';
   h+='<th class="tracking-th-name">Personnage</th>';
+  ACCES_LIST.forEach(function(a){
+    h+='<th class="tracking-th-col" title="Accès '+a.name+'"><span style="font-size:16px">'+a.emoji+'</span></th>';
+  });
   h+='<th class="tracking-th-col" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"></th>';
@@ -1829,7 +1859,7 @@ function renderTracking(){
   h+='</tr></thead><tbody>';
 
   COMPTES.forEach(function(c){
-    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'</td><td colspan="5"></td></tr>';
+    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'</td><td colspan="13"></td></tr>';
     c.persos.forEach(function(p){
       var vj=t.justicier[p.id]||0;
       var vp=(t.parcho&&t.parcho[p.id])||0;
@@ -1862,6 +1892,14 @@ function renderTracking(){
       }
       h+='<span class="tracking-td-pname">'+p.name+'</span>';
       h+='</div></td>';
+      // Accès (8 colonnes)
+      ACCES_LIST.forEach(function(a){
+        var key=p.id+'_'+a.id;
+        var v=(t.acces&&t.acces[key])||0;
+        var accCls='tracking-check'+(v===1?' state2':'');
+        var accIcon=v===1?'✓':'';
+        h+='<td class="tracking-td-cell"><div class="'+accCls+'" data-acell="'+key+'" onclick="cycleAccesCell(\''+p.id+'\',\''+a.id+'\')">'+accIcon+'</div></td>';
+      });
       // Justicier
       h+='<td class="tracking-td-cell"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
       // Full Parcho
