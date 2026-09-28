@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Iron Stuffer</title>
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADMklEQVR42u3d3VVqQRBE4UNHRiCEwpuhEAih4ZMBuDg/PV3fjmCmZlsWrnv19ny8PxswhBIBCA0QGiA0QGgQGiA0QGiA0AChQWiA0AChAUIDhAahAUIDhAYIDRD6Yn5edyEQepbMpCY0QOjOU0NLE3rcbiY1oQFCd2xnLU3ocTKTmtAAoTu3s5Ym9DiZSU1ogNCd21lLE3qczKQmNEDozu2spQk9TmZSExog9AotqqUJPUZmUhMaIPQKramlCT1OLlITGoRG55bU0oQeJxOpCQ1Co3MramlCj5OH1IQGobWz8xGazM5JaIDQWk9LE3qmHKQmNAitnZ2f0GRwD0IDhNZqWjpd6KmPnyy1yQFCazH3I7THdk9CA4TWWsH3LY/r3oQGCK2l3J/QHlMOhIbJoZW0NKE9nlwIDRBaC8knWGgy5+ZkcoDQWkdehPY4ciM0ECq0dpbftm3b7fl4fzwnNDRAaIDQgA+FyMyvJj0GqeVncsDk6PytUktn51eTHoPU8jM5YHKs8KlcS2fmVxMfg9S5+ZkcMDlWaBctnZlfTX4MUuflZ3LA5FipXbR0Vn6V8BjpUiflZ3LA5FixXVJbOi2/SnqMNKkT8zM5YHKs3C4pLZ2aXyU+xnSpk/MzOWByTPqqn9bS6flV8mNMk1p+JgdMjplf5au3tPwaCd0ljFWllp/JAZMjoxVXa2n5NRK6qzyrSC0/kwMmR2YLOt+a5yuP4Vv6pHOaHDA5/BTBebqetzzGOueWn8kBk0O7dDy//BoJ7Z9nyu+se5gcMDkS2+Wq+8ivkdD+E6r8zr6XyQGTI7ldzrqf/BoJ7Vdtye+qe5ocMDm0y3H3lV8jof1CcfldfW+TAyaHdtn//vK79xHan037Lgf57ZeDyQGTQ7vsl4f89s2jyHzdo8hv/1xMDpgc2uX7fOR3jF9F5vMfRX7HeWZyIHtyaJfv8pLfsb4Vmc97FPkdL7XJgczJoV2u+dSO/+V3ez7eH3Eh9kMhQGiA0AChQWiA0AChAUIDhAahAUIDhAYIDRAahAYIDRAaIDRAaBAaIDRAaIDQAKFBaIDQAKEBQgOEBqEBQgOEBggN/PEL1gtbo9i1r3IAAAAASUVORK5CYII=">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,7 +24,7 @@
   /* Couleurs principales */
   --gold:#7c5cbf; --gold2:#9b7fd4; --gold-glow:#a87ee8;
   --gold-light:rgba(124,92,191,0.08); --gold-border:rgba(124,92,191,0.25);
-  --green:#2ecc71; --green-bg:rgba(46,204,113,0.08);
+  --green:#2ecc71;
   --yellow:#f39c12; --red:#e74c3c;
 
   /* Light mode surfaces */
@@ -37,7 +35,6 @@
   /* Ombres */
   --radius:12px;
   --shadow:0 2px 8px rgba(124,92,191,0.10),0 6px 24px rgba(124,92,191,0.08);
-  --shadow-hover:0 4px 16px rgba(124,92,191,0.18),0 8px 32px rgba(124,92,191,0.12);
   --shadow-card:0 1px 3px rgba(124,92,191,0.07),0 4px 16px rgba(124,92,191,0.10);
 
   /* Transitions */
@@ -52,7 +49,6 @@
   --gold:#a87ee8; --gold2:#c4a6f5; --gold-glow:#d0b8ff;
   --gold-light:rgba(168,126,232,0.12); --gold-border:rgba(168,126,232,0.30);
   --shadow:0 2px 8px rgba(0,0,0,0.40),0 6px 24px rgba(168,126,232,0.08);
-  --shadow-hover:0 4px 20px rgba(168,126,232,0.25),0 8px 40px rgba(0,0,0,0.40);
   --shadow-card:0 1px 4px rgba(0,0,0,0.35),0 4px 20px rgba(168,126,232,0.10);
 }
 
@@ -63,7 +59,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 
 /* ── KEYFRAMES ── */
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes slotPop{0%{transform:scale(1)}40%{transform:scale(1.055)}70%{transform:scale(0.97)}100%{transform:scale(1)}}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── HEADER ── */
@@ -105,77 +100,9 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .view{display:none;opacity:0}
 .view.active{display:block;animation:fadeSlideIn 0.22s ease forwards}
 
-/* ── STATS COMPACTES (banque/overlay) ── */
-.stat-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:var(--bg2)}
-.stat-chip.exo{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
-
-/* ── BANQUE ── */
-.bank-header{padding:16px;display:flex;align-items:center;justify-content:space-between}
-.bank-add-btn{background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all var(--t-fast)}
-.bank-add-btn:hover{background:rgba(124,92,191,0.18);transform:translateY(-1px)}
-.bank-filters{display:flex;gap:6px;padding:0 12px 10px;overflow-x:auto}
-.bank-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding:0 12px 12px}
-#bankSentinel{grid-column:1/-1}
-.bank-card{background:var(--surface-glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-card);transition:box-shadow var(--t-fast),transform var(--t-fast);position:relative}
-.bank-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
-.bank-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
-.bank-card-ico{width:40px;height:40px;object-fit:contain;border-radius:8px;background:var(--bg2);border:1px solid var(--border);flex-shrink:0}
-.bank-card-actions{display:flex;gap:3px}
-.bank-card-actions button{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;transition:all var(--t-fast);padding:0}
-.bank-card-actions button:hover{border-color:var(--gold);color:var(--gold)}
-.bank-card-name{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--text);letter-spacing:0.2px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.bank-card-type{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.bank-card-exos{display:flex;flex-wrap:wrap;gap:3px}
-.bank-card-compte{margin-top:auto;padding-top:4px;font-size:9px;color:var(--gold);font-weight:700;letter-spacing:0.5px;border-top:1px solid var(--gold-light)}
-
-/* ── MODALS ── */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}
-.modal-overlay.active{display:flex}
-.modal{background:var(--surface);border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:20px;border:1px solid var(--gold-border);box-shadow:0 8px 40px rgba(124,92,191,0.18)}
-.modal-title{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.modal-close{background:none;border:none;font-size:22px;color:var(--text-dim);cursor:pointer;padding:0 4px;transition:color var(--t-fast)}
-.modal-close:hover{color:var(--gold)}
-.modal-item-preview{background:var(--bg2);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.modal-item-preview img{width:40px;height:40px;object-fit:contain;border-radius:6px}
-.modal-item-preview-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--text)}
-.modal-item-preview-type{font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1.5px}
-.modal-section-title{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
-.stat-edit-grid{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.stat-edit-input{width:70px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:13px;font-weight:700;color:var(--gold);text-align:right;font-family:'Cinzel',serif}
-.exo-row{background:var(--gold-light);border:1px solid var(--gold-border);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:8px}
-.exo-name{font-size:12px;font-weight:700;color:var(--gold);flex:1}
-.compte-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.compte-chip{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;transition:all var(--t-fast)}
-.compte-chip.active{background:var(--gold-light);border-color:var(--gold-border);color:var(--gold)}
-.modal-search-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;margin-bottom:8px;transition:border-color var(--t-fast)}
-.modal-search-input:focus{border-color:var(--gold)}
-.search-btn{width:100%;background:var(--gold);color:#fff;border:none;border-radius:8px;padding:10px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;transition:opacity var(--t-fast)}
-.search-btn:hover{opacity:0.88}
-.modal-results{max-height:200px;overflow-y:auto;margin-top:8px}
-.modal-result-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background var(--t-fast)}
-.modal-result-row:hover{background:var(--bg2)}
-.modal-result-ico{width:32px;height:32px;object-fit:contain;border-radius:6px;background:var(--bg2)}
-.modal-result-name{font-size:12px;font-weight:700;color:var(--text);flex:1}
-.modal-result-type{font-size:10px;color:var(--text-dim)}
-.modal-footer{display:flex;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
-.modal-btn{flex:1;padding:11px;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border:none;transition:opacity var(--t-fast)}
-.modal-btn:hover{opacity:0.88}
-.modal-btn.cancel{background:var(--bg2);color:var(--text-dim)}
-.modal-btn.save{background:var(--gold);color:#fff}
-.modal-btn.danger{background:var(--red);color:#fff}
-.exo-add-section{background:var(--bg2);border-radius:10px;padding:10px;margin-bottom:10px}
-.exo-select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:12px;color:var(--text);margin-bottom:8px}
-.exo-val-row{display:flex;gap:6px}
-.exo-val-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px;font-size:13px;color:var(--text)}
-.exo-confirm-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
-
 /* ── Helpers ── */
-.empty-state{text-align:center;padding:32px 20px;color:var(--text-dim);font-size:13px;background:var(--bg2);border-radius:var(--radius)}
-.loading{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:var(--text-dim);font-size:13px}
-.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.6s linear infinite}
 .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:rgba(15,8,32,0.97);color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;border:1px solid var(--gold-border);box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.show{opacity:1}
-.section-label{font-size:9px;color:var(--text-dim);font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:12px 12px 4px}
 
 /* ── TRACKING ── */
 .tracking-section{padding:12px}
@@ -273,109 +200,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 .sync-dot.syncing{background:var(--yellow);animation:spin 1s linear infinite}
 .sync-dot.offline{background:var(--text-dim)}
 
-/* Filtres banque */
-.bank-filter{background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;transition:all var(--t-fast)}
-.bank-filter.active{background:var(--gold);border-color:var(--gold);color:#fff}
-.bank-filter:hover{border-color:var(--gold);color:var(--gold)}
-/* ══════════════════════════════════════════
-   BUILD PAGE — Design type Dofusbook
-   ══════════════════════════════════════════ */
-.build-page{padding:14px;display:flex;flex-direction:column;gap:14px;max-width:480px;margin:0 auto}
-@media(min-width:768px){.build-page{max-width:600px}}
-
-.build-hdr{background:linear-gradient(135deg, var(--gold) 0%, var(--gold-glow) 100%);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:10px;color:#fff;box-shadow:0 4px 16px rgba(124,92,191,0.18)}
-.build-hdr-name{flex:1;background:rgba(255,255,255,0.18);border-radius:10px;padding:10px 14px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:1px}
-.build-hdr-lvl{background:rgba(255,255,255,0.22);border-radius:10px;padding:10px 16px;font-family:'Cinzel',serif;font-size:15px;font-weight:700;min-width:60px;text-align:center}
-
-.bpage-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(124,92,191,0.06);margin-bottom:12px}
-[data-theme="dark"] .bpage-card{background:var(--surface);border-color:var(--border)}
-.build-card-title{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-
-.build-section-title{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.build-section-title span:not(.sec-line){flex-shrink:0}
-.sec-line{flex:1;height:1px;background:var(--gold-light)}
-
-.build-tabs{display:flex;background:var(--surface);border-radius:12px;padding:4px;border:1px solid var(--border);gap:4px;box-shadow:0 2px 8px rgba(124,92,191,0.05)}
-.build-tab{flex:1;border:none;border-radius:9px;padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;background:transparent;color:var(--text-dim);font-family:'Rajdhani',sans-serif;letter-spacing:0.5px;transition:all 0.2s}
-.build-tab.active{background:var(--gold);color:#fff;box-shadow:0 2px 6px rgba(124,92,191,0.3)}
-.build-tab:hover:not(.active){color:var(--gold);background:var(--gold-light)}
-
-/* Stats items */
-.stat-pair-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
-.stat-item{display:flex;align-items:center;gap:6px;background:var(--bg2);border-radius:10px;padding:7px 10px}
-.stat-item-ico{display:flex;align-items:center;justify-content:center;width:18px;flex-shrink:0}
-.stat-item-ico img{width:16px;height:16px;object-fit:contain}
-.stat-item-val{font-family:'Cinzel',serif;font-weight:800;font-size:14px;color:var(--text);min-width:40px;font-variant-numeric:tabular-nums}
-.stat-item-val.neg{color:var(--red)}
-.stat-item-lbl{font-size:12px;color:var(--text-dim);flex:1}
-.stat-bonus{font-size:10px;font-weight:700;border-radius:6px;padding:2px 6px;line-height:1}
-.stat-bonus.plus{background:var(--gold);color:#fff}
-.stat-bonus.zero{background:var(--gold-light);color:var(--text-dim)}
-
-.stat-grid{display:flex;flex-direction:column;gap:0}
-
-/* Caractéristiques avec base/parcho */
-.carac-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--gold-light)}
-.carac-row:last-child{border-bottom:none}
-.carac-ico{display:flex;align-items:center;justify-content:center;width:18px}
-.carac-ico img{width:14px;height:14px;object-fit:contain}
-.carac-val{font-family:'Cinzel',serif;font-weight:800;font-size:14px;color:var(--text);min-width:50px;font-variant-numeric:tabular-nums}
-.carac-lbl{font-size:13px;color:var(--text-dim);flex:1}
-.carac-input{width:44px;text-align:center;border:1.5px solid var(--border);border-radius:8px;padding:4px 0;font-size:13px;background:var(--bg2);font-weight:700;outline:none;font-family:'Rajdhani',sans-serif;color:var(--text-dim)}
-.carac-input.base{color:var(--gold)}
-.carac-input.parcho{color:var(--green)}
-.carac-input:focus{border-color:var(--gold)}
-.carac-hdr-lbl{font-size:11px;font-weight:700;color:var(--text-dim);width:44px;text-align:center;letter-spacing:1px;text-transform:uppercase}
-
-/* Exos chips */
-.exo-chip{display:inline-flex;align-items:center;gap:5px;background:var(--gold-light);border:1px solid var(--gold-border);border-radius:10px;padding:5px 10px}
-.exo-chip img{width:14px;height:14px;object-fit:contain}
-.exo-val{font-family:'Cinzel',serif;font-weight:800;font-size:13px;color:var(--gold)}
-.exo-lbl{font-size:11px;color:var(--text-dim)}
-
-/* Notes textarea */
-.build-notes{width:100%;min-height:80px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--text);font-family:inherit;resize:vertical;outline:none;box-sizing:border-box}
-.build-notes:focus{border-color:var(--gold)}
-.build-notes-count{text-align:right;font-size:11px;color:var(--text-dim);margin-top:4px}
-
-/* Panoplie cards */
-.panoplie-card{display:flex;flex-direction:column;gap:12px}
-.panoplie-hdr{display:flex;align-items:baseline;gap:10px}
-.panoplie-name{font-family:'Cinzel',serif;font-weight:700;font-size:14px;color:var(--text);flex-shrink:0}
-.panoplie-arrow{font-size:12px;color:var(--gold)}
-.panoplie-meta{font-size:11px;color:var(--text-dim);margin-left:auto}
-.panoplie-items{display:flex;gap:10px;flex-wrap:wrap}
-.panoplie-item{display:flex;flex-direction:column;align-items:center;gap:5px}
-.panoplie-item-img{width:56px;height:56px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.panoplie-item-img img{width:46px;height:46px;object-fit:contain}
-.panoplie-item-lbl{font-size:10px;color:var(--text-dim);text-align:center}
-.panoplie-bonus-hdr{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}
-.panoplie-bonus-count{background:var(--gold);color:#fff;border-radius:8px;padding:2px 10px;font-size:12px;font-weight:800}
-.panoplie-bonus-list{display:flex;flex-direction:column;gap:6px}
-.panoplie-bonus-item{font-size:13px;color:var(--text);display:flex;align-items:center;gap:8px;text-align:left}
-.panoplie-bonus-item .dot{width:5px;height:5px;border-radius:50%;background:var(--gold2);flex-shrink:0}
-
-/* FM row */
-.fm-row{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:10px;padding:10px 14px}
-.fm-row img{width:18px;height:18px;object-fit:contain}
-.fm-val{font-family:'Cinzel',serif;font-weight:800;font-size:16px;color:var(--gold);min-width:40px}
-.fm-lbl{font-size:13px;color:var(--text);flex:1}
-
-/* ══ GRILLE ÉQUIPEMENTS 4 colonnes ══ */
-.eq-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;overflow:visible}
-.eq-slot4{position:relative;aspect-ratio:1;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
-.eq-slot4:hover{border-color:var(--gold);transform:scale(1.04)}
-.eq-slot4.active{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-light)}
-.eq-slot4.filled{background:var(--surface)}
-.eq-slot4-empty{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:18px;line-height:1.2}
-.eq-slot4-lbl{font-size:8px;color:var(--text-dim);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-align:center}
-.eq-slot4-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--surface);z-index:2}
-.eq-slot4-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);min-width:140px;max-width:200px;background:rgba(20,15,35,0.97);backdrop-filter:blur(8px);border:1px solid var(--gold-border);padding:8px 10px;border-radius:10px;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.4);pointer-events:none}
-.eq-slot4:hover .eq-slot4-tooltip{display:block}
-.eq-slot4-tooltip-name{font-size:11px;color:#fff;font-weight:700;white-space:normal;line-height:1.3;margin-bottom:3px}
-.eq-slot4-tooltip-src{font-size:10px;margin-top:2px}
-.eq-slot4-clear{position:absolute;top:4px;left:4px;background:rgba(224,92,110,0.85);border:none;border-radius:5px;color:#fff;font-size:10px;cursor:pointer;padding:1px 5px;display:none;z-index:3;pointer-events:all}
-.eq-slot4:hover .eq-slot4-clear{display:block}
 </style>
 
 </head>
@@ -404,9 +228,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
   <!-- VUE DOFUS -->
   <div class="view" id="view-dofus"></div>
 
-  <!-- VUE BANQUE -->
-  <div class="view" id="view-bank"></div>
-
   <!-- VUE KAMAS -->
   <div class="view" id="view-kamas"></div>
 
@@ -428,10 +249,6 @@ input,button,select{font-family:'Rajdhani',sans-serif}
       <span class="ico" id="ico-dofus"><img src="https://api.dofusdb.fr/img/items/23004.png" style="width:24px;height:24px;object-fit:contain"></span>
       Dofus
     </button>
-    <button class="bnav-btn" id="nav-bank" onclick="showView('bank')">
-      <span class="ico" id="ico-bank"><img src="https://api.dofusdb.fr/img/items/172009.png" style="width:24px;height:24px;object-fit:contain"></span>
-      Banque
-    </button>
     <button class="bnav-btn" id="nav-kamas" onclick="showView('kamas')">
       <span class="ico" id="ico-kamas"><img src="https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png" style="width:24px;height:24px;object-fit:contain"></span>
       Kamas
@@ -442,67 +259,10 @@ input,button,select{font-family:'Rajdhani',sans-serif}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- MODAL BANQUE -->
-<div class="modal-overlay" id="modalBank" onclick="if(event.target===this)closeModal('modalBank')">
-  <div class="modal">
-    <div class="modal-title">
-      <span id="modalBankTitle">Ajouter un item</span>
-      <button class="modal-close" onclick="closeModal('modalBank')">✕</button>
-    </div>
-
-    <!-- Section recherche -->
-    <div id="modalSearchSection">
-      <div class="modal-section-title">Rechercher dans le jeu</div>
-      <input class="modal-search-input" id="modalSearchInput" placeholder="Nom de l'item..." onkeydown="if(event.key==='Enter')modalSearch()">
-      <button class="search-btn" onclick="modalSearch()">🔍 Rechercher</button>
-      <div class="modal-results" id="modalSearchResults"></div>
-    </div>
-
-    <!-- Section item sélectionné -->
-    <div id="modalItemSection" style="display:none">
-      <div class="modal-item-preview">
-        <img id="modalItemIco" src="" style="width:40px;height:40px;object-fit:contain;border-radius:6px;background:var(--bg2)" onerror="this.style.display='none'">
-        <div>
-          <div class="modal-item-preview-name" id="modalItemName"></div>
-          <div class="modal-item-preview-type" id="modalItemType"></div>
-        </div>
-        <button onclick="resetModalItem()" style="margin-left:auto;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:18px">✕</button>
-      </div>
-
-      <!-- Exos -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div class="modal-section-title" style="margin:0">Forgemagies (exos)</div>
-        <button onclick="toggleAddExo()" style="background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer">⚡ Ajouter</button>
-      </div>
-      <div id="exoAddSection" style="display:none">
-        <div class="exo-add-section">
-          <select class="exo-select" id="exoStatSelect"></select>
-          <div class="exo-val-row">
-            <input class="exo-val-input" type="number" id="exoValInput" placeholder="Valeur (ex: 1)">
-            <button class="exo-confirm-btn" onclick="confirmAddExo()">Confirmer</button>
-            <button onclick="toggleAddExo()" style="background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;cursor:pointer;font-size:13px">✕</button>
-          </div>
-        </div>
-      </div>
-      <div id="modalStatGrid"></div>
-
-      <div class="modal-section-title">Compte</div>
-      <div class="compte-chips" id="modalCompteChips"></div>
-    </div>
-
-    <div class="modal-footer">
-      <button class="modal-btn cancel" onclick="closeModal('modalBank')">Annuler</button>
-      <button class="modal-btn danger" id="modalBankDelete" onclick="deleteBankItem()" style="display:none;flex:0.6">🗑</button>
-      <button class="modal-btn save" onclick="saveBankItem()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
 <script>
 // ════════════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════════════
-var API = 'https://api.dofusdu.de/dofus3/v1/fr';
 var STORAGE_KEY = 'iron_stuffer_v2';
 
 // Comptes et persos Iron Team
@@ -551,8 +311,6 @@ var COMPTES = [
   ]}
 ];
 
-var WEAPON_TYPES=['Épée','Arc','Baguette','Bâton','Dague','Faux','Marteau','Pelle','Pioche','Hache','Lance','Pistolet','Poing','Outil'];
-
 // ── 29 Dofus à tracker ──
 var DOFUS_TRACKER_LIST = [
   {id:'dofawa',       name:'Dofawa',          icon:'https://api.dofusdu.de/dofus3/v1/img/item/23009-64.png'},
@@ -586,44 +344,44 @@ var DOFUS_TRACKER_LIST = [
   {id:'cacao',        name:'Cacao',           icon:'https://api.dofusdu.de/dofus3/v1/img/item/23029-64.png'}
 ];
 
-var STATS_LIST = ['PA','PM','PO','Do Critique','% Do Sorts','% Do Dist','% Do Mélée',
-  'Do Feu','Do Terre','Do Eau','Do Air','% Rés Neutre','% Rés Air','% Rés Eau',
-  '% Rés Feu','% Rés Terre','% Rés Dist','% Rés Mélée','Tacle','Ret. PM','Critique',
-  'Puissance','Arme de chasse'];
-
-// Filtres et recherche banque
-
 // ════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════
-var state = {bank:[]};
-var nav = {view:'bank', bankFilters:[]};
-var modalBankData = {item:null, editIdx:null, compte:null};
-var modalSearchCache = [];
+var state = {tracking:{}, dofusTracker:{}, jetons:{}};
+var nav = {view:'tracking'};
+
+// Données sauvegardées (local + cloud) — une seule liste pour tous les onglets
+// Tracking + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons
+var STATE_KEYS = ['tracking','dofusTracker','jetons'];
+
+function applyState(src){
+  src=src||{};
+  STATE_KEYS.forEach(function(k){ state[k]=src[k]||{}; });
+  state.updatedAt=src.updatedAt||'';
+}
+
+function snapshotState(){
+  var snap={};
+  STATE_KEYS.forEach(function(k){ snap[k]=state[k]||{}; });
+  snap.updatedAt=state.updatedAt||'';
+  return snap;
+}
+
+function writeLocalState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshotState())); }catch(e){}
+}
 
 function loadState(){
-  try{
-    var s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-    state.bank=s.bank||[];
-    state.tracking=s.tracking||{};
-    state.dofusTracker=s.dofusTracker||{};
-    state.jetons=s.jetons||{};
-  }catch(e){}
-  cleanupLegacyItemFields();
+  var s={};
+  try{ s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{}; }catch(e){}
+  applyState(s);
+  // Purge des anciennes données de la banque (feature supprimée)
+  if(s.bank!==undefined) writeLocalState();
 }
 
-// Nettoyage définitif des anciens champs stats/panoplie/conditions (obsolètes depuis la suppression des builds)
-function cleanupLegacyItemFields(){
-  var changed=false;
-  (state.bank||[]).forEach(function(item){
-    ['stats','statMaxima','setId','setName','setBonuses','conditions','nativeKeys'].forEach(function(k){
-      if(item[k]!==undefined){ delete item[k]; changed=true; }
-    });
-  });
-  if(changed) saveState();
-}
 function saveState(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  state.updatedAt=new Date().toISOString();
+  writeLocalState();
   // Sync Firestore si connecté
   if(window._fbUser && window._fsDb){
     var uid=window._fbUser.uid;
@@ -631,13 +389,8 @@ function saveState(){
     updateSyncDot('syncing');
     clearTimeout(window._syncTimer);
     window._syncTimer=setTimeout(function(){
-      window._fsDb.collection('users').doc(uid).collection('data').doc('state').set({
-        bank: state.bank,
-        tracking: state.tracking||{},
-        dofusTracker: state.dofusTracker||{},
-        jetons: state.jetons||{},
-        updatedAt: new Date().toISOString()
-      }).then(function(){
+      // set() remplace tout le document → les anciens champs (ex : bank) disparaissent du cloud
+      window._fsDb.collection('users').doc(uid).collection('data').doc('state').set(snapshotState()).then(function(){
         window._syncPending=false;
         updateSyncDot('ok');
       }).catch(function(e){
@@ -646,14 +399,6 @@ function saveState(){
       });
     }, 800); // debounce 800ms pour éviter trop d'écritures
   }
-}
-function persoById(pid){
-  for(var i=0;i<COMPTES.length;i++){
-    for(var j=0;j<COMPTES[i].persos.length;j++){
-      if(COMPTES[i].persos[j].id===pid) return COMPTES[i].persos[j];
-    }
-  }
-  return null;
 }
 function compteOfPerso(pid){
   for(var i=0;i<COMPTES.length;i++){
@@ -684,9 +429,7 @@ function showView(v){
   nav.view=v;
   // Nav buttons
   document.querySelectorAll('.bnav-btn').forEach(function(b){b.classList.remove('active');});
-  if(v==='bank'){
-    document.getElementById('nav-bank').classList.add('active');
-  } else if(v==='tracking'){
+  if(v==='tracking'){
     document.getElementById('nav-tracking').classList.add('active');
   } else if(v==='jetons'){
     document.getElementById('nav-jetons').classList.add('active');
@@ -699,12 +442,7 @@ function showView(v){
   // Header
   var title = document.getElementById('hdrTitle');
   var sub = document.getElementById('hdrSub');
-  if(v==='bank'){
-    title.textContent='MA BANQUE';
-    title.classList.add('large');
-    sub.textContent='';
-    sub.classList.add('hidden');
-  } else if(v==='tracking'){
+  if(v==='tracking'){
     title.textContent='TRACKING';
     title.classList.add('large');
     sub.textContent='';
@@ -775,663 +513,6 @@ var CLASS_ICONS_STUFFER = {"F\u00e9ca": "data:image/png;base64,iVBORw0KGgoAAAANS
 
 
 // ════════════════════════════════════════════════
-// BANQUE
-// ════════════════════════════════════════════════
-var BANK_FILTER_TYPES=[
-  {id:'noexo',   lbl:'Sans exo(s)',  group:'statut'},
-  {id:'Chapeau', lbl:'Coiffe',       group:'type'},
-  {id:'Amulette',lbl:'Amulette',     group:'type'},
-  {id:'Cape',    lbl:'Cape',         group:'type'},
-  {id:'Anneau',  lbl:'Anneau',       group:'type'},
-  {id:'Ceinture',lbl:'Ceinture',     group:'type'},
-  {id:'Bottes',  lbl:'Bottes',       group:'type'},
-  {id:'Arme',    lbl:'Arme',         group:'type'},
-  {id:'Bouclier',lbl:'Bouclier',     group:'type'},
-  {id:'Familier',lbl:'Familier/Monture',group:'type'},
-  {id:'Dofus',   lbl:'Dofus',        group:'type'},
-  {id:'Trophée', lbl:'Trophée',      group:'type'},
-  {id:'Prysmaradite',lbl:'Prysmaradite',group:'type'},
-];
-
-// Types d'items qui ne peuvent jamais avoir d'exo
-var NO_EXO_TYPES = ['Familier','Dragodinde','Montilier','Muldo','Volkorne','Dofus','Trophée','Prysmaradite'];
-
-function toggleBankFilter(fid){
-  var idx=nav.bankFilters.indexOf(fid);
-  if(idx>=0) nav.bankFilters.splice(idx,1);
-  else nav.bankFilters.push(fid);
-  renderBank();
-}
-
-var bankSearch = '';
-var bankSort = ''; // '' = tous | 'c1'|'c2' etc = filtre par compte
-
-function setBankSearch(val){
-  bankSearch = val.toLowerCase().trim();
-  applyBankFiltersOnly();
-}
-
-function clearBankSearch(){
-  bankSearch = '';
-  var inp=document.getElementById('bankSearchInput');
-  if(inp) inp.value='';
-  applyBankFiltersOnly();
-}
-
-// Filtre sans reconstruire le header — préserve le focus de l'input
-function applyBankFiltersOnly(){
-  var list=document.getElementById('bankItemList');
-  var empty=document.getElementById('bankEmptyState');
-  var counter=document.getElementById('bankCounter');
-  if(!list){ renderBank(); return; }
-
-  var visibleCount=0;
-  var wrappers=list.querySelectorAll('[data-bank-idx]');
-  wrappers.forEach(function(wrapper){
-    var idx=parseInt(wrapper.getAttribute('data-bank-idx'));
-    var item=state.bank[idx];
-    if(item && bankItemMatchesFilters(item,idx)){
-      wrapper.style.display='';
-      visibleCount++;
-    } else {
-      wrapper.style.display='none';
-    }
-  });
-
-  if(counter) counter.textContent=visibleCount+'/'+state.bank.length+' items';
-  if(empty){
-    if(visibleCount===0 && state.bank.length>0){
-      empty.style.display='';
-      empty.textContent='Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres');
-    } else {
-      empty.style.display='none';
-    }
-  }
-  // Mettre à jour le bouton reset
-  var resetBtn=document.getElementById('bankResetBtn');
-  if(resetBtn) resetBtn.style.display=(nav.bankFilters.length||bankSearch||bankSort)?'inline-block':'none';
-}
-
-function setBankSort(val){
-  bankSort = bankSort===val ? '' : val;
-  // Le tri par compte = filtre, pas juste un réordonnancement
-  renderBank();
-}
-
-function bankItemMatchesFilters(item, idx){
-  // Filtre tri/compte
-  if(bankSort && (item.compte||'')!==bankSort) return false;
-  // Filtre recherche texte
-  if(bankSearch && item.name.toLowerCase().indexOf(bankSearch)<0) return false;
-  if(!nav.bankFilters.length) return true;
-  var passes=true;
-  nav.bankFilters.forEach(function(fid){
-    if(fid==='noexo'){
-      // Exclure les items qui ne peuvent jamais avoir d'exo
-      var t=item.type||'';
-      var isExoEligible=!NO_EXO_TYPES.some(function(nt){
-        return t.toLowerCase().indexOf(nt.toLowerCase())>-1;
-      });
-      if(!isExoEligible) passes=false; // item non éligible aux exos → exclu du filtre
-      else if(item.exos && Object.keys(item.exos).length>0) passes=false; // a déjà des exos → exclu
-    }
-    if(fid==='Familier'){
-      var t2=item.type||'';
-      var famTypes=['Familier','Dragodinde','Montilier','Muldo','Volkorne'];
-      if(!famTypes.some(function(ft){return t2.toLowerCase().indexOf(ft.toLowerCase())>-1;})) passes=false;
-    } else if(fid==='Arme'){
-      var t3=item.type||'';
-      if(!WEAPON_TYPES.some(function(wt){return t3.toLowerCase()===wt.toLowerCase();})) passes=false;
-    } else if(fid!=='noexo'){
-      var t4=item.type||'';
-      if(t4.toLowerCase().indexOf(fid.toLowerCase())<0) passes=false;
-    }
-  });
-  return passes;
-}
-
-function exportBank(){
-  var data=JSON.stringify({bank:state.bank}, null, 2);
-  var blob=new Blob([data],{type:'application/json'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;
-  a.download='iron-stuffer-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Export téléchargé !');
-}
-
-function importBank(){
-  var input=document.createElement('input');
-  input.type='file';
-  input.accept='.json';
-  input.onchange=function(e){
-    var file=e.target.files[0];
-    if(!file) return;
-    var reader=new FileReader();
-    reader.onload=function(ev){
-      try{
-        var data=JSON.parse(ev.target.result);
-        if(!data.bank) { showToast('Fichier invalide'); return; }
-        if(!confirm('Remplacer toute la banque ('+data.bank.length+' items) ? Cette action est irréversible.')) return;
-        state.bank=data.bank;
-        saveState();
-        renderBank();
-        showToast('Import réussi — '+data.bank.length+' items chargés !');
-      }catch(err){ showToast('Erreur lecture fichier'); }
-    };
-    reader.readAsText(file);
-  };
-  input.click();
-}
-
-// ── LAZY LOADING BANQUE ──
-var BANK_PAGE_SIZE = 20;
-var bankLazyIndices = []; // indices filtrés dans l'ordre d'affichage
-var bankLazyLoaded = 0;   // combien sont déjà dans le DOM
-var bankLazyObserver = null;
-
-function buildBankIndices(){
-  // Indices dans l'ordre inverse (plus récent en haut), filtrés
-  var indices = [];
-  for(var i=state.bank.length-1; i>=0; i--){
-    if(bankItemMatchesFilters(state.bank[i], i)) indices.push(i);
-  }
-  return indices;
-}
-
-function bankAppendItems(from, count){
-  var list = document.getElementById('bankItemList');
-  if(!list) return;
-  var to = Math.min(from + count, bankLazyIndices.length);
-  var frag = document.createDocumentFragment();
-  for(var i=from; i<to; i++){
-    var idx = bankLazyIndices[i];
-    var item = state.bank[idx];
-    var wrapper = document.createElement('div');
-    wrapper.setAttribute('data-bank-idx', idx);
-    wrapper.innerHTML = renderBankCard(item, idx);
-    frag.appendChild(wrapper);
-  }
-  // Retirer le sentinel avant d'ajouter, puis remettre à la fin
-  var sentinel = document.getElementById('bankSentinel');
-  if(sentinel) sentinel.remove();
-  list.appendChild(frag);
-  bankLazyLoaded = to;
-  // Remettre le sentinel si il reste des items
-  if(bankLazyLoaded < bankLazyIndices.length){
-    var s = document.createElement('div');
-    s.id = 'bankSentinel';
-    s.style.cssText = 'height:40px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px;padding:8px';
-    s.innerHTML = '<div class="spinner"></div>';
-    list.appendChild(s);
-    if(bankLazyObserver) bankLazyObserver.observe(s);
-  }
-  // Mettre à jour le counter
-  var counter = document.getElementById('bankCounter');
-  if(counter) counter.textContent = bankLazyIndices.length+'/'+state.bank.length+' items';
-}
-
-function initBankLazy(){
-  if(bankLazyObserver) bankLazyObserver.disconnect();
-  bankLazyObserver = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting && bankLazyLoaded < bankLazyIndices.length){
-        bankAppendItems(bankLazyLoaded, BANK_PAGE_SIZE);
-      }
-    });
-  }, {rootMargin:'200px'});
-}
-
-function applyBankFiltersOnly(){
-  // Rebuild indices et reset lazy
-  bankLazyIndices = buildBankIndices();
-  bankLazyLoaded = 0;
-
-  var list = document.getElementById('bankItemList');
-  var empty = document.getElementById('bankEmptyState');
-  var counter = document.getElementById('bankCounter');
-  var resetBtn = document.getElementById('bankResetBtn');
-
-  if(!list){ renderBank(); return; }
-
-  // Vider la liste et relancer le lazy
-  list.innerHTML = '';
-  if(bankLazyObserver) bankLazyObserver.disconnect();
-
-  if(bankLazyIndices.length === 0 && state.bank.length > 0){
-    if(empty){ empty.style.display=''; empty.textContent='Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres'); }
-  } else {
-    if(empty) empty.style.display='none';
-    bankAppendItems(0, BANK_PAGE_SIZE);
-  }
-
-  if(counter) counter.textContent = bankLazyIndices.length+'/'+state.bank.length+' items';
-  if(resetBtn) resetBtn.style.display=(nav.bankFilters.length||bankSearch||bankSort)?'inline-block':'none';
-}
-
-function renderBank(){
-  bankLazyIndices = buildBankIndices();
-  bankLazyLoaded = 0;
-  var hasActiveFilters = nav.bankFilters.length||bankSearch||bankSort;
-
-  var h='<div class="bank-header">';
-  h+='<div id="bankCounter" style="font-family:Cinzel,serif;font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase">'+bankLazyIndices.length+'/'+state.bank.length+' items</div>';
-  h+='<div style="display:flex;gap:6px;align-items:center">';
-  h+='<button onclick="importBank()" title="Importer JSON" style="background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:6px 10px;border-radius:8px;cursor:pointer">⬆ Import</button>';
-  h+='<button onclick="exportBank()" title="Exporter JSON" style="background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:6px 10px;border-radius:8px;cursor:pointer">⬇ Export</button>';
-  h+='<button class="bank-add-btn" onclick="openModalBank(null)" style="margin:0;width:auto">+ Ajouter</button>';
-  h+='</div></div>';
-
-  h+='<div style="padding:0 12px 8px">';
-  h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">';
-  BANK_FILTER_TYPES.filter(function(f){return f.group==='statut';}).forEach(function(f){
-    var active=nav.bankFilters.indexOf(f.id)>=0;
-    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+')">'+f.lbl+'</button>';
-  });
-  h+='</div>';
-  h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">';
-  BANK_FILTER_TYPES.filter(function(f){return f.group==='type';}).forEach(function(f){
-    var active=nav.bankFilters.indexOf(f.id)>=0;
-    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="toggleBankFilter('+String.fromCharCode(39)+f.id+String.fromCharCode(39)+')">'+f.lbl+'</button>';
-  });
-  h+='</div>';
-  h+='<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;align-items:center">';
-  h+='<span style="font-size:10px;color:var(--text-dim);font-weight:700;letter-spacing:1px">COMPTE</span>';
-  COMPTES.forEach(function(c){
-    var active=bankSort===c.id;
-    h+='<button class="bank-filter'+(active?' active':'')+'" onclick="setBankSort('+String.fromCharCode(39)+c.id+String.fromCharCode(39)+')">'+c.name+'</button>';
-  });
-  h+='</div>';
-  h+='<button id="bankResetBtn" onclick="nav.bankFilters=[];bankSearch=\'\';bankSort=\'\';renderBank()" style="display:'+(hasActiveFilters?'inline-block':'none')+';background:var(--red);border:none;color:#fff;font-family:Rajdhani,sans-serif;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer;margin-bottom:6px">✕ Réinitialiser tout</button>';
-  h+='<div style="position:relative;margin-top:2px">';
-  h+='<input id="bankSearchInput" type="text" placeholder="Rechercher un item..." value="'+bankSearch.split('"').join('&quot;')+'" oninput="setBankSearch(this.value)" style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 32px 7px 12px;font-size:13px;color:var(--text);font-family:Rajdhani,sans-serif;outline:none;transition:border-color 0.15s" onfocus="this.style.borderColor=\'var(--gold)\'" onblur="this.style.borderColor=\'\'">';
-  if(bankSearch){
-    h+='<button onclick="clearBankSearch()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;line-height:1;padding:2px">✕</button>';
-  }
-  h+='</div>';
-  h+='</div>';
-
-  if(!state.bank.length){
-    h+='<div class="empty-state" style="margin:12px">Ta banque est vide. Ajoute tes équipements !</div>';
-  } else {
-    h+='<div id="bankEmptyState" class="empty-state" style="margin:12px;display:'+(bankLazyIndices.length?'none':'block')+'">Aucun item ne correspond'+(bankSearch?' à "'+bankSearch+'"':' aux filtres')+'.</div>';
-    h+='<div class="bank-grid" id="bankItemList"></div>';
-  }
-
-  document.getElementById('view-bank').innerHTML=h;
-
-  // Initialiser lazy loading et charger le premier batch
-  initBankLazy();
-  if(bankLazyIndices.length) bankAppendItems(0, BANK_PAGE_SIZE);
-
-  if(bankSearch){
-    var inp=document.getElementById('bankSearchInput');
-    if(inp){ inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length); }
-  }
-}
-
-function renderBankCard(item, idx){
-  var h='<div class="bank-card">';
-  h+='<div class="bank-card-top">';
-  if(item.icon){
-    h+='<img class="bank-card-ico" src="'+item.icon+'" onerror="this.style.display=\'none\'">';
-  } else {
-    h+='<div class="bank-card-ico" style="display:flex;align-items:center;justify-content:center;font-size:18px">⚔️</div>';
-  }
-  h+='<div class="bank-card-actions">';
-  h+='<button data-idx="'+idx+'" onclick="openModalBank(parseInt(this.dataset.idx))" title="Modifier">✏️</button>';
-  h+='<button data-idx="'+idx+'" onclick="duplicateFromBank(parseInt(this.dataset.idx))" title="Dupliquer">⧉</button>';
-  h+='</div>';
-  h+='</div>';
-  h+='<div class="bank-card-name">'+item.name+'</div>';
-  if(item.type) h+='<div class="bank-card-type">'+item.type+'</div>';
-  var exos=item.exos||{};
-  if(Object.keys(exos).length){
-    h+='<div class="bank-card-exos">';
-    Object.keys(exos).forEach(function(k){
-      var v=parseInt(exos[k])||0;
-      if(!v) return;
-      h+='<span class="stat-chip exo">⚡ '+(v>0?'+':'')+v+' '+k+'</span>';
-    });
-    h+='</div>';
-  }
-  var cname=item.compte||'?';
-  COMPTES.forEach(function(c){ if(c.id===item.compte) cname=c.name; });
-  h+='<div class="bank-card-compte">'+cname+'</div>';
-  h+='</div>';
-  return h;
-}
-
-// ════════════════════════════════════════════════
-// MODAL BANQUE
-// ════════════════════════════════════════════════
-function openModalBank(idx){
-  modalBankData={item:null, editIdx:idx, compte:null};
-  document.getElementById('modalBankTitle').textContent=idx!==null?'Modifier un item':'Ajouter un item';
-  document.getElementById('modalBankDelete').style.display=idx!==null?'block':'none';
-  document.getElementById('modalSearchSection').style.display='block';
-  document.getElementById('modalItemSection').style.display='none';
-  document.getElementById('modalSearchInput').value='';
-  document.getElementById('modalSearchResults').innerHTML='';
-  document.getElementById('exoAddSection').style.display='none';
-
-  // Remplir select exo
-  var sel=document.getElementById('exoStatSelect');
-  sel.innerHTML='';
-  STATS_LIST.forEach(function(s){
-    var opt=document.createElement('option');
-    opt.value=s; opt.textContent=s;
-    sel.appendChild(opt);
-  });
-
-  if(idx!==null){
-    var item=state.bank[idx];
-    if(item) preloadModalItem(item);
-  }
-
-  renderCompteChips();
-  document.getElementById('modalBank').classList.add('active');
-}
-
-function duplicateFromBank(idx){
-  var item=state.bank[idx];
-  if(!item) return;
-  // Ouvrir la modal comme un NOUVEL item (editIdx=null) pré-rempli avec les exos de l'original
-  modalBankData={item:null, editIdx:null, compte:null};
-  document.getElementById('modalBankTitle').textContent='Dupliquer : '+item.name;
-  document.getElementById('modalBankDelete').style.display='none';
-  document.getElementById('modalSearchSection').style.display='block';
-  document.getElementById('modalItemSection').style.display='none';
-  document.getElementById('modalSearchInput').value='';
-  document.getElementById('modalSearchResults').innerHTML='';
-  document.getElementById('exoAddSection').style.display='none';
-  var sel=document.getElementById('exoStatSelect');
-  sel.innerHTML='';
-  STATS_LIST.forEach(function(s){
-    var opt=document.createElement('option');
-    opt.value=s; opt.textContent=s;
-    sel.appendChild(opt);
-  });
-  // Pré-remplir avec les données de l'item source — mais pas le compte (à choisir)
-  preloadModalItem(item);
-  modalBankData.editIdx=null; // forcer création
-  modalBankData.compte=null;  // forcer choix du compte
-  renderCompteChips();
-  document.getElementById('modalBank').classList.add('active');
-  showToast('Choisissez le compte pour la copie');
-}
-
-function preloadModalItem(item){
-  modalBankData.item={name:item.name,icon:item.icon||'',type:item.type||'',exos:Object.assign({},item.exos||{}),ankama_id:item.ankama_id||null};
-  modalBankData.compte=item.compte||null;
-  showModalItem(item.name,item.icon||'',item.type||'');
-}
-
-function renderCompteChips(){
-  var h='';
-  COMPTES.forEach(function(c){
-    var isActive=modalBankData.compte===c.id;
-    h+='<div class="compte-chip '+(isActive?'active':'')+'" data-cid="'+c.id+'" onclick="selectCompte(this)">'+c.name+'</div>';
-  });
-  document.getElementById('modalCompteChips').innerHTML=h;
-}
-
-function selectCompte(el){
-  modalBankData.compte=el.getAttribute('data-cid');
-  document.querySelectorAll('.compte-chip').forEach(function(x){x.classList.remove('active');});
-  el.classList.add('active');
-}
-
-function modalSearch(){
-  var q=(document.getElementById('modalSearchInput').value||'').trim();
-  if(q.length<2){ showToast('Tape au moins 2 lettres'); return; }
-  var el=document.getElementById('modalSearchResults');
-  el.innerHTML='<div class="loading"><span class="spinner"></span>Recherche...</div>';
-
-  fetch(API+'/items/equipment/search?query='+encodeURIComponent(q)+'&limit=15')
-    .then(function(r){return r.json();})
-    .then(function(data){
-      modalSearchCache=data||[];
-      var h='';
-      modalSearchCache.slice(0,10).forEach(function(item,idx){
-        var ico=item.image_urls&&item.image_urls.icon?item.image_urls.icon:'';
-        var type=item.type&&item.type.name?item.type.name:'';
-        h+='<div class="modal-result-row" data-midx="'+idx+'" onclick="selectModalItem(parseInt(this.dataset.midx))">';
-        if(ico) h+='<img class="modal-result-ico" src="'+ico+'" onerror="this.style.display=\'none\'">';
-        else h+='<div class="modal-result-ico" style="display:flex;align-items:center;justify-content:center;font-size:16px">⚔️</div>';
-        h+='<div><div class="modal-result-name">'+item.name+'</div><div class="modal-result-type">'+type+'</div></div>';
-        h+='</div>';
-      });
-      el.innerHTML=h||'<div class="empty-state">Aucun résultat</div>';
-    })
-    .catch(function(){ el.innerHTML='<div class="empty-state">Erreur réseau</div>'; });
-}
-
-function resetModalItem(){
-  modalBankData.item=null;
-  document.getElementById('modalSearchSection').style.display='block';
-  document.getElementById('modalItemSection').style.display='none';
-  document.getElementById('modalSearchInput').value='';
-  document.getElementById('modalSearchResults').innerHTML='';
-}
-
-function selectModalItem(idx){
-  var item=modalSearchCache[idx];
-  if(!item) return;
-  var ico=item.image_urls&&item.image_urls.icon?item.image_urls.icon:'';
-  var type=item.type&&item.type.name?item.type.name:'';
-  modalBankData.item={name:item.name,icon:ico,type:type,exos:{},ankama_id:item.ankama_id||null};
-  showModalItem(item.name,ico,type);
-}
-
-function showModalItem(name,ico,type){
-  document.getElementById('modalSearchSection').style.display='none';
-  document.getElementById('modalItemSection').style.display='block';
-  document.getElementById('modalItemName').textContent=name;
-  document.getElementById('modalItemType').textContent=type;
-  if(ico) document.getElementById('modalItemIco').src=ico;
-  if(!modalBankData.item.exos) modalBankData.item.exos={};
-  renderModalStats();
-  renderCompteChips();
-}
-
-function renderModalStats(){
-  var exos=modalBankData.item.exos||{};
-  var h='';
-
-  var exoKeys=Object.keys(exos);
-  if(exoKeys.length){
-    h+='<div class="stat-edit-grid">';
-    exoKeys.forEach(function(k){
-      h+='<div class="exo-row">';
-      h+='<span class="exo-name">⚡ '+k+'</span>';
-      h+='<input class="stat-edit-input" type="number" value="'+exos[k]+'" data-stat="'+k+'" onchange="updateModalStat(this)">';
-      h+='<button data-exokey="'+k+'" onclick="removeExo(this.dataset.exokey)" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:13px;padding:0 3px">✕</button>';
-      h+='</div>';
-    });
-    h+='</div>';
-  } else {
-    h+='<div style="font-size:12px;color:var(--text-dim);padding:8px 0">Aucune forgemagie ajoutée</div>';
-  }
-
-  document.getElementById('modalStatGrid').innerHTML=h;
-}
-
-function toggleAddExo(){
-  var el=document.getElementById('exoAddSection');
-  el.style.display=el.style.display==='none'?'block':'none';
-}
-
-function confirmAddExo(){
-  var k=document.getElementById('exoStatSelect').value;
-  var v=parseInt(document.getElementById('exoValInput').value)||0;
-  if(!k||!v){ showToast('Stat et valeur requises'); return; }
-  if(!modalBankData.item.exos) modalBankData.item.exos={};
-  modalBankData.item.exos[k]=v;
-  document.getElementById('exoValInput').value='';
-  document.getElementById('exoAddSection').style.display='none';
-  renderModalStats();
-}
-
-function removeExo(k){
-  if(modalBankData.item.exos) delete modalBankData.item.exos[k];
-  renderModalStats();
-}
-
-function updateModalStat(el){
-  var k=el.getAttribute('data-stat');
-  var v=parseInt(el.value)||0;
-  if(!modalBankData.item.exos) modalBankData.item.exos={};
-  modalBankData.item.exos[k]=v;
-}
-
-function saveBankItem(){
-  if(!modalBankData.item){ showToast('Sélectionne un item'); return; }
-  if(!modalBankData.compte){ showToast('Choisis un compte'); return; }
-
-  var entry={
-    name:modalBankData.item.name,
-    icon:modalBankData.item.icon||'',
-    type:modalBankData.item.type||'',
-    exos:modalBankData.item.exos||{},
-    compte:modalBankData.compte,
-    ankama_id:modalBankData.item.ankama_id||null
-  };
-
-  if(modalBankData.editIdx!==null){
-    state.bank[modalBankData.editIdx]=entry;
-  } else {
-    state.bank.push(entry);
-  }
-  saveState();
-  closeModal('modalBank');
-  renderBank();
-  showToast(entry.name+(modalBankData.editIdx!==null?' modifié !':' ajouté !'));
-}
-
-function deleteBankItem(){
-  if(modalBankData.editIdx===null) return;
-  if(!confirm('Supprimer cet item ?')) return;
-  state.bank.splice(modalBankData.editIdx,1);
-  saveState();
-  closeModal('modalBank');
-  renderBank();
-  showToast('Item supprimé');
-}
-
-function closeModal(id){
-  document.getElementById(id).classList.remove('active');
-}
-
-// ════════════════════════════════════════════════
-// TOOLTIP
-// ════════════════════════════════════════════════
-function getStatIcon(k){
-  var m={
-    '% Critique':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%222%22%20height%3D%225%22%20rx%3D%221%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%2211.5%22%20r%3D%221%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Do Armes':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e67e22%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e67e22%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e67e22%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Do Dist':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4%202%20Q2%208%204%2014%22%20fill%3D%22none%22%20stroke%3D%22%233498db%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%222%22%20x2%3D%224%22%20y2%3D%2214%22%20stroke%3D%22%233498db%22%20stroke-width%3D%221%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%228%22%20x2%3D%2213%22%20y2%3D%228%22%20stroke%3D%22%233498db%22%20stroke-width%3D%221.5%22%2F%3E%3Cpolygon%20points%3D%2213%2C8%2011%2C6.5%2011%2C9.5%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Do Melee':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Do Mélée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Do Sorts':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4%202%20Q2%208%204%2014%22%20fill%3D%22none%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%222%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%222%22%20x2%3D%224%22%20y2%3D%2214%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221%22%2F%3E%3Cline%20x1%3D%224%22%20y1%3D%228%22%20x2%3D%2213%22%20y2%3D%228%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221.5%22%2F%3E%3Cpolygon%20points%3D%2213%2C8%2011%2C6.5%2011%2C9.5%22%20fill%3D%22%239b59b6%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2382e0aa%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Armes':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e67e22%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Dist':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Melee':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Mélée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Poussée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2395a5a6%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Ré Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23a04000%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2382e0aa%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Dist':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Mélée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Rés Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23a04000%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Résistance Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2382e0aa%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Résistance Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Résistance Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Résistance Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    '% Résistance Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23a04000%22%2F%3E%3Ctext%20x%3D%228%22%20y%3D%2210%22%20text-anchor%3D%22middle%22%20font-size%3D%226%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%3E%25%3C%2Ftext%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Agilite':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M3%2013C4%208%208%202%2014%202c0%205-3%208-7%209L4%2014z%22%20fill%3D%22%2327ae60%22%2F%3E%3Cpath%20d%3D%22M3%2013%20Q5%209%209%208%22%20stroke%3D%22%2327ae60%22%20stroke-width%3D%221.2%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Agilité':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M3%2013C4%208%208%202%2014%202c0%205-3%208-7%209L4%2014z%22%20fill%3D%22%2327ae60%22%2F%3E%3Cpath%20d%3D%22M3%2013%20Q5%209%209%208%22%20stroke%3D%22%2327ae60%22%20stroke-width%3D%221.2%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Chance':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%202C6%205%203%208%203%2011a5%205%200%200%200%2010%200C13%208%2010%205%208%202z%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Critique':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%222%22%20height%3D%225%22%20rx%3D%221%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%2211.5%22%20r%3D%221%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%2382e0aa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%2382e0aa%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%2382e0aa%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Critique':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%20opacity%3D%220.2%22%2F%3E%3Cpolygon%20points%3D%228%2C3%209.5%2C6.5%2013%2C7%2010.5%2C9.5%2011%2C13%208%2C11.5%205%2C13%205.5%2C9.5%203%2C7%206.5%2C6.5%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%233498db%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%233498db%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23bdc3c7%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23bdc3c7%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Poussée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%223%22%20y1%3D%228%22%20x2%3D%2211%22%20y2%3D%228%22%20stroke%3D%22%2395a5a6%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2211%2C8%207.5%2C5%207.5%2C11%22%20fill%3D%22%2395a5a6%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%225%22%20x2%3D%2213%22%20y2%3D%2211%22%20stroke%3D%22%2395a5a6%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Do Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23a04000%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23a04000%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23a04000%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%2382e0aa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%2382e0aa%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%2382e0aa%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Critiques':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%20opacity%3D%220.2%22%2F%3E%3Cpolygon%20points%3D%228%2C3%209.5%2C6.5%2013%2C7%2010.5%2C9.5%2011%2C13%208%2C11.5%205%2C13%205.5%2C9.5%203%2C7%206.5%2C6.5%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%233498db%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%233498db%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23bdc3c7%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23bdc3c7%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Poussée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%223%22%20y1%3D%228%22%20x2%3D%2211%22%20y2%3D%228%22%20stroke%3D%22%2395a5a6%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2211%2C8%207.5%2C5%207.5%2C11%22%20fill%3D%22%2395a5a6%22%2F%3E%3Cline%20x1%3D%2213%22%20y1%3D%225%22%20x2%3D%2213%22%20y2%3D%2211%22%20stroke%3D%22%2395a5a6%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommage Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23a04000%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23a04000%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23a04000%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%2382e0aa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%2382e0aa%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%2382e0aa%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Critiques':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%20opacity%3D%220.2%22%2F%3E%3Cpolygon%20points%3D%228%2C3%209.5%2C6.5%2013%2C7%2010.5%2C9.5%2011%2C13%208%2C11.5%205%2C13%205.5%2C9.5%203%2C7%206.5%2C6.5%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%233498db%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%233498db%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23e74c3c%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23bdc3c7%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23bdc3c7%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23bdc3c7%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Dommages Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cline%20x1%3D%222%22%20y1%3D%2214%22%20x2%3D%2212%22%20y2%3D%224%22%20stroke%3D%22%23a04000%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2212%2C4%2015%2C2%2014%2C5%22%20fill%3D%22%23a04000%22%2F%3E%3Crect%20x%3D%224.5%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%221.5%22%20rx%3D%220.5%22%20transform%3D%22rotate%28-45%206%2011%29%22%20fill%3D%22%23a04000%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Esq. PA':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%235dade2%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Esq. PM':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2327ae60%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%2358d68d%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Esquive PA':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%235dade2%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Esquive PM':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2327ae60%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%2358d68d%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Force':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpolygon%20points%3D%228%2C1%2010%2C6%2015%2C6%2011%2C9.5%2012.5%2C15%208%2C12%203.5%2C15%205%2C9.5%201%2C6%206%2C6%22%20fill%3D%22%23d4a017%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Fuite':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23f39c12%22%20stroke-width%3D%221.5%22%2F%3E%3Cline%20x1%3D%225%22%20y1%3D%2211%22%20x2%3D%2211%22%20y2%3D%225%22%20stroke%3D%22%23f39c12%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%2211%2C5%208%2C5%2011%2C8%22%20fill%3D%22%23f39c12%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Initiative':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpolygon%20points%3D%229%2C1%204%2C9%208%2C9%207%2C15%2012%2C7%208%2C7%22%20fill%3D%22%23e67e22%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Intelligence':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201C5%205%203%207%203%2010a5%205%200%200%200%2010%200C13%207%2011%205%208%201zm0%2012a3%203%200%200%201-3-3c0-2%202-4%203-6%201%202%203%204%203%206a3%203%200%200%201-3%203z%22%20fill%3D%22%23e67e22%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Invocation':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%225%22%20cy%3D%228%22%20r%3D%223%22%20fill%3D%22%239b59b6%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%226%22%20r%3D%222%22%20fill%3D%22%239b59b6%22%20opacity%3D%220.7%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2211%22%20r%3D%222.5%22%20fill%3D%22%239b59b6%22%20opacity%3D%220.5%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PA':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpolygon%20points%3D%228%2C1%2011%2C6%2015%2C7%2011%2C10%2012%2C15%208%2C12%204%2C15%205%2C10%201%2C7%205%2C6%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PI':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%202%20Q4%205%204%209a4%204%200%200%200%208%200Q12%205%208%202z%22%20fill%3D%22%239b59b6%22%20opacity%3D%220.8%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%229%22%20r%3D%222%22%20fill%3D%22white%22%20opacity%3D%220.6%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PM':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M3%2013h10M4%2013V7l3-4h2l3%204v6%22%20fill%3D%22none%22%20stroke%3D%22%2327ae60%22%20stroke-width%3D%221.8%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpolygon%20points%3D%228%2C3%2010%2C7%206%2C7%22%20fill%3D%22%2327ae60%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PO':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%223.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.2%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%20fill%3D%22%2316a085%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PP':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%225%22%20fill%3D%22none%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221.8%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%222%22%20fill%3D%22%239b59b6%22%2F%3E%3Cline%20x1%3D%2211%22%20y1%3D%2211%22%20x2%3D%2214.5%22%20y2%3D%2214.5%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'PdV':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014s-6-3.9-6-8a4%204%200%200%201%206-3.44A4%204%200%200%201%2014%206c0%204.1-6%208-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Pods':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cellipse%20cx%3D%228%22%20cy%3D%229%22%20rx%3D%225%22%20ry%3D%224%22%20fill%3D%22%237f8c8d%22%2F%3E%3Cline%20x1%3D%228%22%20y1%3D%225%22%20x2%3D%228%22%20y2%3D%222%22%20stroke%3D%22%237f8c8d%22%20stroke-width%3D%221.5%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Portee':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%223.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.2%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%20fill%3D%22%2316a085%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Portée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%223.5%22%20fill%3D%22none%22%20stroke%3D%22%2316a085%22%20stroke-width%3D%221.2%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%221.5%22%20fill%3D%22%2316a085%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Prospection':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%225%22%20fill%3D%22none%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221.8%22%2F%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%222%22%20fill%3D%22%239b59b6%22%2F%3E%3Cline%20x1%3D%2211%22%20y1%3D%2211%22%20x2%3D%2214.5%22%20y2%3D%2214.5%22%20stroke%3D%22%239b59b6%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Puissance':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpolygon%20points%3D%229%2C1%204%2C9%208%2C9%207%2C15%2012%2C7%208%2C7%22%20fill%3D%22%23f1c40f%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ret. PA':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%232471a3%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%231a5276%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ret. PM':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%231e8449%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%23145a32%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Retrait PA':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%232471a3%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%231a5276%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Retrait PM':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%231e8449%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%23145a32%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2382e0aa%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Critique':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3Cpath%20d%3D%22M8%2011.5C6%2010%205%208.5%205%207V5l3-1%203%201v2c0%201.5-1%203-3%204.5z%22%20fill%3D%22%23c0392b%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23bdc3c7%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Poussée':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2395a5a6%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Ré Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23a04000%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Résistance Air':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%2382e0aa%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Résistance Eau':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%233498db%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Résistance Feu':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Résistance Neutre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23bdc3c7%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Résistance Terre':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014C5%2012%202%209.5%202%206V3l6-2%206%202v3c0%203.5-3%206-6%208z%22%20fill%3D%22%23a04000%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Sagesse':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M12.3%2010.5A6%206%200%200%201%205.5%203.7%206%206%200%201%200%2012.3%2010.5z%22%20fill%3D%22%238e6bbf%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Soin':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Crect%20x%3D%226.5%22%20y%3D%221%22%20width%3D%223%22%20height%3D%2214%22%20rx%3D%221%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%226.5%22%20width%3D%2214%22%20height%3D%223%22%20rx%3D%221%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Soins':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Crect%20x%3D%226.5%22%20y%3D%221%22%20width%3D%223%22%20height%3D%2214%22%20rx%3D%221%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%226.5%22%20width%3D%2214%22%20height%3D%223%22%20rx%3D%221%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Tacle':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%237f8c8d%22%20stroke-width%3D%221.5%22%2F%3E%3Cline%20x1%3D%2211%22%20y1%3D%225%22%20x2%3D%225%22%20y2%3D%2211%22%20stroke%3D%22%237f8c8d%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpolygon%20points%3D%225%2C11%208%2C11%205%2C8%22%20fill%3D%22%237f8c8d%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Taux Critique':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%227%22%20fill%3D%22%23e74c3c%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%224%22%20width%3D%222%22%20height%3D%225%22%20rx%3D%221%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%228%22%20cy%3D%2211.5%22%20r%3D%221%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-    'Vitalité':'<img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2014s-6-3.9-6-8a4%204%200%200%201%206-3.44A4%204%200%200%201%2014%206c0%204.1-6%208-6%208z%22%20fill%3D%22%23e74c3c%22%2F%3E%3C%2Fsvg%3E" style="width:14px;height:14px;object-fit:contain;vertical-align:middle">',
-  };
-  var url=m[k];
-  if(url) return url;
-  return '<span style="font-size:10px;opacity:0.5">\u25aa</span>';
-}
-
-// ════════════════════════════════════════════════
 // TOAST
 // ════════════════════════════════════════════════
 function showToast(msg){
@@ -1470,7 +551,6 @@ function initFirebase(){
       if(user){
         updateAuthBtn(user);
         loadFromFirestore(function(){
-          renderBank();
           if(nav.view==='tracking') renderTracking();
           if(nav.view==='jetons') renderJetonsTab();
           if(nav.view==='dofus') renderDofusTab();
@@ -1499,13 +579,11 @@ function loadFromFirestore(cb){
         var localUpdated=localRaw&&localRaw.updatedAt?localRaw.updatedAt:'';
         var remoteUpdated=d.updatedAt||'';
         if(remoteUpdated>=localUpdated){
-          state.bank=d.bank||[];
-          state.tracking=d.tracking||{};
-          state.dofusTracker=d.dofusTracker||{};
-          state.jetons=d.jetons||{};
-          cleanupLegacyItemFields();
-          // Mettre aussi à jour le localStorage comme cache
-          try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({bank:state.bank, jetons:state.jetons, updatedAt:remoteUpdated})); }catch(e){}
+          applyState(d);
+          // Cache local complet (mêmes données que le cloud, pour les 4 onglets)
+          writeLocalState();
+          // Purge des anciennes données de la banque dans le cloud (feature supprimée)
+          if(d.bank!==undefined) saveState();
         } else {
           // localStorage plus récent → on upload vers Firestore
           saveState();
@@ -2046,7 +1124,6 @@ function toggleTheme(){
 // INIT
 // ════════════════════════════════════════════════
 loadState();
-renderBank();
 renderTracking();
 renderJetonsTab();
 renderDofusTab();
