@@ -206,6 +206,127 @@ button{cursor:pointer}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--toast-bg);color:var(--bg);font-size:0.9rem;font-weight:600;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.25)}
 .toast.show{opacity:1}
 
+/* ── RUSH SYLVESTRE ── */
+.rush-section{width:min(100%,72rem);display:flex;flex-direction:column;gap:clamp(12px,1.2vw,20px)}
+.rush-msg{padding:24px;text-align:center;color:var(--text-dim)}
+.rush-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:clamp(14px,1.4vw,24px)}
+.rush-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.rush-seg{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:var(--radius)}
+.rush-seg button,.rush-subnav button{border:0;background:none;padding:8px 16px;border-radius:8px;font-weight:600;color:var(--text-dim)}
+.rush-seg button.active{background:var(--gold);color:var(--on-gold)}
+.rush-persos{display:flex;align-items:center;gap:8px;font-size:0.9rem;color:var(--text-dim)}
+.rush-persos input{width:3.4em;padding:6px;text-align:center;border:1.5px solid var(--chk-border);border-radius:8px;background:var(--chk-bg);font-weight:700}
+.rush-meter{flex:1;min-width:180px;display:flex;flex-direction:column;gap:5px;font-size:0.8rem;color:var(--text-dim)}
+.rush-subnav{display:flex;flex-wrap:wrap;gap:6px}
+.rush-subnav button{border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:7px 14px;font-size:0.9rem}
+.rush-subnav button.active{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.rush-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.rush-stat{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius);padding:10px 14px}
+.rush-stat b{display:block;font-size:1.35rem;color:var(--gold-text)}
+.rush-stat span{font-size:0.8rem;color:var(--text-dim)}
+.rush-stat .bar{margin-top:6px}
+.rush-lede{font-size:0.9rem;color:var(--text-dim);line-height:1.5}
+.rush-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.rush-tools input[type=search],.rush-tools select{padding:8px 12px;border:1.5px solid var(--chk-border);border-radius:8px;background:var(--chk-bg);font-size:0.9rem}
+.rush-tools input[type=search]{flex:1 1 220px;min-width:0}
+.rush-tools label{display:flex;align-items:center;gap:6px;font-size:0.9rem;color:var(--text-dim);cursor:pointer}
+.rush-count{font-size:0.85rem;color:var(--text-dim)}
+.rush-group h3{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:2px solid var(--gold-border);font-family:'Cinzel',serif;font-size:1rem;color:var(--gold-text)}
+.rush-group h3 small{margin-left:auto;font-family:'Inter',system-ui,sans-serif;font-size:0.8rem;color:var(--text-dim)}
+.rush-rows{list-style:none}
+.rush-row{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:4px 12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--border-soft)}
+.rush-row .tracking-check{--cell:40px;margin:0}
+.rush-ico{width:32px;height:32px;object-fit:contain}
+.rush-name{font-weight:700;cursor:copy;overflow-wrap:anywhere}
+.rush-name:hover{text-decoration:underline dotted}
+.rush-row.got .rush-name,.rush-row.got .rush-qty b{color:var(--text-dim);text-decoration:line-through}
+.rush-qty{text-align:right;white-space:nowrap}
+.rush-qty b{font-size:1.05rem;color:var(--gold-text)}
+.rush-qty small{display:block;font-size:0.75rem;color:var(--text-dim)}
+.rush-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;font-size:0.8rem;color:var(--text-dim)}
+.rush-note{font-size:0.82rem;color:var(--text-dim);font-style:italic;margin-top:3px;white-space:pre-line}
+.rush-used{font-size:0.8rem;color:var(--text-dim);margin-top:3px}
+.rush-used summary{cursor:pointer}
+.rush-used ul{margin:4px 0 0 16px}
+.rush-tag{display:inline-block;padding:0 7px;border-radius:5px;font-size:0.75rem;font-weight:600;line-height:1.6;white-space:nowrap;background:var(--bg);color:var(--text-dim)}
+.rush-tag.ok{background:var(--ok-bg);color:var(--ok-text)}
+.rush-tag.warn{background:var(--warn-bg);color:var(--warn)}
+.rush-tag.ko{background:var(--ko-bg);color:var(--ko)}
+.rush-tag.gold{background:var(--gold-light);color:var(--gold-text)}
+.rush-callout{background:var(--gold-light);border:1px solid var(--gold-border);border-radius:var(--radius);padding:12px 16px;font-size:0.9rem;line-height:1.5}
+.rush-jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.rush-job{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.rush-job h4{font-family:'Cinzel',serif;font-size:1rem;color:var(--gold-text)}
+.rush-job .lv{font-size:1.5rem;font-weight:800}
+.rush-job .lv small{font-size:0.8rem;font-weight:400;color:var(--text-dim)}
+.rush-job ul{padding-left:16px;font-size:0.82rem;color:var(--text-dim)}
+.rush-table{width:100%;border-collapse:collapse;font-size:0.9rem}
+.rush-table th,.rush-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-soft);vertical-align:middle}
+.rush-table th{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim)}
+.rush-table .tracking-check{--cell:40px;margin:0}
+.rush-tw{overflow-x:auto}
+
+/* Le rush : liste des étapes + étape en cours */
+.rush-layout{display:grid;grid-template-columns:clamp(220px,18vw,300px) minmax(0,1fr);gap:clamp(12px,1.2vw,20px);align-items:start}
+.rush-rail{position:sticky;top:0;max-height:calc(100vh - 40px);overflow-y:auto;padding:6px;scrollbar-width:thin}
+.rush-rail button{display:grid;grid-template-columns:2em minmax(0,1fr) auto;gap:6px;align-items:center;width:100%;padding:7px 8px;border:0;border-radius:8px;background:none;font-size:0.85rem;text-align:left}
+.rush-rail button:hover{background:var(--gold-light)}
+.rush-rail button.current{background:var(--gold);color:var(--on-gold)}
+.rush-rail .no{font-weight:800;color:var(--text-dim)}
+.rush-rail .tt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rush-rail .ck{font-size:0.75rem;color:var(--text-dim)}
+.rush-rail button.current .no,.rush-rail button.current .ck{color:inherit}
+.rush-rail button.done:not(.current) .tt{color:var(--text-dim);text-decoration:line-through}
+.rush-rail button.done:not(.current) .ck{color:var(--ok-text)}
+.rush-railsel{display:none;width:100%;padding:10px;border:1.5px solid var(--chk-border);border-radius:var(--radius);background:var(--surface);font-weight:600}
+.rush-step{display:flex;flex-direction:column;gap:14px;min-width:0}
+.rush-eyebrow{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim)}
+.rush-step h2{font-family:'Cinzel',serif;font-size:clamp(1.3rem,2vw,1.9rem);color:var(--gold-text);line-height:1.2}
+.rush-banner{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--ok-bg);border:1px solid var(--ok);color:var(--ok-text);border-radius:var(--radius);padding:10px 14px;font-weight:700}
+.rush-instr{display:flex;flex-direction:column;gap:6px;border-left:3px solid var(--gold);padding-left:12px;line-height:1.5}
+.rush-instr p{white-space:pre-line}
+.rush-hot{color:var(--ko);font-weight:700}
+.rush-help{background:var(--gold-light);border-radius:var(--radius);padding:10px 14px;font-size:0.9rem;white-space:pre-line}
+.rush-chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:0.85rem}
+.rush-chips .lab{font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-right:2px}
+.rush-chip{padding:2px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--border)}
+.rush-bag{background:var(--bg);border-radius:var(--radius);padding:10px 14px}
+.rush-bag summary{cursor:pointer;font-weight:700}
+.rush-bag ul{list-style:none;columns:2 230px;margin-top:8px;font-size:0.88rem}
+.rush-bag li{break-inside:avoid;display:flex;align-items:center;gap:6px;padding:2px 0}
+.rush-bag li b{min-width:3.6em;color:var(--gold-text)}
+.rush-bag img,.rush-need img{width:22px;height:22px;object-fit:contain}
+.rush-quests{list-style:none}
+.rush-q{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;padding:10px 8px;border-top:1px solid var(--border-soft);border-radius:8px}
+.rush-q .tracking-check{--cell:44px;margin:0}
+.rush-q.next{background:var(--gold-light)}
+.rush-qn{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.rush-qn .lbl{font-weight:700;cursor:pointer}
+.rush-q.ok .rush-qn .lbl{color:var(--text-dim);text-decoration:line-through}
+.rush-qn a{font-size:0.8rem;color:var(--gold-text);text-decoration:none}
+.rush-qn a:hover{text-decoration:underline}
+.rush-need{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:6px}
+.rush-need span{display:inline-flex;align-items:center;gap:4px;font-size:0.82rem;background:var(--warn-bg);border-radius:6px;padding:1px 8px}
+.rush-need b{color:var(--warn)}
+.rush-h{padding:12px 8px 4px;font-weight:700;color:var(--warn);border-top:1px solid var(--border-soft);font-size:0.9rem}
+.rush-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:14px}
+.rush-nav .grow{flex:1}
+.rush-btn{padding:9px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);font-weight:600}
+.rush-btn:hover{border-color:var(--gold)}
+.rush-btn.go{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.rush-btn:disabled{opacity:0.45;cursor:default}
+.rush-keys{font-size:0.75rem;color:var(--text-dim)}
+.rush-foot{font-size:0.8rem;color:var(--text-dim);line-height:1.5;display:flex;flex-direction:column;gap:4px}
+.rush-foot a{color:var(--gold-text)}
+@media (max-width:860px){
+  .rush-layout{grid-template-columns:minmax(0,1fr)}
+  .rush-rail{display:none}
+  .rush-railsel{display:block}
+  .rush-keys{display:none}
+  .rush-row{grid-template-columns:auto auto minmax(0,1fr)}
+  .rush-row .rush-qty{grid-column:3;text-align:left}
+}
+
 /* ── ÉCRANS MOYENS : menu en icônes seules ── */
 @media (max-width:1180px) and (min-width:861px){
   :root{--side-w:76px}
@@ -262,6 +383,9 @@ button{cursor:pointer}
     <button class="nav-btn" id="nav-kamas" onclick="showView('kamas')">
       <img src="https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png" alt="" onerror="this.style.opacity=0.2"><span>Kamas</span>
     </button>
+    <button class="nav-btn" id="nav-rush" onclick="showView('rush')">
+      <img src="https://api.dofusdu.de/dofus3/v1/img/item/23036-64.png" alt="" onerror="this.style.opacity=0.2"><span>Rush</span>
+    </button>
   </div>
 </nav>
 
@@ -293,6 +417,9 @@ button{cursor:pointer}
 
   <!-- VUE KAMAS -->
   <div class="view" id="view-kamas"></div>
+
+  <!-- VUE RUSH SYLVESTRE (données chargées à l'ouverture depuis rush-sylvestre.json) -->
+  <div class="view" id="view-rush"></div>
 
 </div>
 </main>
@@ -390,12 +517,12 @@ var DOFUS_TRACKER_LIST = [
 // ════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════
-var state = {tracking:{}, dofusTracker:{}, jetons:{}};
+var state = {tracking:{}, dofusTracker:{}, jetons:{}, rushSylvestre:{}};
 var nav = {view:'tracking'};
 
 // Données sauvegardées (local + cloud) — une seule liste pour tous les onglets
-// Tracking + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons
-var STATE_KEYS = ['tracking','dofusTracker','jetons'];
+// Tracking + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons | Rush → rushSylvestre
+var STATE_KEYS = ['tracking','dofusTracker','jetons','rushSylvestre'];
 
 function applyState(src){
   src=src||{};
@@ -482,6 +609,11 @@ function showView(v){
   } else if(v==='kamas'){
     title.textContent='Kamas';
     renderKamasTab();
+  } else if(v==='rush'){
+    title.textContent='Rush Sylvestre';
+    sub.textContent='Iron-Trunk & Iron-V · route Dofusyelle · Bonta, Œil Attentif';
+    sub.classList.remove('hidden');
+    renderRushTab();
   }
   // Bouton Modifier/Enregistrer — visible sur Tracking/Jetons/Dofus/Kamas, toujours réinitialisé en lecture seule au changement d'onglet
   editMode=false;
@@ -567,6 +699,7 @@ function initFirebase(){
           if(nav.view==='jetons') renderJetonsTab();
           if(nav.view==='dofus') renderDofusTab();
           if(nav.view==='kamas') renderKamasTab();
+          if(nav.view==='rush') renderRushTab();
         });
       } else {
         updateAuthBtn(null);
@@ -1163,6 +1296,478 @@ function renderDofusTab(){
   h+='</tbody></table></div></div>';
   document.getElementById('view-dofus').innerHTML=h;
 }
+
+// ════════════════════════════════════════════════
+// RUSH SYLVESTRE
+// Données (route, quêtes, ressources…) : rush-sylvestre.json, chargé à la 1re ouverture de l'onglet.
+// Progression (sauvegardée, commune aux 2 persos) : state.rushSylvestre
+// Préférences d'affichage (locales, non synchronisées) : localStorage 'iron_rush_ui'
+// ════════════════════════════════════════════════
+var RUSH_DATA_URL = 'rush-sylvestre.json';
+var RUSH = null;          // données chargées
+var RUSH_LOADING = false;
+var RUSH_ITEMS = {};      // id ressource → ressource
+var RUSH_QUESTS = [];     // quêtes à cocher : {id, step, q}
+var RUSH_RES = [];        // ressources demandées (hors facultatives) : {item, qty, first, uses}
+var RUSH_KAMAS = 0;       // kamas demandés par les quêtes, pour 1 perso
+var RUSH_HDV = {ressources:'Ressources', consommables:'Consommables', equipements:'Équipements', creatures:'Créatures & montures',
+  'pierres-ame':'Pierres d\'âme', runes:'Runes', cosmetiques:'Cosmétiques', divers:'Divers'};
+
+var rushUi = {mode:'prep', sub:'res', grp:'step', flt:'all', hide:false};
+try{ var _ru=JSON.parse(localStorage.getItem('iron_rush_ui')||'{}'); for(var _k in _ru) rushUi[_k]=_ru[_k]; }catch(e){}
+function saveRushUi(){ try{ localStorage.setItem('iron_rush_ui', JSON.stringify(rushUi)); }catch(e){} }
+
+function getRushState(){
+  if(!state.rushSylvestre) state.rushSylvestre={};
+  var r=state.rushSylvestre;
+  if(!r.persos) r.persos=2;
+  if(!r.step) r.step=1;
+  if(!r.quests) r.quests={};
+  if(!r.items) r.items={};
+  if(!r.dungeons) r.dungeons={};
+  if(!r.prep) r.prep={};
+  return r;
+}
+function rushN(){ return Math.max(1, Math.min(8, getRushState().persos|0)); }
+
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; });
+}
+function rushNorm(s){ return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+function rushIcon(item, cls){
+  return '<img class="'+(cls||'')+'" src="https://api.dofusdb.fr/img/items/'+item.iconId+'.png" alt="" loading="lazy" onerror="this.style.opacity=0.2">';
+}
+function isOptional(q){ return !!(q.flags&&q.flags.optional); }
+function isRepeat(q){ return !!(q.flags&&q.flags.repeat); }
+// Quête comptée dans la progression : ni suite d'une quête déjà vue, ni facultative
+function isCounted(q){ return !isRepeat(q) && !isOptional(q); }
+
+function loadRushData(){
+  if(RUSH_LOADING) return;
+  RUSH_LOADING=true;
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET', RUSH_DATA_URL);
+  xhr.onload=function(){
+    RUSH_LOADING=false;
+    if(xhr.status!==200){ renderRushError(); return; }
+    try{ buildRush(JSON.parse(xhr.responseText)); }catch(e){ console.warn('Rush data error', e); renderRushError(); return; }
+    if(nav.view==='rush') renderRushTab();
+  };
+  xhr.onerror=function(){ RUSH_LOADING=false; renderRushError(); };
+  xhr.send();
+}
+
+function buildRush(d){
+  RUSH=d; RUSH_ITEMS={}; RUSH_QUESTS=[]; RUSH_RES=[]; RUSH_KAMAS=0;
+  d.items.forEach(function(it){ RUSH_ITEMS[it.id]=it; });
+  var byItem={};
+  d.steps.forEach(function(s){
+    s.entries.forEach(function(e){
+      if(e.type!=='quest') return;
+      RUSH_QUESTS.push({id:e.id, step:s.n, q:e});
+      if(isOptional(e)) return;
+      RUSH_KAMAS+=e.kamas||0;
+      (e.items||[]).forEach(function(x){
+        if(!byItem[x.item]){ byItem[x.item]={item:RUSH_ITEMS[x.item], qty:0, first:s.n, uses:[]}; RUSH_RES.push(byItem[x.item]); }
+        byItem[x.item].qty+=x.qty;
+        byItem[x.item].uses.push([e.name, s.n, x.qty]);
+      });
+    });
+  });
+}
+
+function renderRushError(){
+  if(nav.view!=='rush') return;
+  document.getElementById('view-rush').innerHTML='<div class="rush-section"><div class="rush-card rush-msg">Impossible de charger les données du rush.<br><br><button class="rush-btn go" onclick="loadRushData();renderRushTab()">Réessayer</button></div></div>';
+}
+
+// ── Rendu général : barre du haut (mode, persos, progression) + contenu ──
+function renderRushTab(){
+  var el=document.getElementById('view-rush');
+  if(!RUSH){
+    el.innerHTML='<div class="rush-section"><div class="rush-card rush-msg">Chargement du rush…</div></div>';
+    loadRushData();
+    return;
+  }
+  var r=getRushState();
+  var h='<div class="rush-section">';
+  h+='<div class="rush-card rush-top">';
+  h+='<div class="rush-seg"><button class="'+(rushUi.mode==='prep'?'active':'')+'" onclick="setRushMode(\'prep\')">Préparation</button>';
+  h+='<button class="'+(rushUi.mode==='rush'?'active':'')+'" onclick="setRushMode(\'rush\')">Le rush</button></div>';
+  h+='<label class="rush-persos">Persos <input type="number" min="1" max="8" value="'+rushN()+'" onchange="setRushPersos(this.value)"></label>';
+  h+='<div class="rush-meter"><span id="rushProgLbl"></span><span class="bar"><i id="rushProgBar"></i></span></div>';
+  h+='</div>';
+  h+='<div id="rushBody"></div>';
+  h+='<div class="rush-foot"><span>Route, instructions, donjons et checklist : <a href="'+esc(RUSH.meta.sources.route)+'" target="_blank" rel="noopener">Dofusyelle</a>. Ressources par quête : <a href="'+esc(RUSH.meta.sources.resourcesPerQuest)+'" target="_blank" rel="noopener">Tougli</a>, vérifiées sur <a href="'+esc(RUSH.meta.sources.verification)+'" target="_blank" rel="noopener">Dofus pour les Noobs</a>.</span>';
+  h+='<span>Les quêtes marquées « Tougli » ne sont pas listées par Dofusyelle mais font partie des prérequis : elles sont rangées dans l\'étape où elles s\'insèrent.</span></div>';
+  h+='</div>';
+  el.innerHTML=h;
+  if(rushUi.mode==='rush') renderRushRun(); else renderRushPrep();
+}
+
+function updateRushProgress(){
+  var r=getRushState();
+  var real=RUSH_QUESTS.filter(function(x){ return isCounted(x.q); });
+  var done=real.filter(function(x){ return r.quests[x.id]; }).length;
+  var lbl=document.getElementById('rushProgLbl'), bar=document.getElementById('rushProgBar');
+  if(lbl) lbl.textContent='Étape '+r.step+' / '+RUSH.steps.length+' · '+done+' / '+real.length+' quêtes';
+  if(bar) bar.style.width=(real.length?Math.round(done*100/real.length):0)+'%';
+}
+
+function setRushMode(m){ rushUi.mode=m; saveRushUi(); renderRushTab(); }
+function setRushSub(s){ rushUi.sub=s; saveRushUi(); renderRushPrep(); }
+function setRushPersos(v){
+  var r=getRushState();
+  r.persos=Math.max(1, Math.min(8, parseInt(v,10)||1));
+  saveState();
+  renderRushTab();
+}
+// Coche générique : group = quests | items | dungeons | prep
+function toggleRush(group, id){
+  var r=getRushState();
+  if(r[group][id]) delete r[group][id]; else r[group][id]=true;
+  saveState();
+}
+function copyRushName(name){
+  try{ navigator.clipboard.writeText(name).then(function(){ showToast('« '+name+' » copié'); }, function(){ showToast(name); }); }
+  catch(e){ showToast(name); }
+}
+function rushCheck(on, onclick){
+  return '<div class="tracking-check'+(on?' state2':'')+'" onclick="'+onclick+'">'+(on?'✓':'')+'</div>';
+}
+
+// ════════ PRÉPARATION ════════
+var RUSH_SUBS=[['res','Ressources'],['jobs','Métiers'],['dj','Donjons'],['chk','Checklist'],['help','Aide et pièges']];
+function renderRushPrep(){
+  var h='<div class="rush-card" style="display:flex;flex-direction:column;gap:14px">';
+  h+='<div class="rush-subnav">';
+  RUSH_SUBS.forEach(function(s){ h+='<button class="'+(rushUi.sub===s[0]?'active':'')+'" onclick="setRushSub(\''+s[0]+'\')">'+s[1]+'</button>'; });
+  h+='</div><div id="rushSub" style="display:flex;flex-direction:column;gap:14px"></div></div>';
+  document.getElementById('rushBody').innerHTML=h;
+  ({res:rushSubRes, jobs:rushSubJobs, dj:rushSubDj, chk:rushSubChk, help:rushSubHelp}[rushUi.sub]||rushSubRes)();
+  updateRushProgress();
+}
+
+// ── Ressources ──
+function rushSubRes(){
+  var h='<div class="rush-stats" id="rushResStats"></div>';
+  h+='<p class="rush-lede">Quantités calculées quête par quête puis vérifiées avec Dofus pour les Noobs, multipliées par le nombre de persos. Les quêtes facultatives ne sont pas comptées. Clique un nom pour le copier dans la recherche de l\'HDV.</p>';
+  h+='<div class="rush-tools">';
+  h+='<input type="search" id="rushResQ" placeholder="Chercher une ressource…" oninput="drawRushRes()">';
+  h+='<select onchange="rushUi.grp=this.value;saveRushUi();drawRushRes()">';
+  [['step','Par étape (1re utilisation)'],['cat','Par catégorie d\'HDV'],['az','De A à Z']].forEach(function(o){ h+='<option value="'+o[0]+'"'+(rushUi.grp===o[0]?' selected':'')+'>'+o[1]+'</option>'; });
+  h+='</select><select onchange="rushUi.flt=this.value;saveRushUi();drawRushRes()">';
+  [['all','Tout'],['buy','À acheter'],['note','Avec une remarque'],['rw','Obtenus en route']].forEach(function(o){ h+='<option value="'+o[0]+'"'+(rushUi.flt===o[0]?' selected':'')+'>'+o[1]+'</option>'; });
+  h+='</select><label><input type="checkbox"'+(rushUi.hide?' checked':'')+' onchange="rushUi.hide=this.checked;saveRushUi();drawRushRes()"> Masquer les acquises</label>';
+  h+='</div><div id="rushResList"></div>';
+  document.getElementById('rushSub').innerHTML=h;
+  drawRushRes();
+}
+
+function drawRushRes(){
+  var r=getRushState(), n=rushN();
+  var buy=RUSH_RES.filter(function(x){ return !x.item.obtainedDuringRush; });
+  var got=buy.filter(function(x){ return r.items[x.item.id]; }).length;
+  var pods=buy.reduce(function(a,x){ return a+x.qty*(x.item.pods||0); },0);
+  var s='<div class="rush-stat"><b>'+formatKamas(buy.length)+'</b><span>ressources différentes à acheter</span></div>';
+  s+='<div class="rush-stat"><b>'+formatKamas(RUSH_KAMAS*n)+' K</b><span>kamas demandés par les quêtes ('+formatKamas(RUSH_KAMAS)+' K / perso)</span></div>';
+  s+='<div class="rush-stat"><b>'+formatKamas(pods*n)+'</b><span>pods environ, pour '+n+' perso'+(n>1?'s':'')+'</span></div>';
+  s+='<div class="rush-stat"><b>'+got+' / '+buy.length+'</b><span>déjà acquises</span><span class="bar"><i style="width:'+(buy.length?Math.round(got*100/buy.length):0)+'%"></i></span></div>';
+  document.getElementById('rushResStats').innerHTML=s;
+  var qEl=document.getElementById('rushResQ');
+  var q=rushNorm(qEl?qEl.value.trim():'');
+  var list=RUSH_RES.filter(function(x){
+    var it=x.item;
+    if(q && rushNorm(it.name).indexOf(q)<0) return false;
+    if(rushUi.flt==='buy' && it.obtainedDuringRush) return false;
+    if(rushUi.flt==='rw' && !it.obtainedDuringRush) return false;
+    if(rushUi.flt==='note' && !it.note) return false;
+    if(rushUi.hide && r.items[it.id]) return false;
+    return true;
+  });
+  var box=document.getElementById('rushResList');
+  if(!list.length){ box.innerHTML='<p class="rush-lede">Aucune ressource ne correspond.</p>'; return; }
+  function key(x){
+    if(rushUi.grp==='step') return x.first;
+    if(rushUi.grp==='cat') return x.item.obtainedDuringRush?'zz':x.item.hdv;
+    return (rushNorm(x.item.name).charAt(0)||'#').toUpperCase();
+  }
+  list.sort(function(a,b){ return rushUi.grp==='az'?a.item.name.localeCompare(b.item.name,'fr'):b.qty-a.qty; });
+  var groups={}, order=[];
+  list.forEach(function(x){ var k=key(x); if(!groups[k]){ groups[k]=[]; order.push(k); } groups[k].push(x); });
+  order.sort(function(a,b){ return rushUi.grp==='step'?a-b:String(a).localeCompare(String(b),'fr'); });
+  var h='';
+  order.forEach(function(k){
+    var rows=groups[k];
+    var title=rushUi.grp==='step'?'Étape '+k+' · '+esc(RUSH.steps[k-1].title):rushUi.grp==='cat'?(k==='zz'?'Obtenus pendant le rush':(RUSH_HDV[k]||k)):k;
+    var g=rows.filter(function(x){ return r.items[x.item.id]; }).length;
+    h+='<div class="rush-group"><h3>'+title+'<small>'+g+' / '+rows.length+'</small></h3><ul class="rush-rows">';
+    rows.forEach(function(x){
+      var it=x.item, on=!!r.items[it.id];
+      h+='<li class="rush-row'+(on?' got':'')+'">';
+      h+=rushCheck(on, 'toggleRush(\'items\',\''+it.id+'\');drawRushRes()');
+      h+=rushIcon(it,'rush-ico');
+      h+='<div><span class="rush-name" title="Copier le nom" onclick="copyRushName(this.textContent)">'+esc(it.name)+'</span>';
+      h+='<div class="rush-meta">'+(it.obtainedDuringRush?'<span class="rush-tag ok">Obtenu en route</span>':'')+(it.note?'<span class="rush-tag warn">Remarque</span>':'')+'<span>'+(RUSH_HDV[it.hdv]||'')+'</span></div>';
+      if(it.note) h+='<div class="rush-note">'+esc(it.note)+'</div>';
+      h+='<details class="rush-used"><summary>Sert à '+x.uses.length+' quête'+(x.uses.length>1?'s':'')+'</summary><ul>';
+      x.uses.forEach(function(u){ h+='<li>'+esc(u[0])+' <span class="rush-tag">étape '+u[1]+'</span> ×'+formatKamas(u[2])+'</li>'; });
+      h+='</ul></details></div>';
+      h+=it.obtainedDuringRush?'<div class="rush-qty"><small>à obtenir</small></div>':'<div class="rush-qty"><b>× '+formatKamas(x.qty*n)+'</b><small>'+formatKamas(x.qty)+' / perso</small></div>';
+      h+='</li>';
+    });
+    h+='</ul></div>';
+  });
+  box.innerHTML=h;
+}
+
+// ── Métiers ──
+function rushSubJobs(){
+  var by={}, names=[];
+  RUSH.jobs.forEach(function(j){
+    if(!by[j.job]){ by[j.job]={self:0, help:0, rows:[]}; names.push(j.job); }
+    var b=by[j.job];
+    if(j.helperNeeded) b.help=Math.max(b.help, j.level); else b.self=Math.max(b.self, j.level);
+    b.rows.push(j);
+  });
+  names.sort(function(a,b){ return by[b].self-by[a].self; });
+  var opts=RUSH.prepChecklist[0].options;
+  var h='<div class="rush-callout"><b>Plan conseillé par Dofusyelle.</b> ';
+  h+=opts.map(function(o){ return esc(o.label)+' : '+o.lines.map(esc).join(', '); }).join('. ');
+  h+='. Dans les deux cas, il faut un métier de récolte au niveau 200 pour « S\'armer contre le destin ».</div>';
+  h+='<p class="rush-lede">Niveau à avoir toi-même, puis niveau d\'un artisan dont tu as besoin (craft coopératif ou présence). L\'artisan peut être un autre joueur ou un perso de la team.</p>';
+  h+='<div class="rush-jobs">';
+  names.forEach(function(nm){
+    var b=by[nm];
+    h+='<div class="rush-job"><h4>'+esc(nm)+'</h4><div class="lv">'+(b.self||'–')+' <small>toi-même</small></div>';
+    if(b.help) h+='<div><span class="rush-tag gold">Aide d\'un artisan '+b.help+'+</span></div>';
+    h+='<ul>';
+    b.rows.slice().sort(function(a,c){ return c.level-a.level; }).forEach(function(j){
+      h+='<li>'+(j.level?j.level+' · ':'')+esc(j.quest)+' (étape '+j.step+')'+(j.helperNeeded?' · aide':'')+'</li>';
+    });
+    h+='</ul></div>';
+  });
+  h+='</div>';
+  document.getElementById('rushSub').innerHTML=h;
+}
+
+// ── Donjons ──
+function rushSubDj(){
+  var saves=RUSH.dungeons.filter(function(d){ return d.save; }).length;
+  var h='<p class="rush-lede">Les '+RUSH.dungeons.length+' donjons de la route d\'après Dofusyelle, dont '+saves+' à sauvegarder avant le rush (« Save ») pour y revenir directement. Coche ceux qui sont prêts.</p>';
+  h+='<div class="rush-tools"><input type="search" id="rushDjQ" placeholder="Chercher un donjon ou un Dofus…" oninput="drawRushDj()">';
+  h+='<label><input type="checkbox" id="rushDjSave" onchange="drawRushDj()"> Seulement les saves</label>';
+  h+='<span class="rush-count" id="rushDjCount"></span></div>';
+  h+='<div class="rush-tw"><table class="rush-table"><thead><tr><th></th><th>Donjon</th><th>Pour</th><th>Save</th><th>Remarque</th></tr></thead><tbody id="rushDjBody"></tbody></table></div>';
+  document.getElementById('rushSub').innerHTML=h;
+  drawRushDj();
+}
+function drawRushDj(){
+  var r=getRushState();
+  var q=rushNorm(document.getElementById('rushDjQ').value.trim());
+  var only=document.getElementById('rushDjSave').checked;
+  var h='';
+  RUSH.dungeons.forEach(function(d){
+    if(q && rushNorm(d.name+' '+d.for).indexOf(q)<0) return;
+    if(only && !d.save) return;
+    var on=!!r.dungeons[d.id];
+    h+='<tr><td>'+rushCheck(on, 'toggleRush(\'dungeons\',\''+d.id+'\');drawRushDj()')+'</td>';
+    h+='<td><b>'+esc(d.name)+'</b></td><td>'+esc(d.for)+'</td><td>'+(d.save?'<span class="rush-tag ok">Save</span>':'')+'</td><td>'+esc(d.note)+'</td></tr>';
+  });
+  document.getElementById('rushDjBody').innerHTML=h;
+  var ready=RUSH.dungeons.filter(function(d){ return r.dungeons[d.id]; }).length;
+  document.getElementById('rushDjCount').textContent=ready+' / '+RUSH.dungeons.length+' prêts';
+}
+
+// ── Checklist ──
+function rushSubChk(){
+  var r=getRushState();
+  var done=RUSH.prepChecklist.filter(function(p){ return r.prep[p.id]; }).length;
+  var h='<p class="rush-lede">Checklist de préparation de Dofusyelle, dans son ordre. '+done+' / '+RUSH.prepChecklist.length+' faits.</p><ul class="rush-rows">';
+  RUSH.prepChecklist.forEach(function(p){
+    var on=!!r.prep[p.id];
+    h+='<li class="rush-row'+(on?' got':'')+'" style="grid-template-columns:auto minmax(0,1fr)">';
+    h+=rushCheck(on, 'toggleRush(\'prep\',\''+p.id+'\');rushSubChk()');
+    h+='<div><span class="rush-name" style="cursor:pointer" onclick="toggleRush(\'prep\',\''+p.id+'\');rushSubChk()">'+esc(p.title)+'</span>';
+    if(p.options.length) h+='<div class="rush-note">'+p.options.map(function(o){ return esc(o.label)+' : '+o.lines.map(esc).join(', '); }).join('\n')+'</div>';
+    h+='</div></li>';
+  });
+  h+='</ul>';
+  document.getElementById('rushSub').innerHTML=h;
+}
+
+// ── Aide et pièges ──
+function rushSubHelp(){
+  var helpSteps=RUSH.steps.filter(function(s){ return s.help; });
+  var timed=[], hot=[];
+  RUSH_QUESTS.forEach(function(x){
+    if(isRepeat(x.q)) return;
+    (x.q.objectives||[]).forEach(function(o){ if(o.type==='schedule') timed.push([x.step, x.q.name]); });
+  });
+  RUSH.steps.forEach(function(s){ s.instructions.forEach(function(t){ if(t.indexOf('!!')>=0) hot.push([s.n, t]); }); });
+  function group(title, list, fn){
+    var h='<div class="rush-group"><h3>'+title+'<small>'+list.length+'</small></h3><ul class="rush-rows">';
+    list.forEach(function(x){ h+='<li class="rush-row" style="grid-template-columns:auto minmax(0,1fr)">'+fn(x)+'</li>'; });
+    return h+'</ul></div>';
+  }
+  var h=group('Étapes où il faut de l\'aide', helpSteps, function(s){ return '<span class="rush-tag">'+s.n+'</span><div><b>'+esc(s.title)+'</b><div class="rush-note">'+esc(s.help)+'</div></div>'; });
+  h+=group('Quêtes à horaire', timed, function(t){ return '<span class="rush-tag">'+t[0]+'</span><div>'+esc(t[1])+'</div>'; });
+  h+=group('Avertissements de la route', hot, function(t){ return '<span class="rush-tag">'+t[0]+'</span><div style="white-space:pre-line">'+rushRich(t[1])+'</div>'; });
+  document.getElementById('rushSub').innerHTML=h;
+}
+
+// ════════ LE RUSH ════════
+// « !! » marque le début d'un passage à mettre en évidence : jusqu'au guillemet fermant
+// si le passage commence par un guillemet, sinon jusqu'au prochain « !! » ou la fin de ligne.
+function rushRich(t){
+  return t.split('\n').map(function(line){
+    var out='', rest=line, i;
+    while((i=rest.indexOf('!!'))>=0){
+      out+=esc(rest.slice(0,i));
+      rest=rest.slice(i+2);
+      var sp=rest.match(/^\s+/);
+      if(sp){ out+=sp[0]; rest=rest.slice(sp[0].length); }
+      var end=rest.length;
+      if(rest.charAt(0)==='"'){ var c=rest.indexOf('"',1); if(c>0) end=c+1; }
+      else { var nx=rest.indexOf('!!'); if(nx>=0) end=nx; }
+      out+='<span class="rush-hot">'+esc(rest.slice(0,end))+'</span>';
+      rest=rest.slice(end);
+    }
+    return out+esc(rest);
+  }).join('\n');
+}
+
+function rushStepState(s){
+  var r=getRushState();
+  var qs=RUSH_QUESTS.filter(function(x){ return x.step===s.n && isCounted(x.q); });
+  return [qs.filter(function(x){ return r.quests[x.id]; }).length, qs.length];
+}
+
+function rushObjTags(q){
+  return (q.objectives||[]).map(function(o){
+    if(o.type==='dungeon') return '<span class="rush-tag">Donjon : '+esc(o.name)+'</span>';
+    if(o.type==='job') return '<span class="rush-tag gold">'+esc(o.job)+' '+o.level+'</span>';
+    if(o.type==='schedule') return '<span class="rush-tag ko">Horaire</span>';
+    if(o.type==='needHelp') return '<span class="rush-tag gold">Aide</span>';
+    if(o.type==='dream') return '<span class="rush-tag">Songes</span>';
+    return '';
+  }).join('');
+}
+
+function rushNextQuest(s){
+  var r=getRushState();
+  for(var i=0;i<s.entries.length;i++){
+    var e=s.entries[i];
+    if(e.type==='quest' && isCounted(e) && !r.quests[e.id]) return e.id;
+  }
+  return null;
+}
+
+function renderRushRun(){
+  var r=getRushState(), n=rushN();
+  if(r.step<1||r.step>RUSH.steps.length) r.step=1;
+  var s=RUSH.steps[r.step-1];
+  var st=rushStepState(s), d=st[0], t=st[1];
+  var nextId=rushNextQuest(s);
+
+  // À avoir dans l'inventaire pour cette étape
+  var bag={}, bagOrder=[], kam=0;
+  s.entries.forEach(function(e){
+    if(e.type!=='quest' || isOptional(e)) return;
+    kam+=e.kamas||0;
+    (e.items||[]).forEach(function(x){
+      if(RUSH_ITEMS[x.item].obtainedDuringRush) return;
+      if(!bag[x.item]){ bag[x.item]=0; bagOrder.push(x.item); }
+      bag[x.item]+=x.qty;
+    });
+  });
+  bagOrder.sort(function(a,b){ return bag[b]-bag[a]; });
+
+  var h='<div class="rush-layout">';
+  h+='<nav class="rush-card rush-rail">';
+  RUSH.steps.forEach(function(x){
+    var ss=rushStepState(x);
+    var cls=(x.n===r.step?'current ':'')+(ss[1]&&ss[0]===ss[1]?'done':'');
+    h+='<button class="'+cls+'" onclick="goRushStep('+x.n+')"><span class="no">'+x.n+'</span><span class="tt">'+esc(x.title)+'</span><span class="ck">'+(ss[1]?ss[0]+'/'+ss[1]:'–')+'</span></button>';
+  });
+  h+='</nav><div style="display:flex;flex-direction:column;gap:10px;min-width:0">';
+  h+='<select class="rush-railsel" onchange="goRushStep(+this.value)">';
+  RUSH.steps.forEach(function(x){ h+='<option value="'+x.n+'"'+(x.n===r.step?' selected':'')+'>'+x.n+'. '+esc(x.title)+'</option>'; });
+  h+='</select>';
+  h+='<article class="rush-card rush-step">';
+  h+='<div><div class="rush-eyebrow">Étape '+s.n+' / '+RUSH.steps.length+' · '+esc(s.category)+' · '+d+' / '+t+' quêtes</div><h2>'+esc(s.title)+'</h2></div>';
+  if(t && d===t && r.step<RUSH.steps.length) h+='<div class="rush-banner">Étape terminée.<button class="rush-btn" onclick="goRushStep('+(r.step+1)+')">Passer à l\'étape '+(r.step+1)+' →</button></div>';
+  if(s.instructions.length) h+='<div class="rush-instr">'+s.instructions.map(function(b){ return '<p>'+rushRich(b)+'</p>'; }).join('')+'</div>';
+  if(s.help) h+='<div class="rush-help"><b>Aide :</b> '+esc(s.help)+'</div>';
+  if(s.dungeons.length) h+='<div class="rush-chips"><span class="lab">Donjons</span>'+s.dungeons.map(function(x){ return '<span class="rush-chip">'+esc(x)+'</span>'; }).join('')+'</div>';
+  if(s.achievements.length) h+='<div class="rush-chips"><span class="lab">Succès</span>'+s.achievements.map(function(x){ return '<span class="rush-chip">'+esc(x)+'</span>'; }).join('')+'</div>';
+  if(bagOrder.length||kam){
+    h+='<details class="rush-bag"><summary>À avoir dans l\'inventaire pour cette étape ('+bagOrder.length+' ressource'+(bagOrder.length>1?'s':'')+(kam?', '+formatKamas(kam*n)+' K':'')+')</summary><ul>';
+    bagOrder.forEach(function(id){ h+='<li>'+rushIcon(RUSH_ITEMS[id])+'<b>×'+formatKamas(bag[id]*n)+'</b>'+esc(RUSH_ITEMS[id].name)+'</li>'; });
+    h+='</ul></details>';
+  }
+  h+='<ol class="rush-quests">';
+  var nbQ=0;
+  s.entries.forEach(function(e){
+    if(e.type==='header'){ h+='<li class="rush-h">'+esc(e.text)+'</li>'; return; }
+    nbQ++;
+    var ok=!!r.quests[e.id], f=e.flags||{};
+    var tags=(f.repeat?'<span class="rush-tag">Suite</span>':'')+(f.fromTougli?'<span class="rush-tag warn">Tougli</span>':'')+(f.optional?'<span class="rush-tag">Facultative</span>':'')+(f.noResourceList?'<span class="rush-tag">Pas de ressources listées</span>':'')+(e.kamas?'<span class="rush-tag warn">'+formatKamas(e.kamas*n)+' K</span>':'');
+    var need=(e.items||[]).map(function(x){
+      var it=RUSH_ITEMS[x.item];
+      return '<span>'+rushIcon(it)+(it.obtainedDuringRush?'':'<b>×'+formatKamas(x.qty*n)+'</b> ')+esc(it.name)+'</span>';
+    }).join('');
+    var click='toggleRush(\'quests\',\''+e.id+'\');renderRushRun()';
+    h+='<li class="rush-q'+(ok?' ok':'')+(e.id===nextId?' next':'')+'">';
+    h+=rushCheck(ok, click);
+    h+='<div><div class="rush-qn"><span class="lbl" onclick="'+click+'">'+esc(e.name)+'</span>';
+    if(e.dplnUrl) h+='<a href="'+esc(e.dplnUrl)+'" target="_blank" rel="noopener">Guide DPLN ↗</a>';
+    h+=tags+rushObjTags(e)+'</div>';
+    if(need) h+='<div class="rush-need">'+need+'</div>';
+    if(e.note) h+='<div class="rush-note">'+esc(e.note)+'</div>';
+    h+='</div></li>';
+  });
+  if(!nbQ) h+='<li class="rush-h">Pas de quête listée : suivre les donjons indiqués.</li>';
+  h+='</ol>';
+  h+='<div class="rush-nav">';
+  h+='<button class="rush-btn" onclick="goRushStep('+(r.step-1)+')"'+(r.step<=1?' disabled':'')+'>← Étape '+(r.step>1?r.step-1:'')+'</button>';
+  h+='<button class="rush-btn go" onclick="tickRushNext()"'+(nextId?'':' disabled')+'>Valider la prochaine quête</button>';
+  h+='<span class="grow"></span><span class="rush-keys">Espace : valider · ← → : étapes</span>';
+  h+='<button class="rush-btn" onclick="goRushStep('+(r.step+1)+')"'+(r.step>=RUSH.steps.length?' disabled':'')+'>Étape '+(r.step<RUSH.steps.length?r.step+1:'')+' →</button>';
+  h+='</div></article></div></div>';
+  document.getElementById('rushBody').innerHTML=h;
+  var cur=document.querySelector('.rush-rail .current');
+  if(cur) cur.scrollIntoView({block:'nearest'});
+  updateRushProgress();
+}
+
+function goRushStep(k){
+  var r=getRushState();
+  k=Math.max(1, Math.min(RUSH.steps.length, k));
+  if(k===r.step) return;
+  r.step=k;
+  saveState();
+  renderRushRun();
+  document.querySelector('.main').scrollTop=0;
+}
+function tickRushNext(){
+  var r=getRushState();
+  var id=rushNextQuest(RUSH.steps[r.step-1]);
+  if(!id) return;
+  r.quests[id]=true;
+  saveState();
+  renderRushRun();
+}
+
+// Raccourcis clavier (PC) : Espace = valider la prochaine quête, ← → = étapes
+document.addEventListener('keydown', function(e){
+  if(nav.view!=='rush' || !RUSH || rushUi.mode!=='rush') return;
+  if(e.ctrlKey||e.metaKey||e.altKey||(e.target.closest&&e.target.closest('input,select,textarea,button'))) return;
+  var r=getRushState();
+  if(e.key==='ArrowRight'){ e.preventDefault(); goRushStep(r.step+1); }
+  else if(e.key==='ArrowLeft'){ e.preventDefault(); goRushStep(r.step-1); }
+  else if(e.key===' '){ e.preventDefault(); tickRushNext(); }
+});
 
 // ════════════════════════════════════════════════
 // DARK MODE
