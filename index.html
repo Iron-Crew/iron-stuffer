@@ -158,7 +158,6 @@ button{cursor:pointer}
 /* Progression */
 .tracking-td-prog{padding:0 14px;border-bottom:1px solid var(--border-soft);background:var(--surface)}
 .prog-num{display:inline-block;width:3.4em;font-size:0.8rem;font-weight:700;color:var(--text-dim)}
-.tracking-td-prog .bar{display:inline-block;width:clamp(40px,3.5vw,70px);vertical-align:middle}
 .bar{display:block;height:6px;border-radius:99px;background:var(--bar-bg);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width 0.25s ease}
 
@@ -1075,11 +1074,10 @@ function progCell(done, total, attr){
   return '<td class="tracking-td-prog" '+attr+'>'+progInner(done,total)+'</td>';
 }
 function progInner(done, total){
-  return '<span class="prog-num">'+done+'/'+total+'</span><span class="bar"><i style="width:'+Math.round(done*100/total)+'%"></i></span>';
+  return '<span class="prog-num">'+done+'/'+total+'</span>';
 }
 function comptePctInner(done, total){
-  var pct=Math.round(done*100/total);
-  return '<span class="prog-num">'+pct+'%</span><span class="bar"><i style="width:'+pct+'%"></i></span>';
+  return '<span class="prog-num">'+Math.round(done*100/total)+'%</span>';
 }
 function setProgress(prefix, pid, doneFn, total){
   var c=compteOfPerso(pid);
