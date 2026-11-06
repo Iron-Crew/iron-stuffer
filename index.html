@@ -468,12 +468,12 @@ var COMPTES = [
   {id:'c5', name:'Compte 5', persos:[
     {id:'ironi', name:'Iron-Trunk', classe:'Sadida'},
     {id:'blood', name:'Iron-Blood', classe:'Sacrieur'},
-    {id:'sm',    name:'Iron-SM',    classe:'Osamodas'},
+    {id:'sm',    name:'Iron-Sm',    classe:'Osamodas'},
     {id:'spear', name:'Iron-Spear', classe:'Forgelance'},
     {id:'mask',  name:'Iron-Mask',  classe:'Zobal'}
   ]},
   {id:'c6', name:'Compte 6', persos:[
-    {id:'ironv',   name:'Iron-V',      classe:'Crâ'},
+    {id:'ironv',   name:'Iron-Hunter', classe:'Crâ'},
     {id:'brawler', name:'Iron-Brawler',classe:'Sacrieur'},
     {id:'bush',    name:'Iron-Bush',   classe:'Sadida'},
     {id:'bomb',    name:'Iron-Bomb',   classe:'Roublard'},
@@ -611,7 +611,7 @@ function showView(v){
     renderKamasTab();
   } else if(v==='rush'){
     title.textContent='Rush Sylvestre';
-    sub.textContent='Iron-Trunk & Iron-V · route Dofusyelle · Bonta, Œil Attentif';
+    sub.textContent='Iron-Trunk & Iron-Hunter · route Dofusyelle · Bonta, Œil Attentif';
     sub.classList.remove('hidden');
     renderRushTab();
   }
