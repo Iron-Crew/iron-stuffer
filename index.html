@@ -192,7 +192,7 @@ button{cursor:pointer}
 .tracking-block-title{font-family:'Cinzel',serif;font-size:1rem;font-weight:700;letter-spacing:0.08em;color:var(--gold-text);display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .tracking-block-title img{width:32px;height:32px;object-fit:contain}
 .kamas-total-row{display:flex;justify-content:center;margin-bottom:14px}
-.kamas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1vw,14px)}
+.kamas-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,14px)}
 .kamas-card{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius);padding:12px 14px;text-align:center}
 .kamas-card.total{background:var(--gold-light);border-color:var(--gold-border);min-width:min(100%,240px)}
 .kamas-card-lbl{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
@@ -357,6 +357,7 @@ button{cursor:pointer}
   .tracking-td-pname{font-size:0.8rem}
   .tracking-th-name{padding:0 8px}
   .kamas-section{width:100%}
+  .kamas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .toast{bottom:calc(90px + env(safe-area-inset-bottom))}
 }
 </style>
@@ -477,6 +478,12 @@ var COMPTES = [
     {id:'bush',    name:'Iron-Bush',   classe:'Sadida'},
     {id:'bomb',    name:'Iron-Bomb',   classe:'Roublard'},
     {id:'trap',    name:'Iron-Trap',   classe:'Sram'}
+  ]},
+  {id:'c7', name:'Compte 7', persos:[
+    {id:'sword', name:'Iron-Sword', classe:'Iop'}
+  ]},
+  {id:'c8', name:'Compte 8', persos:[
+    {id:'blink', name:'Iron-Blink', classe:'Eliotrope'}
   ]}
 ];
 
@@ -923,7 +930,7 @@ function renderJetonsTab(){
         h+='<input class="jetons-input" type="text" inputmode="numeric" maxlength="5" ';
         h+='value="'+(val||'')+'" data-jkey="'+col.key+'" data-pid="'+p.id+'" ';
         h+='onfocus="this.select()" ';
-        h+='oninput="this.value=this.value.replace(/[^0-9]/g,String.fromCharCode(39)+String.fromCharCode(39))" ';
+        h+='oninput="this.value=this.value.replace(/[^0-9]/g,\'\')" ';
         h+='onchange="setJetonValue(this)">';
         h+='</td>';
       });
@@ -1037,7 +1044,7 @@ function renderKamasTab(){
     h+='<input class="kamas-input" type="text" inputmode="numeric" ';
     h+='value="'+formatKamas(val)+(val?' K':'')+'" data-cid="'+c.id+'" ';
     h+='onfocus="this.select()" ';
-    h+='oninput="this.value=this.value.replace(/[^0-9]/g,String.fromCharCode(39)+String.fromCharCode(39))" ';
+    h+='oninput="this.value=this.value.replace(/[^0-9]/g,\'\')" ';
     h+='onchange="setKamas(this.dataset.cid,this.value);this.value=formatKamas(parseKamas(this.value))+String.fromCharCode(32)+String.fromCharCode(75)">';
     h+='</div>';
   });
