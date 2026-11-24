@@ -174,6 +174,9 @@ button{cursor:pointer}
 .jetons-td-cell{padding:0 4px}
 .jetons-input{width:100%;height:calc(var(--cell) * 0.66);background:var(--chk-bg);border:1.5px solid var(--chk-border);border-radius:9px;font-size:0.9rem;font-weight:700;text-align:center;outline:none;transition:border-color var(--t-fast)}
 .jetons-input:focus{border-color:var(--gold)}
+/* Parchotage : valeur en cours (orange) ou 100 atteint (vert) */
+.jetons-input.encours{background:var(--warn-bg);border-color:var(--warn);color:var(--warn)}
+.jetons-input.valide{background:var(--ok-bg);border-color:var(--ok);color:var(--ok-text)}
 .jetons-tr-total .jetons-td-total{text-align:center;font-size:0.9rem;font-weight:800;color:var(--gold-text)}
 
 /* ── DOFUS ── */
@@ -338,6 +341,8 @@ button{cursor:pointer}
 @media (max-width:860px){
   :root{--cell:38px;--name-w:128px}
   #view-dofus{--cell:36px}
+  /* Les 6 colonnes se partagent la largeur restante, sans défilement horizontal */
+  #view-parchotage .jetons-th-col{--col:max(38px,calc((100vw - 152px) / 6));width:var(--col);min-width:var(--col)}
   .app{grid-template-columns:1fr}
   .side{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;z-index:100;flex-direction:row;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--border);background:var(--surface-blur);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
   .brand{display:none}
@@ -374,6 +379,9 @@ button{cursor:pointer}
     <button class="nav-btn active" id="nav-tracking" onclick="showView('tracking')">
       <img src="https://api.dofusdb.fr/img/items/20003.png" alt="" onerror="this.style.opacity=0.2"><span>Tracking</span>
     </button>
+    <button class="nav-btn" id="nav-parchotage" onclick="showView('parchotage')">
+      <img src="https://api.dofusdb.fr/img/items/76041.png" alt="" onerror="this.style.opacity=0.2"><span>Parchotage</span>
+    </button>
     <button class="nav-btn" id="nav-jetons" onclick="showView('jetons')">
       <img src="https://api.dofusdb.fr/img/items/136080.png" alt="" onerror="this.style.opacity=0.2"><span>Jetons</span>
     </button>
@@ -408,6 +416,9 @@ button{cursor:pointer}
 
   <!-- VUE TRACKING -->
   <div class="view active" id="view-tracking"></div>
+
+  <!-- VUE PARCHOTAGE -->
+  <div class="view" id="view-parchotage"></div>
 
   <!-- VUE JETONS -->
   <div class="view" id="view-jetons"></div>
@@ -527,7 +538,7 @@ var state = {tracking:{}, dofusTracker:{}, jetons:{}, rushSylvestre:{}};
 var nav = {view:'tracking'};
 
 // Données sauvegardées (local + cloud) — une seule liste pour tous les onglets
-// Tracking + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons | Rush → rushSylvestre
+// Tracking + Parchotage + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons | Rush → rushSylvestre
 var STATE_KEYS = ['tracking','dofusTracker','jetons','rushSylvestre'];
 
 function applyState(src){
@@ -605,6 +616,9 @@ function showView(v){
     sub.textContent='Justicier : '+justicierResetStr().toLowerCase();
     sub.classList.remove('hidden');
     renderTracking();
+  } else if(v==='parchotage'){
+    title.textContent='Parchotage';
+    renderParchotageTab();
   } else if(v==='jetons'){
     title.textContent='Jetons';
     renderJetonsTab();
@@ -621,10 +635,10 @@ function showView(v){
     sub.classList.remove('hidden');
     renderRushTab();
   }
-  // Bouton Modifier/Enregistrer — visible sur Tracking/Jetons/Dofus/Kamas, toujours réinitialisé en lecture seule au changement d'onglet
+  // Bouton Modifier/Enregistrer — visible sur Tracking/Parchotage/Jetons/Dofus/Kamas, toujours réinitialisé en lecture seule au changement d'onglet
   editMode=false;
   var editBtn=document.getElementById('editModeBtn');
-  var EDIT_MODE_VIEWS=['tracking','jetons','dofus','kamas'];
+  var EDIT_MODE_VIEWS=['tracking','parchotage','jetons','dofus','kamas'];
   if(EDIT_MODE_VIEWS.indexOf(v)>=0){
     editBtn.classList.remove('hidden');
     editBtn.classList.remove('editing');
@@ -702,6 +716,7 @@ function initFirebase(){
         updateAuthBtn(user);
         loadFromFirestore(function(){
           if(nav.view==='tracking') renderTracking();
+          if(nav.view==='parchotage') renderParchotageTab();
           if(nav.view==='jetons') renderJetonsTab();
           if(nav.view==='dofus') renderDofusTab();
           if(nav.view==='kamas') renderKamasTab();
@@ -808,17 +823,37 @@ var ACCES_LIST = [
   {id:'srambad',    name:'Srambad',      icon:'https://api.dofusdb.fr/img/items/47031.png'}  // Crâne de Sram
 ];
 
-var PARCHO_ICO = 'https://api.dofusdb.fr/img/items/76041.png';
 var PARANGON_ICO = 'https://api.dofusdb.fr/img/items/50733.png';
   var CHASSE_ARME_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/78059-64.png';
   var CHASSEUR200_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/20014-64.png';
+
+// Parchotage : 6 caractéristiques, de 0 à 100 (ids = clés des données, ne pas renommer)
+var PARCHO_STATS = [
+  {id:'vitalite',     name:'Vitalité',     icon:'https://api.dofusdb.fr/img/items/76043.png'}, // Puissant Parchemin de Vitalité
+  {id:'sagesse',      name:'Sagesse',      icon:'https://api.dofusdb.fr/img/items/76040.png'}, // Puissant Parchemin de Sagesse
+  {id:'force',        name:'Force',        icon:'https://api.dofusdb.fr/img/items/76031.png'}, // Puissant Parchemin de Force
+  {id:'intelligence', name:'Intelligence', icon:'https://api.dofusdb.fr/img/items/76037.png'}, // Puissant Parchemin d'Intelligence
+  {id:'chance',       name:'Chance',       icon:'https://api.dofusdb.fr/img/items/76034.png'}, // Puissant Parchemin de Chance
+  {id:'agilite',      name:'Agilité',      icon:'https://api.dofusdb.fr/img/items/76028.png'}  // Puissant Parchemin d'Agilité
+];
+var PARCHO_MAX = 100;
+
+// Reprise unique de l'ancienne colonne « Full Parcho » : perso coché → 100 partout.
+// L'ancienne donnée (t.parcho) est gardée en réserve.
+function migrateParcho(t){
+  t.parchotage={};
+  var old=t.parcho||{};
+  Object.keys(old).forEach(function(pid){
+    if(old[pid]===1) PARCHO_STATS.forEach(function(s){ t.parchotage[pid+'_'+s.id]=PARCHO_MAX; });
+  });
+}
 
 function getTrackingState(){
   if(!state.tracking) state.tracking={};
   var t=state.tracking;
   if(!t.kamas) t.kamas={};
   if(!t.justicier) t.justicier={};
-  if(!t.parcho) t.parcho={};
+  if(!t.parchotage) migrateParcho(t);
   if(!t.parangon) t.parangon={};
   if(!t.acces) t.acces={};
   if(!t.lastReset) t.lastReset=null;
@@ -994,21 +1029,6 @@ function cycleJusticier(pid){
   }
 }
 
-function cycleParcho(pid){
-  var t=getTrackingState();
-  var cur=t.parcho&&t.parcho[pid]||0;
-  if(!t.parcho) t.parcho={};
-  t.parcho[pid]=(cur+1)%2;
-  saveState();
-  updateTrackingProgress(pid);
-  var btn=document.querySelector('[data-ppid="'+pid+'"]');
-  if(btn){
-    var v=t.parcho[pid];
-    btn.className='tracking-check'+(v===1?' state2':'');
-    btn.textContent=v===1?'✓':'';
-  }
-}
-
 function cycleParangon(pid){
   var t=getTrackingState();
   var cur=t.parangon&&t.parangon[pid]||0;
@@ -1066,7 +1086,7 @@ function justicierResetStr(){
   return 'Reset dans '+days+'j '+hours+'h';
 }
 
-// Cellule nom + icône de classe, commune aux tableaux Tracking, Jetons et Dofus
+// Cellule nom + icône de classe, commune aux tableaux Tracking, Parchotage, Jetons et Dofus
 function persoNameCell(p){
   var h='<td class="tracking-td-name"><div class="tracking-td-name-inner">';
   h+='<img class="tracking-td-ico" src="'+CLASS_ICONS[p.classe]+'" alt="'+p.classe+'">';
@@ -1086,6 +1106,14 @@ function progInner(done, total){
 function comptePctInner(done, total){
   return '<span class="prog-num">'+Math.round(done*100/total)+'%</span>';
 }
+// Ligne d'un compte : nom (+ % sur téléphone) et % dans la colonne Prog.
+function compteRow(c, prefix, doneFn, total){
+  var cd=c.persos.reduce(function(s,p){ return s+doneFn(p.id); },0);
+  var ct=total*c.persos.length;
+  return '<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'<span class="compte-pct" '+prefix+'-cpct="'+c.id+'">'+Math.round(cd*100/ct)+'%</span></td>'
+    +'<td colspan="'+total+'"></td>'
+    +'<td class="tracking-td-prog" '+prefix+'-cprog="'+c.id+'">'+comptePctInner(cd,ct)+'</td></tr>';
+}
 function setProgress(prefix, pid, doneFn, total){
   var c=compteOfPerso(pid);
   var el=document.querySelector('['+prefix+'-pprog="'+pid+'"]');
@@ -1099,14 +1127,13 @@ function setProgress(prefix, pid, doneFn, total){
   if(pct) pct.textContent=Math.round(cd*100/ct)+'%';
 }
 
-// Tracking : 13 colonnes. Parangon fait = ✓ (parangon obtenu) ou ✕ (Dofus Vulbis déjà obtenu).
-var TRACKING_TOTAL=ACCES_LIST.length+5;
+// Tracking : 12 colonnes. Parangon fait = ✓ (parangon obtenu) ou ✕ (Dofus Vulbis déjà obtenu).
+var TRACKING_TOTAL=ACCES_LIST.length+4;
 function trackingDone(pid){
   var t=getTrackingState();
   var n=0;
   ACCES_LIST.forEach(function(a){ if(t.acces&&t.acces[pid+'_'+a.id]===1) n++; });
   if(t.justicier[pid]===1) n++;
-  if(t.parcho&&t.parcho[pid]===1) n++;
   if(t.parangon&&(t.parangon[pid]===2||t.parangon[pid]===3)) n++;
   if(t.armeChasse&&t.armeChasse[pid]===1) n++;
   if(t.chasseur200&&t.chasseur200[pid]===1) n++;
@@ -1127,7 +1154,6 @@ function renderTracking(){
     h+='<th class="tracking-th-col" title="Accès '+a.name+'"><img src="'+a.icon+'" alt="'+a.name+'" onerror="this.style.opacity=0.2"></th>';
   });
   h+='<th class="tracking-th-col sep" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"></th>';
-  h+='<th class="tracking-th-col" title="Full Parcho"><img src="'+PARCHO_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Arme de chasse"><img src="'+CHASSE_ARME_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Chasseur 200"><img src="'+CHASSEUR200_ICO+'" onerror="this.style.opacity=0.2"></th>';
@@ -1135,23 +1161,15 @@ function renderTracking(){
   h+='</tr></thead><tbody>';
 
   COMPTES.forEach(function(c){
-    var cd=c.persos.reduce(function(s,p){ return s+trackingDone(p.id); },0);
-    var ct=TRACKING_TOTAL*c.persos.length;
-    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'<span class="compte-pct" data-t-cpct="'+c.id+'">'+Math.round(cd*100/ct)+'%</span></td>';
-    h+='<td colspan="'+TRACKING_TOTAL+'"></td>';
-    h+='<td class="tracking-td-prog" data-t-cprog="'+c.id+'">'+comptePctInner(cd,ct)+'</td></tr>';
+    h+=compteRow(c, 'data-t', trackingDone, TRACKING_TOTAL);
     c.persos.forEach(function(p){
       var vj=t.justicier[p.id]||0;
-      var vp=(t.parcho&&t.parcho[p.id])||0;
       var vpar=(t.parangon&&t.parangon[p.id])||0;
       var vca=(t.armeChasse&&t.armeChasse[p.id])||0;
       var vc200=(t.chasseur200&&t.chasseur200[p.id])||0;
 
       var jClass='tracking-check'+(vj===1?' state2':'');
       var jIcon=vj===1?'✓':'';
-
-      var pClass='tracking-check'+(vp===1?' state2':'');
-      var pIcon=vp===1?'✓':'';
 
       var parClass='tracking-check'+(vpar===1?' state1':vpar===2?' state2':vpar===3?' state3':'');
       var parIcon=vpar===1?'●':vpar===2?'✓':vpar===3?'✕':'';
@@ -1175,8 +1193,6 @@ function renderTracking(){
       });
       // Justicier
       h+='<td class="tracking-td-cell sep"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
-      // Full Parcho
-      h+='<td class="tracking-td-cell"><div class="'+pClass+'" data-ppid="'+p.id+'" onclick="cycleParcho(this.dataset.ppid)">'+pIcon+'</div></td>';
       // Parangon
       h+='<td class="tracking-td-cell"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></td>';
       // Arme de chasse
@@ -1195,6 +1211,62 @@ function renderTracking(){
   document.getElementById('view-tracking').innerHTML=h;
 }
 
+// ════════════════════════════════════════════════
+// PARCHOTAGE
+// ════════════════════════════════════════════════
+// Une caractéristique compte comme faite à 100
+function parchoDone(pid){
+  var p=getTrackingState().parchotage;
+  return PARCHO_STATS.reduce(function(n,s){ return n+(p[pid+'_'+s.id]===PARCHO_MAX?1:0); },0);
+}
+function parchoClass(v){ return 'jetons-input'+(v===PARCHO_MAX?' valide':v?' encours':''); }
+
+function setParchoValue(el){
+  var key=el.getAttribute('data-parcho');
+  var pid=el.getAttribute('data-pid');
+  var v=Math.min(parseInt(el.value,10)||0, PARCHO_MAX);
+  getTrackingState().parchotage[key]=v;
+  saveState();
+  el.value=v||'';
+  el.className=parchoClass(v);
+  setProgress('data-p', pid, parchoDone, PARCHO_STATS.length);
+}
+
+function renderParchotageTab(){
+  var vals=getTrackingState().parchotage;
+  var total=PARCHO_STATS.length;
+  var h='<div class="tracking-section">';
+  h+='<div class="tracking-wrap">';
+  h+='<table class="tracking-table"><thead><tr>';
+  h+='<th class="tracking-th-name">Personnage</th>';
+  PARCHO_STATS.forEach(function(s){
+    h+='<th class="tracking-th-col jetons-th-col" title="'+s.name+'"><img src="'+s.icon+'" alt="'+s.name+'" onerror="this.style.opacity=0.2"></th>';
+  });
+  h+='<th class="tracking-th-prog">Prog.</th>';
+  h+='</tr></thead><tbody>';
+  COMPTES.forEach(function(c){
+    h+=compteRow(c, 'data-p', parchoDone, total);
+    c.persos.forEach(function(p){
+      h+='<tr class="tracking-tr-perso">';
+      h+=persoNameCell(p);
+      PARCHO_STATS.forEach(function(s){
+        var key=p.id+'_'+s.id;
+        var v=vals[key]||0;
+        h+='<td class="tracking-td-cell jetons-td-cell">';
+        h+='<input class="'+parchoClass(v)+'" type="text" inputmode="numeric" maxlength="3" ';
+        h+='value="'+(v||'')+'" data-parcho="'+key+'" data-pid="'+p.id+'" ';
+        h+='onfocus="this.select()" ';
+        h+='oninput="this.value=this.value.replace(/[^0-9]/g,\'\')" ';
+        h+='onchange="setParchoValue(this)">';
+        h+='</td>';
+      });
+      h+=progCell(parchoDone(p.id), total, 'data-p-pprog="'+p.id+'"');
+      h+='</tr>';
+    });
+  });
+  h+='</tbody></table></div></div>';
+  document.getElementById('view-parchotage').innerHTML=h;
+}
 
 // ════════════════════════════════════════════════
 // DOFUS TRACKER
@@ -1276,11 +1348,7 @@ function renderDofusTab(){
   h+='<th class="tracking-th-prog">Prog.</th>';
   h+='</tr></thead><tbody>';
   COMPTES.forEach(function(c){
-    var cd=c.persos.reduce(function(s,p){ return s+dofusDone(p.id); },0);
-    var ct=total*c.persos.length;
-    h+='<tr class="tracking-tr-compte"><td class="tracking-td-name">'+c.name+'<span class="compte-pct" data-d-cpct="'+c.id+'">'+Math.round(cd*100/ct)+'%</span></td>';
-    h+='<td colspan="'+total+'"></td>';
-    h+='<td class="tracking-td-prog" data-d-cprog="'+c.id+'">'+comptePctInner(cd,ct)+'</td></tr>';
+    h+=compteRow(c, 'data-d', dofusDone, total);
     c.persos.forEach(function(p){
       h+='<tr class="tracking-tr-perso">';
       h+=persoNameCell(p);
@@ -1802,6 +1870,7 @@ function toggleTheme(){
 // ════════════════════════════════════════════════
 loadState();
 renderTracking();
+renderParchotageTab();
 renderJetonsTab();
 renderDofusTab();
 renderKamasTab();
