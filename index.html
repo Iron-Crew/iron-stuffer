@@ -121,6 +121,11 @@ button{cursor:pointer}
 .view-locked .dofus-cell,
 .view-locked .kamas-input{pointer-events:none}
 
+/* Lecture du cloud en cours : modifications bloquées (sinon un vieux cache écraserait le cloud) */
+.cloud-wait .todo-section,
+.cloud-wait .rush-section,
+.cloud-wait .edit-mode-btn{pointer-events:none}
+
 /* ── TABLEAUX (Tracking, Jetons, Dofus) ── */
 .tracking-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;max-width:100%;min-height:0;display:flex;flex-direction:column}
 .tracking-wrap{overflow:auto;min-height:0;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--gold2) transparent}
@@ -207,6 +212,20 @@ button{cursor:pointer}
 /* ── TOAST ── */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--toast-bg);color:var(--bg);font-size:0.9rem;font-weight:600;padding:10px 20px;border-radius:24px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.3s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.25)}
 .toast.show{opacity:1}
+
+/* ── TODO ── */
+.todo-section{width:56rem}
+.todo-form{display:flex;align-items:center;gap:10px;padding:clamp(10px,1vw,16px)}
+.todo-form input{flex:1;min-width:0;padding:10px 12px;border:1.5px solid var(--chk-border);border-radius:var(--radius);background:var(--chk-bg);font-size:max(16px,1rem);outline:none;transition:border-color var(--t-fast)}
+.todo-form input:focus{border-color:var(--gold)}
+.todo-count{font-size:0.8rem;font-weight:600;color:var(--text-dim);white-space:nowrap}
+.todo-list{list-style:none;overflow-y:auto;min-height:0}
+.todo-row{display:flex;align-items:center;gap:12px;padding:12px clamp(12px,1.2vw,18px);border-top:1px solid var(--border-soft)}
+.todo-row img{width:34px;height:34px;object-fit:contain;flex-shrink:0}
+.todo-txt{flex:1;min-width:0;font-size:1rem;font-weight:600;line-height:1.35;overflow-wrap:anywhere}
+.todo-txt small{display:block;font-size:0.8rem;font-weight:400;color:var(--text-dim)}
+.todo-row .tracking-check{--cell:46px;margin:0;flex-shrink:0}
+.todo-empty{padding:24px;text-align:center;color:var(--text-dim);border-top:1px solid var(--border-soft)}
 
 /* ── RUSH SYLVESTRE ── */
 .rush-section{width:min(100%,72rem);display:flex;flex-direction:column;gap:clamp(12px,1.2vw,20px)}
@@ -352,6 +371,7 @@ button{cursor:pointer}
   .main{padding:calc(12px + env(safe-area-inset-top)) 10px calc(84px + env(safe-area-inset-bottom))}
   .inner{width:100%}
   .hdr-title{font-size:1.4rem}
+  .nav-long{display:none!important}
   .btn-lbl{display:none}
   .edit-mode-btn,.auth-btn,.theme-toggle{padding:8px 10px}
   .tracking-td-classe,.tracking-th-prog,.tracking-td-prog{display:none}
@@ -376,11 +396,14 @@ button{cursor:pointer}
 <nav class="side">
   <div class="brand"><img src="apple-touch-icon.png" alt=""><span>Fus-Iron</span></div>
   <div class="nav">
-    <button class="nav-btn active" id="nav-tracking" onclick="showView('tracking')">
+    <button class="nav-btn active" id="nav-todo" onclick="showView('todo')">
+      <img src="https://api.dofusdb.fr/img/items/16328.png" alt="" onerror="this.style.opacity=0.2"><span>TODO</span>
+    </button>
+    <button class="nav-btn" id="nav-tracking" onclick="showView('tracking')">
       <img src="https://api.dofusdb.fr/img/items/20003.png" alt="" onerror="this.style.opacity=0.2"><span>Tracking</span>
     </button>
     <button class="nav-btn" id="nav-parchotage" onclick="showView('parchotage')">
-      <img src="https://api.dofusdb.fr/img/items/76041.png" alt="" onerror="this.style.opacity=0.2"><span>Parchotage</span>
+      <img src="https://api.dofusdb.fr/img/items/76041.png" alt="" onerror="this.style.opacity=0.2"><span>Parcho<span class="nav-long">tage</span></span>
     </button>
     <button class="nav-btn" id="nav-jetons" onclick="showView('jetons')">
       <img src="https://api.dofusdb.fr/img/items/136080.png" alt="" onerror="this.style.opacity=0.2"><span>Jetons</span>
@@ -414,8 +437,11 @@ button{cursor:pointer}
     </div>
   </header>
 
+  <!-- VUE TODO -->
+  <div class="view active" id="view-todo"></div>
+
   <!-- VUE TRACKING -->
-  <div class="view active" id="view-tracking"></div>
+  <div class="view" id="view-tracking"></div>
 
   <!-- VUE PARCHOTAGE -->
   <div class="view" id="view-parchotage"></div>
@@ -534,12 +560,12 @@ var DOFUS_TRACKER_LIST = [
 // ════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════
-var state = {tracking:{}, dofusTracker:{}, jetons:{}, rushSylvestre:{}};
-var nav = {view:'tracking'};
+var state = {todo:{}, tracking:{}, dofusTracker:{}, jetons:{}, rushSylvestre:{}};
+var nav = {view:'todo'};
 
 // Données sauvegardées (local + cloud) — une seule liste pour tous les onglets
-// Tracking + Parchotage + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons | Rush → rushSylvestre
-var STATE_KEYS = ['tracking','dofusTracker','jetons','rushSylvestre'];
+// TODO → todo | Tracking + Parchotage + Kamas → tracking | Dofus → dofusTracker | Jetons → jetons | Rush → rushSylvestre
+var STATE_KEYS = ['todo','tracking','dofusTracker','jetons','rushSylvestre'];
 
 function applyState(src){
   src=src||{};
@@ -611,10 +637,11 @@ function showView(v){
   var sub = document.getElementById('hdrSub');
   sub.textContent='';
   sub.classList.add('hidden');
-  if(v==='tracking'){
+  if(v==='todo'){
+    title.textContent='TODO';
+    renderTodoTab();
+  } else if(v==='tracking'){
     title.textContent='Tracking';
-    sub.textContent='Justicier : '+justicierResetStr().toLowerCase();
-    sub.classList.remove('hidden');
     renderTracking();
   } else if(v==='parchotage'){
     title.textContent='Parchotage';
@@ -643,11 +670,22 @@ function showView(v){
     editBtn.classList.remove('hidden');
     editBtn.classList.remove('editing');
     editBtn.innerHTML=EDIT_BTN_OFF;
+    // Les onglets sans bouton Modifier (TODO, Rush) ne sont jamais verrouillés
+    document.getElementById('view-'+v).classList.add('view-locked');
   } else {
     editBtn.classList.add('hidden');
   }
-  var viewEl=document.getElementById('view-'+v);
-  if(viewEl) viewEl.classList.add('view-locked');
+}
+
+// Redessine l'onglet ouvert (après une lecture du cloud)
+function renderCurrentView(){
+  if(nav.view==='todo') renderTodoTab();
+  if(nav.view==='tracking') renderTracking();
+  if(nav.view==='parchotage') renderParchotageTab();
+  if(nav.view==='jetons'){ renderJetonsTab(); updateJetonsHeaderDate(); }
+  if(nav.view==='dofus') renderDofusTab();
+  if(nav.view==='kamas') renderKamasTab();
+  if(nav.view==='rush') renderRushTab();
 }
 
 var editMode=false;
@@ -703,7 +741,15 @@ window._fsDb = null;
 window._syncPending = false;
 window._syncTimer = null;
 
+// Bloque les modifications pendant la lecture du cloud (12 s au plus)
+function setCloudWait(on){
+  clearTimeout(window._cloudTimer);
+  document.body.classList.toggle('cloud-wait', on);
+  if(on) window._cloudTimer=setTimeout(function(){ setCloudWait(false); }, 12000);
+}
+
 function initFirebase(){
+  setCloudWait(true);
   try{
     firebase.initializeApp(FIREBASE_CONFIG);
     window._fsDb = firebase.firestore();
@@ -714,26 +760,22 @@ function initFirebase(){
       window._fbUser = user;
       if(user){
         updateAuthBtn(user);
-        loadFromFirestore(function(){
-          if(nav.view==='tracking') renderTracking();
-          if(nav.view==='parchotage') renderParchotageTab();
-          if(nav.view==='jetons') renderJetonsTab();
-          if(nav.view==='dofus') renderDofusTab();
-          if(nav.view==='kamas') renderKamasTab();
-          if(nav.view==='rush') renderRushTab();
-        });
+        loadFromFirestore(renderCurrentView);
       } else {
         updateAuthBtn(null);
+        setCloudWait(false);
       }
     });
   }catch(e){
     console.warn('Firebase init error', e);
+    setCloudWait(false);
   }
 }
 
 function loadFromFirestore(cb){
   if(!window._fbUser || !window._fsDb){ if(cb) cb(); return; }
   updateSyncDot('syncing');
+  setCloudWait(true);
   window._fsDb.collection('users').doc(window._fbUser.uid)
     .collection('data').doc('state').get()
     .then(function(doc){
@@ -746,7 +788,7 @@ function loadFromFirestore(cb){
         var remoteUpdated=d.updatedAt||'';
         if(remoteUpdated>=localUpdated){
           applyState(d);
-          // Cache local complet (mêmes données que le cloud, pour les 4 onglets)
+          // Cache local complet (mêmes données que le cloud, pour tous les onglets)
           writeLocalState();
           // Purge des anciennes données de la banque dans le cloud (feature supprimée)
           if(d.bank!==undefined) saveState();
@@ -759,13 +801,28 @@ function loadFromFirestore(cb){
         saveState();
       }
       updateSyncDot('ok');
+      setCloudWait(false);
       if(cb) cb();
     }).catch(function(e){
       console.warn('Firestore load error', e);
       updateSyncDot('offline');
+      setCloudWait(false);
       if(cb) cb();
     });
 }
+
+// Retour sur l'app : on relit le cloud, sauf pendant une saisie, un envoi ou une lecture en cours
+// (le champ du TODO garde son brouillon, il ne bloque pas la lecture)
+function refreshFromCloud(){
+  if(document.visibilityState!=='visible' || !window._fbUser) return;
+  var el=document.activeElement;
+  if(editMode || window._syncPending || document.body.classList.contains('cloud-wait')) return;
+  if(el && el.tagName==='INPUT' && el.id!=='todoInput') return;
+  var before=state.updatedAt;
+  loadFromFirestore(function(){ if(state.updatedAt!==before && !editMode) renderCurrentView(); });
+}
+document.addEventListener('visibilitychange', refreshFromCloud);
+window.addEventListener('focus', refreshFromCloud);
 
 function handleAuth(){
   if(window._fbUser){
@@ -807,9 +864,103 @@ function updateSyncDot(status){
 }
 
 // ════════════════════════════════════════════════
-// TRACKING
+// TODO
+// Un objectif coché est supprimé tout de suite, sans historique.
+// Justiciers : seule la dernière semaine validée est gardée, l'objectif revient chaque mardi sans jamais se doubler.
 // ════════════════════════════════════════════════
 var JUSTICIER_ICO = 'https://api.dofusdb.fr/img/items/15848.png';
+var TODO_MAX = 80; // caractères par objectif
+
+function getTodoState(){
+  var t=state.todo;
+  if(!t.items) t.items=[];
+  return t;
+}
+
+// Semaine de jeu en cours : date de son mardi (AAAA-MM-JJ)
+function justicierWeek(){
+  var d=new Date();
+  d.setDate(d.getDate()-(d.getDay()+5)%7);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+// Prochain reset des justiciers (mardi)
+function justicierResetStr(){
+  var now=new Date();
+  var next=new Date(now);
+  next.setHours(0,0,0,0);
+  next.setDate(next.getDate()+((2-next.getDay()+7)%7||7));
+  var diff=next-now;
+  var days=Math.floor(diff/86400000);
+  var hours=Math.floor((diff%86400000)/3600000);
+  return 'Reset dans '+days+'j '+hours+'h';
+}
+
+function addTodo(){
+  var input=document.getElementById('todoInput');
+  var txt=input.value.trim().slice(0,TODO_MAX);
+  if(!txt) return;
+  getTodoState().items.push({id:Date.now().toString(36), txt:txt});
+  saveState();
+  input.value='';
+  updateTodoCount();
+  drawTodoList();
+  input.focus();
+}
+
+function checkTodo(id){
+  var t=getTodoState();
+  t.items=t.items.filter(function(o){ return o.id!==id; });
+  saveState();
+  drawTodoList();
+}
+
+function checkJusticier(){
+  getTodoState().justicier=justicierWeek();
+  saveState();
+  drawTodoList();
+}
+
+function updateTodoCount(){
+  document.getElementById('todoCount').textContent=document.getElementById('todoInput').value.length+'/'+TODO_MAX;
+}
+
+function todoRow(content, onclick){
+  return '<li class="todo-row">'+content+'<div class="tracking-check" onclick="'+onclick+'"></div></li>';
+}
+
+function drawTodoList(){
+  var t=getTodoState();
+  var h='';
+  if(t.justicier!==justicierWeek()){
+    h+=todoRow('<img src="'+JUSTICIER_ICO+'" alt="" onerror="this.style.opacity=0.2"><span class="todo-txt">Faire les justiciers<small>'+justicierResetStr()+'</small></span>', 'checkJusticier()');
+  }
+  t.items.forEach(function(o){
+    h+=todoRow('<span class="todo-txt">'+esc(o.txt)+'</span>', 'checkTodo(\''+o.id+'\')');
+  });
+  document.getElementById('todoList').innerHTML=h||'<li class="todo-empty">Aucun objectif, tout est fait !</li>';
+}
+
+function renderTodoTab(){
+  var old=document.getElementById('todoInput');
+  var draft=old?old.value:'';
+  var h='<div class="tracking-section todo-section">';
+  h+='<form class="todo-form" onsubmit="addTodo();return false">';
+  h+='<input id="todoInput" type="text" maxlength="'+TODO_MAX+'" autocomplete="off" placeholder="Nouvel objectif…" oninput="updateTodoCount()">';
+  h+='<span class="todo-count" id="todoCount"></span>';
+  h+='<button class="rush-btn go" type="submit">Ajouter</button>';
+  h+='</form>';
+  h+='<ul class="todo-list" id="todoList"></ul>';
+  h+='</div>';
+  document.getElementById('view-todo').innerHTML=h;
+  document.getElementById('todoInput').value=draft;
+  updateTodoCount();
+  drawTodoList();
+}
+
+// ════════════════════════════════════════════════
+// TRACKING
+// ════════════════════════════════════════════════
 var KAMAS_ICO = 'https://api.dofusdu.de/dofus3/v1/img/item/81066-64.png';
 
 var ACCES_LIST = [
@@ -842,28 +993,14 @@ function getTrackingState(){
   if(!state.tracking) state.tracking={};
   var t=state.tracking;
   if(!t.kamas) t.kamas={};
-  if(!t.justicier) t.justicier={};
   if(!t.parchotage) t.parchotage={};
-  delete t.parcho; // Purge de l'ancienne colonne « Full Parcho » (feature supprimée)
+  // Purge des anciennes colonnes « Full Parcho » et « Justicier » (features supprimées)
+  delete t.parcho;
+  delete t.justicier;
+  delete t.lastReset;
   if(!t.parangon) t.parangon={};
   if(!t.acces) t.acces={};
-  if(!t.lastReset) t.lastReset=null;
-  checkJusticierReset();
   return t;
-}
-
-function checkJusticierReset(){
-  var t=state.tracking;
-  if(!t) return;
-  var now=new Date();
-  var lastReset=t.lastReset?new Date(t.lastReset):null;
-  var d=new Date(now);
-  d.setHours(0,0,0,0);
-  while(d.getDay()!==2) d.setDate(d.getDate()-1);
-  if(!lastReset||lastReset<d){
-    t.justicier={};
-    t.lastReset=d.toISOString();
-  }
 }
 
 // ════════════════════════════════════════════════
@@ -1006,20 +1143,6 @@ function cycleAccesCell(pid, accesId){
   }
 }
 
-function cycleJusticier(pid){
-  var t=getTrackingState();
-  var cur=t.justicier[pid]||0;
-  t.justicier[pid]=(cur+1)%2;
-  saveState();
-  updateTrackingProgress(pid);
-  var btn=document.querySelector('[data-jpid="'+pid+'"]');
-  if(btn){
-    var v=t.justicier[pid];
-    btn.className='tracking-check'+(v===1?' state2':'');
-    btn.textContent=v===1?'✓':'';
-  }
-}
-
 function cycleParangon(pid){
   var t=getTrackingState();
   var cur=t.parangon&&t.parangon[pid]||0;
@@ -1065,18 +1188,6 @@ function renderKamasTab(){
   document.getElementById('view-kamas').innerHTML=h;
 }
 
-// Prochain reset du Justicier (mardi)
-function justicierResetStr(){
-  var now=new Date();
-  var next=new Date(now);
-  next.setHours(0,0,0,0);
-  next.setDate(next.getDate()+((2-next.getDay()+7)%7||7));
-  var diff=next-now;
-  var days=Math.floor(diff/86400000);
-  var hours=Math.floor((diff%86400000)/3600000);
-  return 'Reset dans '+days+'j '+hours+'h';
-}
-
 // Cellule nom + icône de classe, commune aux tableaux Tracking, Parchotage, Jetons et Dofus
 function persoNameCell(p){
   var h='<td class="tracking-td-name"><div class="tracking-td-name-inner">';
@@ -1118,13 +1229,12 @@ function setProgress(prefix, pid, doneFn, total){
   if(pct) pct.textContent=Math.round(cd*100/ct)+'%';
 }
 
-// Tracking : 12 colonnes. Parangon fait = ✓ (parangon obtenu) ou ✕ (Dofus Vulbis déjà obtenu).
-var TRACKING_TOTAL=ACCES_LIST.length+4;
+// Tracking : 11 colonnes. Parangon fait = ✓ (parangon obtenu) ou ✕ (Dofus Vulbis déjà obtenu).
+var TRACKING_TOTAL=ACCES_LIST.length+3;
 function trackingDone(pid){
   var t=getTrackingState();
   var n=0;
   ACCES_LIST.forEach(function(a){ if(t.acces&&t.acces[pid+'_'+a.id]===1) n++; });
-  if(t.justicier[pid]===1) n++;
   if(t.parangon&&(t.parangon[pid]===2||t.parangon[pid]===3)) n++;
   if(t.armeChasse&&t.armeChasse[pid]===1) n++;
   if(t.chasseur200&&t.chasseur200[pid]===1) n++;
@@ -1134,7 +1244,6 @@ function updateTrackingProgress(pid){ setProgress('data-t', pid, trackingDone, T
 
 function renderTracking(){
   var t=getTrackingState();
-  var resetStr=justicierResetStr();
 
   // ── TABLEAU ACTIVITÉS EN PLEINE PAGE (comme Dofus) ──
   var h='<div class="tracking-section">';
@@ -1144,8 +1253,7 @@ function renderTracking(){
   ACCES_LIST.forEach(function(a){
     h+='<th class="tracking-th-col" title="Accès '+a.name+'"><img src="'+a.icon+'" alt="'+a.name+'" onerror="this.style.opacity=0.2"></th>';
   });
-  h+='<th class="tracking-th-col sep" title="Justicier - '+resetStr+'"><img src="'+JUSTICIER_ICO+'" onerror="this.style.opacity=0.2"></th>';
-  h+='<th class="tracking-th-col" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"></th>';
+  h+='<th class="tracking-th-col sep" title="Parangon"><img src="'+PARANGON_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Arme de chasse"><img src="'+CHASSE_ARME_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-col" title="Chasseur 200"><img src="'+CHASSEUR200_ICO+'" onerror="this.style.opacity=0.2"></th>';
   h+='<th class="tracking-th-prog">Prog.</th>';
@@ -1154,13 +1262,9 @@ function renderTracking(){
   COMPTES.forEach(function(c){
     h+=compteRow(c, 'data-t', trackingDone, TRACKING_TOTAL);
     c.persos.forEach(function(p){
-      var vj=t.justicier[p.id]||0;
       var vpar=(t.parangon&&t.parangon[p.id])||0;
       var vca=(t.armeChasse&&t.armeChasse[p.id])||0;
       var vc200=(t.chasseur200&&t.chasseur200[p.id])||0;
-
-      var jClass='tracking-check'+(vj===1?' state2':'');
-      var jIcon=vj===1?'✓':'';
 
       var parClass='tracking-check'+(vpar===1?' state1':vpar===2?' state2':vpar===3?' state3':'');
       var parIcon=vpar===1?'●':vpar===2?'✓':vpar===3?'✕':'';
@@ -1182,10 +1286,8 @@ function renderTracking(){
         var accIcon=v===1?'✓':'';
         h+='<td class="tracking-td-cell"><div class="'+accCls+'" data-acell="'+key+'" onclick="cycleAccesCell(\''+p.id+'\',\''+a.id+'\')">'+accIcon+'</div></td>';
       });
-      // Justicier
-      h+='<td class="tracking-td-cell sep"><div class="'+jClass+'" data-jpid="'+p.id+'" onclick="cycleJusticier(this.dataset.jpid)">'+jIcon+'</div></td>';
       // Parangon
-      h+='<td class="tracking-td-cell"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></td>';
+      h+='<td class="tracking-td-cell sep"><div class="'+parClass+'" data-parpid="'+p.id+'" onclick="cycleParangon(this.dataset.parpid)">'+parIcon+'</div></td>';
       // Arme de chasse
       h+='<td class="tracking-td-cell"><div class="'+caClass+'" data-acpid="'+p.id+'" onclick="cycleArmeChasse(this.dataset.acpid)">'+caIcon+'</div></td>';
       // Chasseur 200
@@ -1860,13 +1962,14 @@ function toggleTheme(){
 // INIT
 // ════════════════════════════════════════════════
 loadState();
+renderTodoTab();
 renderTracking();
 renderParchotageTab();
 renderJetonsTab();
 renderDofusTab();
 renderKamasTab();
 // icônes nav intégrées directement dans le HTML
-showView('tracking');
+showView('todo');
 // Firebase init (après le rendu initial depuis localStorage)
 initFirebase();
 </script>
