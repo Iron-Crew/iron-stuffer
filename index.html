@@ -838,22 +838,13 @@ var PARCHO_STATS = [
 ];
 var PARCHO_MAX = 100;
 
-// Reprise unique de l'ancienne colonne « Full Parcho » : perso coché → 100 partout.
-// L'ancienne donnée (t.parcho) est gardée en réserve.
-function migrateParcho(t){
-  t.parchotage={};
-  var old=t.parcho||{};
-  Object.keys(old).forEach(function(pid){
-    if(old[pid]===1) PARCHO_STATS.forEach(function(s){ t.parchotage[pid+'_'+s.id]=PARCHO_MAX; });
-  });
-}
-
 function getTrackingState(){
   if(!state.tracking) state.tracking={};
   var t=state.tracking;
   if(!t.kamas) t.kamas={};
   if(!t.justicier) t.justicier={};
-  if(!t.parchotage) migrateParcho(t);
+  if(!t.parchotage) t.parchotage={};
+  delete t.parcho; // Purge de l'ancienne colonne « Full Parcho » (feature supprimée)
   if(!t.parangon) t.parangon={};
   if(!t.acces) t.acces={};
   if(!t.lastReset) t.lastReset=null;
